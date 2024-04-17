@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">app medica</string>
+    <string name="bienvenido_a_mi_app">Bienvenido a mi app!</string>
+    <string name="capsulas">capsulas</string>
+    <string name="tabletas">tabletas</string>
+    <string name="bebibles">bebibles</string>
+    <string name="inyectables">inyectables</string>
+    <string name="gotas">Gotas</string>
+    <string name="agregar_medicamento">Agregar Medicamento</string>
+    <string name="botonregresar">botonregresar</string>
+    <string name="bebible">Bebible</string>
+    <string name="tableta">Tableta</string>
+    <string name="inyectable">Inyectable</string>
+    <string name="c_psula">Cápsula</string>
+    <string name="seleccione_el_tipo_de_medicamento">Seleccione el tipo de medicamento</string>
+    <string name="volver">Volver</string>
+</resources>
