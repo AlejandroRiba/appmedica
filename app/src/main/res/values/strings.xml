@@ -7,6 +7,9 @@
     <string name="inyectables">inyectables</string>
     <string name="gotas">Gotas</string>
     <string name="agregar_medicamento">Agregar Medicamento</string>
+    <string name="agregar_consulta">Agendar Consulta</string>
+    <string name="calendario">Mostrar Calendario</string>
+    <string name="alar_prox">Alarmas Próximas</string>
     <string name="botonregresar">botonregresar</string>
     <string name="bebible">Bebible</string>
     <string name="tableta">Tableta</string>

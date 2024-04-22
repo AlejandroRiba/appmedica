@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <dimen name="tit">30sp</dimen>
+    <dimen name="bot_med">150dp</dimen>
+    <dimen name="back">140dp</dimen>
+</resources>
