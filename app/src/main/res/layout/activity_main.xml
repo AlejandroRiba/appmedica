@@ -13,86 +13,140 @@
         android:layout_width="362dp"
         android:layout_height="126dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="#E8D52B"
         android:text="@string/calendario"
         android:textAlignment="textEnd"
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/agrconsul"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alarmasnot" />
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintVertical_bias="0.317"
+        tools:ignore="VisualLintButtonSize" />
 
     <Button
         android:id="@+id/agrconsul"
         android:layout_width="181dp"
         android:layout_height="126dp"
         android:layout_marginStart="24dp"
-        android:layout_marginBottom="208dp"
+        android:layout_marginBottom="30dp"
         android:backgroundTint="#7DB63A"
-        android:text="@string/agregar_medicamento"
+        android:text="@string/agregar_consulta"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton6"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/bienvenida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
         android:fontFamily="@font/khula_light"
         android:text="@string/bienvenido_a_mi_app"
         android:textColor="#000000"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.074" />
-
-    <TextView
-        android:id="@+id/alarmasnot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:text="@string/alar_prox"
-        android:textColor="#000000"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.276"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.175" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/agrmed"
         android:layout_width="181dp"
         android:layout_height="126dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="208dp"
+        android:layout_marginBottom="30dp"
         android:backgroundTint="#FF7DB63A"
-        android:text="@string/agregar_consulta"
+        android:text="@string/agregar_medicamento"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton6"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="117dp"
         android:layout_height="98dp"
+        android:contentDescription="calendario"
         app:layout_constraintBottom_toBottomOf="@+id/calendario"
         app:layout_constraintEnd_toEndOf="@+id/calendario"
         app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="@+id/calendario"
         app:layout_constraintTop_toTopOf="@+id/calendario"
-        app:srcCompat="@drawable/calendar" />
+        app:srcCompat="@drawable/calendar"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="362dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/sin_recordatorios"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bienvenida"
+        tools:ignore="VisualLintButtonSize" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="362dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="#3F51B5"
+        android:text="@string/sin_proximas_citas"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        tools:ignore="VisualLintButtonSize" />
+
+    <ImageButton
+        android:id="@+id/imageButton6"
+        style="@android:style/Widget.DeviceDefault.ImageButton"
+        android:layout_width="186dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="64dp"
+        android:background="#00421313"
+        android:backgroundTint="#00651D1D"
+        android:contentDescription="@string/engranaje"
+        android:scaleType="fitStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ajustes"
+        tools:ignore="MissingConstraints,DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="109dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="80dp"
+        android:text="@string/ajustes"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageButton6"
+        app:layout_constraintHorizontal_bias="0.883"
+        app:layout_constraintStart_toStartOf="@+id/imageButton6"
+        tools:ignore="MissingConstraints,TextSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

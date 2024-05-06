@@ -17,4 +17,9 @@
     <string name="c_psula">Cápsula</string>
     <string name="seleccione_el_tipo_de_medicamento">Seleccione el tipo de medicamento</string>
     <string name="volver">Volver</string>
+    <string name="sin_recordatorios">SIN RECORDATORIOS</string>
+    <string name="sin_proximas_citas">SIN PROXIMAS CITAS</string>
+    <string name="todo">TODO</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="engranaje">engranaje</string>
 </resources>
