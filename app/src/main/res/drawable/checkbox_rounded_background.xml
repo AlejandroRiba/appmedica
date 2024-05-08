@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="9dp" /> <!-- Ajusta el radio según el redondeo que desees -->
+    <solid android:color="#40C4FF" /> <!-- Color de fondo del CheckBox -->
+</shape>

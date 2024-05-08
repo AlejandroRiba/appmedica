@@ -8,14 +8,19 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/Theme.AppMedica"
         tools:targetApi="31">
         <activity
+            android:name=".datosbasicos"
+            android:exported="false"
+            android:label="@string/title_activity_datosbasicos"
+            android:theme="@style/Theme.AppMedica.NoActionBar" />
+        <activity
             android:name=".MedicamentosActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,5 +36,4 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
 </manifest>

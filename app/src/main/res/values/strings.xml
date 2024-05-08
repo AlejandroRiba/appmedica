@@ -1,11 +1,17 @@
 <resources>
-    <string name="app_name">app medica</string>
+    <string name="app_name">MediCare Assist</string>
     <string name="bienvenido_a_mi_app">Bienvenido a mi app!</string>
     <string name="capsulas">capsulas</string>
     <string name="tabletas">tabletas</string>
     <string name="bebibles">bebibles</string>
     <string name="inyectables">inyectables</string>
     <string name="gotas">Gotas</string>
+    <string name="txtname">Nombre: *</string>
+    <string name="feedbackname">Su nombre, Ej. Armando</string>
+    <string name="txtedad">Edad: *</string>
+    <string name="feedbackedad">Su edad, Ej. 62</string>
+    <string name="txtsangre">Tipo de sangre:</string>
+    <string name="bienregis">Datos generales :)</string>
     <string name="agregar_medicamento">Agregar Medicamento</string>
     <string name="agregar_consulta">Agendar Consulta</string>
     <string name="calendario">Mostrar Calendario</string>
@@ -22,4 +28,27 @@
     <string name="todo">TODO</string>
     <string name="ajustes">Ajustes</string>
     <string name="engranaje">engranaje</string>
+    <string name="title_activity_datosbasicos">datosbasicos</string>
+    <string name="contacto">Contacto de emergencia: *</string>
+    <string name="auxiliarcont">Número de contacto auxiliar</string>
+    <string name="action_settings">Settings</string>
+    <string name="amenos">A-</string>
+    <string name="amas">A+</string>
+    <string name="bmenos">B-</string>
+    <string name="bmas">B+</string>
+    <string name="omenos">O-</string>
+    <string name="omas">O+</string>
+    <string name="abmenos">AB-</string>
+    <string name="abmas">AB+</string>
+    <string name="registro">Registro Nuevo Usuario</string>
+    <string name="horarios">Horarios</string>
+    <string name="sugerencia">(Las horas son aproximadas)</string>
+    <string name="txthora1">Hora de despertar</string>
+    <string name="txthora2">Hora de dormir</string>
+    <string name="txthora3">Hora de desayuno</string>
+    <string name="txthora4">Hora de comida</string>
+    <string name="txthora5">Hora de cena</string>
+    <string name="ingrese_la_hora_hh_mm">(Hora:Minutos)</string>
+    <string name="sol">sol</string>
+    <string name="enviardatos">Registrar</string>
 </resources>

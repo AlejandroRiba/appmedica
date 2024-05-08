@@ -38,5 +38,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, MedicamentosActivity::class.java)
             startActivity(intent)
         }
+
+        val btn2: Button = findViewById(R.id.agrconsul)
+        btn2.setOnClickListener{
+            val intent = Intent(this, datosbasicos::class.java)
+            startActivity(intent)
+        }
     }
 }
