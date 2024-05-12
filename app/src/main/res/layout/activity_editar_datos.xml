@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="#FDDBBF"
-    tools:context=".Datosbasicos">
+    tools:context=".EditarDatos">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,7 +25,8 @@
                 android:id="@+id/reg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/registro"
+                android:fontFamily="@font/khula_light"
+                android:text="@string/actualizaci_n_de_datos"
                 android:textColor="#000000"
                 android:textSize="30sp"
                 android:textStyle="bold"
@@ -34,6 +35,7 @@
                 android:id="@+id/datosbas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/khula_light"
                 android:text="@string/bienregis"
                 android:textColor="#000000"
                 android:textSize="30sp"
@@ -52,7 +54,7 @@
                 tools:ignore="RtlHardcoded" />
 
             <EditText
-                android:id="@+id/CampoName"
+                android:id="@+id/CampoName1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#536DFE"
@@ -78,7 +80,7 @@
                 tools:ignore="RtlHardcoded" />
 
             <EditText
-                android:id="@+id/CampoEdad"
+                android:id="@+id/CampoEdad1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#536DFE"
@@ -103,13 +105,13 @@
                 android:paddingTop="30dp"
                 tools:ignore="RtlHardcoded" />
             <LinearLayout
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/option1"
+                    android:id="@+id/op1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -121,7 +123,7 @@
                     android:textSize="30sp"/>
 
                 <CheckBox
-                    android:id="@+id/option2"
+                    android:id="@+id/op2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -133,7 +135,7 @@
                     android:textSize="30sp" />
 
                 <CheckBox
-                    android:id="@+id/option3"
+                    android:id="@+id/op3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -145,7 +147,7 @@
                     android:textSize="30sp" />
 
                 <CheckBox
-                    android:id="@+id/option4"
+                    android:id="@+id/op4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/checkbox_rounded_background"
@@ -156,14 +158,14 @@
                     android:textSize="30sp" />
             </LinearLayout>
             <LinearLayout
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="10dp">
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
 
                 <CheckBox
-                    android:id="@+id/option5"
+                    android:id="@+id/op5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -175,7 +177,7 @@
                     android:textSize="30sp" />
 
                 <CheckBox
-                    android:id="@+id/option6"
+                    android:id="@+id/op6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -187,7 +189,7 @@
                     android:textSize="30sp" />
 
                 <CheckBox
-                    android:id="@+id/option7"
+                    android:id="@+id/op7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -199,7 +201,7 @@
                     android:textSize="30sp" />
 
                 <CheckBox
-                    android:id="@+id/option8"
+                    android:id="@+id/op8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/checkbox_rounded_background"
@@ -224,7 +226,7 @@
                 tools:ignore="RtlHardcoded" />
 
             <EditText
-                android:id="@+id/CampoContacto"
+                android:id="@+id/CampoContacto1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#536DFE"
@@ -281,7 +283,7 @@
                     android:importantForAccessibility="no" />
 
                 <EditText
-                    android:id="@+id/CampoHora1"
+                    android:id="@+id/CampoHo1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#536DFE"
@@ -292,7 +294,7 @@
                     android:textColor="#000000"
                     android:textColorHint="#8D6E63"
                     android:textSize="25sp"
-                    tools:ignore="VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
+                    tools:ignore="VisualLintTextFieldSize" />
             </LinearLayout>
             <TextView
                 android:id="@+id/labelhora2"
@@ -322,7 +324,7 @@
                     tools:ignore="ImageContrastCheck" />
 
                 <EditText
-                    android:id="@+id/CampoHora2"
+                    android:id="@+id/CampoHo2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#536DFE"
@@ -361,7 +363,7 @@
                     android:importantForAccessibility="no" />
 
                 <EditText
-                    android:id="@+id/CampoHora3"
+                    android:id="@+id/CampoHo3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#536DFE"
@@ -400,7 +402,7 @@
                     android:importantForAccessibility="no" />
 
                 <EditText
-                    android:id="@+id/CampoHora4"
+                    android:id="@+id/CampoHo4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#536DFE"
@@ -440,7 +442,7 @@
                     android:importantForAccessibility="no" />
 
                 <EditText
-                    android:id="@+id/CampoHora5"
+                    android:id="@+id/CampoHo5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#536DFE"
@@ -455,15 +457,26 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/enviardatos"
+                android:id="@+id/enviardatosEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#40C4FF"
-                android:text="@string/enviardatos"
+                android:text="@string/actualizar_datos"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                tools:ignore="VisualLintButtonSize"/>
+                tools:ignore="VisualLintButtonSize" />
+
+            <Button
+                android:id="@+id/cancelOperacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#BFBBBB"
+                android:text="@string/cancelar"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:ignore="VisualLintButtonSize" />
         </LinearLayout>
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FDDBBF"
+    tools:context=".Ajustes">
+
+    <TextView
+        android:id="@+id/titulo1"
+        android:layout_width="329dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/tituloajustes"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="45sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.038"
+        tools:ignore="TextSizeCheck" />
+
+    <ImageButton
+        android:id="@+id/back1"
+        android:layout_width="@dimen/back"
+        android:layout_height="@dimen/back"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="36dp"
+        android:backgroundTint="#00FFFFFF"
+        android:contentDescription="@string/botonregresar"
+        android:scaleType="fitCenter"
+        android:src="@drawable/back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="VisualLintBounds,DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:text="@string/volver"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back1"
+        tools:ignore="MissingConstraints,VisualLintOverlap" />
+
+    <ImageView
+        android:id="@+id/microfonoview"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titulo1"
+        app:srcCompat="@drawable/mic"
+        android:contentDescription="@string/sol" />
+
+    <ImageView
+        android:id="@+id/orejaview"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/microfonoview"
+        app:srcCompat="@drawable/narra"
+        android:contentDescription="@string/sol" />
+
+    <ImageView
+        android:id="@+id/actualizarview"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orejaview"
+        app:srcCompat="@drawable/actual"
+        android:contentDescription="@string/sol" />
+
+    <ImageView
+        android:id="@+id/borrarview"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/actualizarview"
+        app:srcCompat="@drawable/elim"
+        android:contentDescription="@string/sol" />
+
+    <TextView
+        android:id="@+id/ajuste1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/dictado_por_nvoz"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/microfonoview"
+        app:layout_constraintTop_toBottomOf="@+id/titulo1" />
+
+    <TextView
+        android:id="@+id/ajuste2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="64dp"
+        android:text="@string/narrador_de_ntexto"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/orejaview"
+        app:layout_constraintTop_toBottomOf="@+id/ajuste1" />
+
+    <TextView
+        android:id="@+id/ajuste3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="72dp"
+        android:text="@string/actualizar_ndatos"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/actualizarview"
+        app:layout_constraintTop_toBottomOf="@+id/ajuste2" />
+
+    <TextView
+        android:id="@+id/ajuste4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="64dp"
+        android:text="@string/borrar_ndatos"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/borrarview"
+        app:layout_constraintTop_toBottomOf="@+id/ajuste3" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="58dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="35dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:shadowColor="#448AFF"
+        android:text=""
+        android:thumbTint="@color/switch_colors"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/ajuste1"
+        app:layout_constraintTop_toBottomOf="@+id/titulo1"
+        tools:ignore="UseSwitchCompatOrMaterialXml,DuplicateSpeakableTextCheck" />
+
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="58dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="35dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:shadowColor="#448AFF"
+        android:text=""
+        android:thumbTint="@color/switch_colors"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/ajuste2"
+        app:layout_constraintTop_toBottomOf="@+id/switch1"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="72dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="#9DE14E"
+        android:text="@string/clic"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/ajuste3"
+        app:layout_constraintTop_toBottomOf="@+id/switch2"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <Button
+        android:id="@+id/btn_show_dialog"
+        android:layout_width="72dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="#FF5252"
+        android:text="@string/clic"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/ajuste4"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

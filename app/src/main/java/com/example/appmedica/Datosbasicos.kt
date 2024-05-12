@@ -10,11 +10,10 @@ import android.widget.EditText
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.Toast
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import com.example.appmedica.databinding.ActivityDatosbasicosBinding
+import androidx.appcompat.app.AppCompatActivity as AppCompatActivity1
 
-class datosbasicos : AppCompatActivity() {
+class Datosbasicos : AppCompatActivity1() {
 
     private lateinit var binding: ActivityDatosbasicosBinding
 
@@ -39,10 +38,8 @@ class datosbasicos : AppCompatActivity() {
         applyTimeFormat(editTextTime5)
 
         val btnSendFeedback = findViewById<Button>(R.id.enviardatos)
-        btnSendFeedback.setOnClickListener {
-            sendFeedback()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+        btnSendFeedback.setOnClickListener{
+                sendFeedback()
         }
     }
 
@@ -234,7 +231,14 @@ class datosbasicos : AppCompatActivity() {
 
     private fun sendFeedback(){
         val nombre = findViewById<EditText>(R.id.CampoName).text.toString()
-        val edad = findViewById<EditText>(R.id.CampoEdad).text.toString()
+        val edadText = findViewById<EditText>(R.id.CampoEdad).text.toString()
+        val contactoText = findViewById<EditText>(R.id.CampoContacto).text.toString()
+        // Obtener valores de las horas
+        val time1 = findViewById<EditText>(R.id.CampoHora1).text.toString()
+        val time2 = findViewById<EditText>(R.id.CampoHora2).text.toString()
+        val time3 = findViewById<EditText>(R.id.CampoHora3).text.toString()
+        val time4 = findViewById<EditText>(R.id.CampoHora4).text.toString()
+        val time5 = findViewById<EditText>(R.id.CampoHora5).text.toString()
         val checkBoxOption1 = findViewById<CheckBox>(R.id.option1)
         val checkBoxOption2 = findViewById<CheckBox>(R.id.option2)
         val checkBoxOption3 = findViewById<CheckBox>(R.id.option3)
@@ -244,11 +248,17 @@ class datosbasicos : AppCompatActivity() {
         val checkBoxOption7 = findViewById<CheckBox>(R.id.option7)
         val checkBoxOption8 = findViewById<CheckBox>(R.id.option8)
         var sangretyp = ""
-        val time1 = findViewById<EditText>(R.id.CampoHora1).text.toString()
-        val time2 = findViewById<EditText>(R.id.CampoHora2).text.toString()
-        val time3 = findViewById<EditText>(R.id.CampoHora3).text.toString()
-        val time4 = findViewById<EditText>(R.id.CampoHora4).text.toString()
-        val time5 = findViewById<EditText>(R.id.CampoHora5).text.toString()
+
+        // Verificar que los campos no estén vacíos
+        if (nombre.isEmpty() || edadText.isEmpty() || contactoText.isEmpty() || time5.isEmpty()|| time4.isEmpty()|| time3.isEmpty()|| time2.isEmpty()|| time1.isEmpty()) {
+            Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val edad = edadText.toInt()
+        val contacto = contactoText.toInt()
+
+        // Verificar que se haya seleccionado al menos una opción de sangre
         if(checkBoxOption1.isChecked){
             sangretyp = "A-"
         } else if(checkBoxOption2.isChecked){
@@ -265,15 +275,15 @@ class datosbasicos : AppCompatActivity() {
             sangretyp = "AB-"
         } else if(checkBoxOption8.isChecked) {
             sangretyp = "AB+"
+        } else{
+            Toast.makeText(this, "Por favor, seleccione una opción", Toast.LENGTH_SHORT).show()
+            return
         }
-        // Construye el mensaje a mostrar
-        val message = "SANGRE: $sangretyp\n" +
-                "NAME: $nombre\n" +
-                "EDAD: $edad\n" +
-                "Time 4: $time4\n" +
-                "Time 5: $time5"
-
-        // Muestra el mensaje en un Toast
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        val databaseHandler = DatabaseHandler(applicationContext)
+        databaseHandler.agregarPersona(nombre,edad,contacto,sangretyp,time1,time2,time3,time4,time5)
+        Toast.makeText(this, "Registro con exito!!", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
+
 }

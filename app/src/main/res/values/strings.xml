@@ -40,7 +40,7 @@
     <string name="omas">O+</string>
     <string name="abmenos">AB-</string>
     <string name="abmas">AB+</string>
-    <string name="registro">Registro Nuevo Usuario</string>
+    <string name="registro">Hola, Nuevo Usuario</string>
     <string name="horarios">Horarios</string>
     <string name="sugerencia">(Las horas son aproximadas)</string>
     <string name="txthora1">Hora de despertar</string>
@@ -51,4 +51,22 @@
     <string name="ingrese_la_hora_hh_mm">(Hora:Minutos)</string>
     <string name="sol">sol</string>
     <string name="enviardatos">Registrar</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="tituloajustes">Ajustes</string>
+    <string name="previous">Previous</string>
+    <string name="dictado_por_nvoz">DICTADO POR\nVOZ</string>
+    <string name="borrar_ndatos">BORRAR\nDATOS</string>
+    <string name="actualizar_ndatos">ACTUALIZAR\nDATOS</string>
+    <string name="narrador_de_ntexto">NARRADOR DE\nTEXTO</string>
+    <string name="clic">Clic</string>
+    <string name="cancelar">  Cancelar  </string>
+    <string name="confirmar">Confirmar</string>
+    <string name="est_s_seguro_la_acci_n_no_se_puede_revertir">¿Estás seguro?\n La acción no se puede revertir</string>
+    <string name="title_activity_editarcampos">EditarDatos</string>
+    <string name="actualizar_datos">Actualizar Datos</string>
+    <string name="actualizaci_n_de_datos">Actualización de datos</string>
+    <string name="agendar_nueva_consulta">Agendar Nueva Consulta</string>
+
 </resources>
