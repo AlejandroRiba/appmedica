@@ -15,4 +15,5 @@
     <style name="Theme.AppMedica.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.AppMedica.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

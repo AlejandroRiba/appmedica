@@ -26,17 +26,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/registro"
+                android:textAlignment="center"
                 android:textColor="#000000"
-                android:textSize="30sp"
+                android:textSize="40sp"
                 android:textStyle="bold"
                 android:paddingBottom="15dp"/>
             <TextView
                 android:id="@+id/datosbas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 android:text="@string/bienregis"
                 android:textColor="#000000"
-                android:textSize="30sp"
+                android:textSize="40sp"
                 android:textStyle="bold"
                 android:paddingBottom="15dp"/>
             <TextView
@@ -46,7 +48,7 @@
                 android:fontFamily="@font/khula_light"
                 android:text="@string/txtname"
                 android:textColor="#000000"
-                android:textSize="25sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:gravity="left"
                 tools:ignore="RtlHardcoded" />
@@ -62,7 +64,7 @@
                 android:maxLength="30"
                 android:textColor="#000000"
                 android:textColorHint="#8D6E63"
-                android:textSize="25sp"
+                android:textSize="30sp"
                 tools:ignore="VisualLintTextFieldSize" />
             <TextView
                 android:id="@+id/txedad"
@@ -71,7 +73,7 @@
                 android:fontFamily="@font/khula_light"
                 android:text="@string/txtedad"
                 android:textColor="#000000"
-                android:textSize="25sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:gravity="left"
                 android:paddingTop="30dp"
@@ -88,20 +90,22 @@
                 android:maxLength="2"
                 android:textColor="#000000"
                 android:textColorHint="#8D6E63"
-                android:textSize="25sp"
+                android:textSize="30sp"
                 tools:ignore="VisualLintTextFieldSize" />
+
             <TextView
                 android:id="@+id/txtiposangre"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/khula_light"
-                android:text="@string/txtsangre"
-                android:textColor="#000000"
-                android:textSize="25sp"
-                android:textStyle="bold"
                 android:gravity="left"
                 android:paddingTop="30dp"
+                android:text="@string/txtsangre"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="bold"
                 tools:ignore="RtlHardcoded" />
+
             <LinearLayout
                     android:gravity="center"
                     android:layout_width="match_parent"
@@ -118,7 +122,7 @@
                     android:text="@string/amenos"
                     android:textColor="#000000"
                     android:buttonTint="#050505"
-                    android:textSize="30sp"/>
+                    android:textSize="32sp"/>
 
                 <CheckBox
                     android:id="@+id/option2"
@@ -130,7 +134,7 @@
                     android:text="@string/amas"
                     android:textColor="#000000"
                     android:buttonTint="#050505"
-                    android:textSize="30sp" />
+                    android:textSize="32sp" />
 
                 <CheckBox
                     android:id="@+id/option3"
@@ -142,7 +146,7 @@
                     android:text="@string/bmenos"
                     android:textColor="#000000"
                     android:buttonTint="#050505"
-                    android:textSize="30sp" />
+                    android:textSize="32sp" />
 
                 <CheckBox
                     android:id="@+id/option4"
@@ -153,7 +157,7 @@
                     android:text="@string/bmas"
                     android:textColor="#000000"
                     android:buttonTint="#050505"
-                    android:textSize="30sp" />
+                    android:textSize="32sp" />
             </LinearLayout>
             <LinearLayout
                     android:gravity="center"
@@ -172,7 +176,7 @@
                     android:text="@string/omenos"
                     android:textColor="#000000"
                     android:buttonTint="#050505"
-                    android:textSize="30sp" />
+                    android:textSize="32sp" />
 
                 <CheckBox
                     android:id="@+id/option6"
@@ -184,7 +188,7 @@
                     android:text="@string/omas"
                     android:textColor="#000000"
                     android:buttonTint="#050505"
-                    android:textSize="30sp" />
+                    android:textSize="32sp" />
 
                 <CheckBox
                     android:id="@+id/option7"
@@ -196,7 +200,7 @@
                     android:text="@string/abmenos"
                     android:textColor="#000000"
                     android:buttonTint="#050505"
-                    android:textSize="30sp" />
+                    android:textSize="32sp" />
 
                 <CheckBox
                     android:id="@+id/option8"
@@ -207,7 +211,7 @@
                     android:text="@string/abmas"
                     android:textColor="#000000"
                     android:buttonTint="#050505"
-                    android:textSize="30sp"
+                    android:textSize="32sp"
                     tools:ignore="Deprecated" />
             </LinearLayout>
             <TextView
@@ -217,7 +221,7 @@
                 android:fontFamily="@font/khula_light"
                 android:text="@string/contacto"
                 android:textColor="#000000"
-                android:textSize="25sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:gravity="left"
                 android:paddingTop="30dp"
@@ -234,26 +238,26 @@
                 android:maxLength="10"
                 android:textColor="#000000"
                 android:textColorHint="#8D6E63"
-                android:textSize="25sp"
+                android:textSize="30sp"
                 tools:ignore="VisualLintTextFieldSize" />
             <TextView
                 android:id="@+id/datoshorario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/khula_light"
                 android:text="@string/horarios"
                 android:textColor="#000000"
-                android:textSize="30sp"
+                android:textAlignment="center"
+                android:textSize="40sp"
                 android:textStyle="bold"
                 android:paddingTop="30dp"/>
             <TextView
                 android:id="@+id/horariosug"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/khula_light"
                 android:text="@string/sugerencia"
                 android:textColor="#000000"
-                android:textSize="25sp"
+                android:textAlignment="center"
+                android:textSize="30sp"
                 android:textStyle="bold"/>
             <TextView
                 android:id="@+id/labelhora1"
@@ -262,7 +266,7 @@
                 android:fontFamily="@font/khula_light"
                 android:text="@string/txthora1"
                 android:textColor="#000000"
-                android:textSize="25sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:paddingTop="30dp"/>
             <LinearLayout
@@ -273,8 +277,8 @@
                 android:gravity="center">
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:src="@drawable/amanecer"
                     android:layout_marginEnd="12dp"
                     android:contentDescription="@string/sol"
@@ -286,13 +290,14 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#536DFE"
                     android:hint="@string/ingrese_la_hora_hh_mm"
+                    android:textAlignment="center"
                     android:importantForAutofill="no"
                     android:inputType="number"
                     android:maxLength="5"
                     android:textColor="#000000"
                     android:textColorHint="#8D6E63"
-                    android:textSize="25sp"
-                    tools:ignore="VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
+                    android:textSize="30sp"
+                    tools:ignore="VisualLintTextFieldSize,DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
             </LinearLayout>
             <TextView
                 android:id="@+id/labelhora2"
@@ -301,7 +306,7 @@
                 android:fontFamily="@font/khula_light"
                 android:text="@string/txthora2"
                 android:textColor="#000000"
-                android:textSize="25sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:paddingTop="30dp"/>
             <LinearLayout
@@ -313,8 +318,8 @@
 
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_marginEnd="12dp"
                     android:contentDescription="@string/sol"
                     android:importantForAccessibility="no"
@@ -327,12 +332,13 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#536DFE"
                     android:hint="@string/ingrese_la_hora_hh_mm"
+                    android:textAlignment="center"
                     android:importantForAutofill="no"
                     android:inputType="number"
                     android:maxLength="5"
                     android:textColor="#000000"
                     android:textColorHint="#8D6E63"
-                    android:textSize="25sp"
+                    android:textSize="30sp"
                     tools:ignore="VisualLintTextFieldSize" />
             </LinearLayout>
             <TextView
@@ -342,7 +348,7 @@
                 android:fontFamily="@font/khula_light"
                 android:text="@string/txthora3"
                 android:textColor="#000000"
-                android:textSize="25sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:paddingTop="30dp"/>
             <LinearLayout
@@ -353,8 +359,8 @@
                 android:gravity="center">
                 <ImageView
                     android:id="@+id/imageView3"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:src="@drawable/desayuno"
                     android:layout_marginEnd="12dp"
                     android:contentDescription="@string/sol"
@@ -366,12 +372,13 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#536DFE"
                     android:hint="@string/ingrese_la_hora_hh_mm"
+                    android:textAlignment="center"
                     android:importantForAutofill="no"
                     android:inputType="number"
                     android:maxLength="5"
                     android:textColor="#000000"
                     android:textColorHint="#8D6E63"
-                    android:textSize="25sp"
+                    android:textSize="30sp"
                     tools:ignore="VisualLintTextFieldSize" />
             </LinearLayout>
             <TextView
@@ -381,7 +388,7 @@
                 android:fontFamily="@font/khula_light"
                 android:text="@string/txthora4"
                 android:textColor="#000000"
-                android:textSize="25sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:paddingTop="30dp"/>
             <LinearLayout
@@ -392,8 +399,8 @@
                 android:gravity="center">
                 <ImageView
                     android:id="@+id/imageView4"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:src="@drawable/comida"
                     android:layout_marginEnd="12dp"
                     android:contentDescription="@string/sol"
@@ -405,12 +412,13 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#536DFE"
                     android:hint="@string/ingrese_la_hora_hh_mm"
+                    android:textAlignment="center"
                     android:importantForAutofill="no"
                     android:inputType="number"
                     android:maxLength="5"
                     android:textColor="#000000"
                     android:textColorHint="#8D6E63"
-                    android:textSize="25sp"
+                    android:textSize="30sp"
                     tools:ignore="VisualLintTextFieldSize" />
             </LinearLayout>
             <TextView
@@ -420,7 +428,7 @@
                 android:fontFamily="@font/khula_light"
                 android:text="@string/txthora5"
                 android:textColor="#000000"
-                android:textSize="25sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:paddingTop="30dp"/>
             <LinearLayout
@@ -432,8 +440,8 @@
                 android:gravity="center">
                 <ImageView
                     android:id="@+id/imageView5"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:src="@drawable/cena"
                     android:layout_marginEnd="12dp"
                     android:contentDescription="@string/sol"
@@ -445,13 +453,14 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#536DFE"
                     android:hint="@string/ingrese_la_hora_hh_mm"
+                    android:textAlignment="center"
                     android:importantForAutofill="no"
                     android:inputType="number"
                     android:maxLength="5"
                     android:textColor="#000000"
                     android:textColorHint="#8D6E63"
-                    android:textSize="25sp"
-                    tools:ignore="VisualLintTextFieldSize" />
+                    android:textSize="30sp"
+                    tools:ignore="VisualLintTextFieldSize,TouchTargetSizeCheck" />
             </LinearLayout>
 
             <Button
@@ -461,7 +470,7 @@
                 android:backgroundTint="#40C4FF"
                 android:text="@string/enviardatos"
                 android:textColor="#000000"
-                android:textSize="24sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 tools:ignore="VisualLintButtonSize"/>
         </LinearLayout>
