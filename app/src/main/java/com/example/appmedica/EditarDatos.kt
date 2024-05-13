@@ -59,11 +59,11 @@ class EditarDatos : AppCompatActivity() {
             binding.op7.isChecked = true
         }
 
-        applyTimeFormat(time1)
-        applyTimeFormat(time2)
-        applyTimeFormat(time3)
-        applyTimeFormat(time4)
-        applyTimeFormat(time5)
+        time1.setOnClickListener { showTimePickerDialog( time1) }
+        time2.setOnClickListener { showTimePickerDialog( time2) }
+        time3.setOnClickListener { showTimePickerDialog( time3) }
+        time4.setOnClickListener { showTimePickerDialog( time4) }
+        time5.setOnClickListener { showTimePickerDialog( time5) }
 
         val btnSendFeedback = findViewById<Button>(R.id.enviardatosEdit)
         btnSendFeedback.setOnClickListener{
@@ -247,20 +247,13 @@ class EditarDatos : AppCompatActivity() {
     fun onSendFeedbackButtonClicked(view: View) {
       sendFeedback()
     }
-    private fun applyTimeFormat(editText: EditText){
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+    private fun showTimePickerDialog(editText: EditText) {
+        val timePicker = TimePickerFragment { onTimeSelected(it, editText) }
+        timePicker.show(supportFragmentManager, "timePicker")
+    }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            @SuppressLint("SetTextI18n")
-            override fun afterTextChanged(s: Editable?) {
-                if (s != null && s.length == 2 && !s.toString().contains(":")) {
-                    editText.setText(s.toString() + ":")
-                    editText.setSelection(editText.text.length)
-                }
-            }
-        })
+    private fun onTimeSelected(time: String, editText: EditText) {
+        editText.setText(time)
     }
 
     private fun sendFeedback(){

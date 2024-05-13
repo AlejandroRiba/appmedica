@@ -35,10 +35,122 @@
         android:layout_marginStart="70dp"
         android:layout_marginEnd="70dp"
         android:adjustViewBounds="false"
+        android:contentDescription="@string/todo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titulo1"
-        app:srcCompat="@drawable/calendario" />
+        app:srcCompat="@drawable/calendario"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/lblfecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/khula_light"
+        android:gravity="left"
+        android:text="@string/fecha_de_la_consulta"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        tools:ignore="RtlHardcoded" />
+
+    <EditText
+        android:id="@+id/CFechaConsul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#536DFE"
+        android:hint="@string/seleccione_fecha_de_la_consulta"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:maxLength="30"
+        android:textColor="#000000"
+        android:textColorHint="#8D6E63"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblfecha"
+        tools:ignore="VisualLintTextFieldSize"
+        android:clickable="false"
+        android:focusable="false"/>
+
+    <TextView
+        android:id="@+id/lblhora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/khula_light"
+        android:gravity="left"
+        android:text="@string/hora_de_la_consulta"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CFechaConsul"
+        tools:ignore="RtlHardcoded" />
+
+    <EditText
+        android:id="@+id/CHoraConsul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:backgroundTint="#536DFE"
+        android:hint="@string/ingrese_la_hora_hh_mm"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:maxLength="30"
+        android:textColor="#000000"
+        android:textColorHint="#8D6E63"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblhora"
+        tools:ignore="VisualLintTextFieldSize"
+        android:clickable="false"
+        android:focusable="false"/>
+
+    <TextView
+        android:id="@+id/lbllugar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/khula_light"
+        android:gravity="left"
+        android:text="@string/cl_nica_de_la_consulta"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CHoraConsul"
+        tools:ignore="RtlHardcoded" />
+
+
+    <EditText
+        android:id="@+id/CClinica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:backgroundTint="#536DFE"
+        android:hint="@string/nombre_de_cl_nica_hospital"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:maxLength="30"
+        android:textColor="#000000"
+        android:textColorHint="#8D6E63"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbllugar"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <ImageButton
         android:id="@+id/back1"

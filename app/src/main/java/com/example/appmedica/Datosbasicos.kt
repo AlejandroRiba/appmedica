@@ -31,11 +31,11 @@ class Datosbasicos : AppCompatActivity1() {
         val editTextTime4 = findViewById<EditText>(R.id.CampoHora4)
         val editTextTime5 = findViewById<EditText>(R.id.CampoHora5)
 
-        applyTimeFormat(editTextTime1)
-        applyTimeFormat(editTextTime2)
-        applyTimeFormat(editTextTime3)
-        applyTimeFormat(editTextTime4)
-        applyTimeFormat(editTextTime5)
+        editTextTime1.setOnClickListener { showTimePickerDialog( editTextTime1) }
+        editTextTime2.setOnClickListener { showTimePickerDialog( editTextTime2) }
+        editTextTime3.setOnClickListener { showTimePickerDialog( editTextTime3) }
+        editTextTime4.setOnClickListener { showTimePickerDialog( editTextTime4) }
+        editTextTime5.setOnClickListener { showTimePickerDialog( editTextTime5) }
 
         val btnSendFeedback = findViewById<Button>(R.id.enviardatos)
         btnSendFeedback.setOnClickListener{
@@ -45,6 +45,15 @@ class Datosbasicos : AppCompatActivity1() {
 
     private fun initDate(){
         checkBox()
+    }
+
+    private fun showTimePickerDialog(editText: EditText) {
+        val timePicker = TimePickerFragment { onTimeSelected(it, editText) }
+        timePicker.show(supportFragmentManager, "timePicker")
+    }
+
+    private fun onTimeSelected(time: String, editText: EditText) {
+        editText.setText(time)
     }
 
     private fun checkBox(){
@@ -208,25 +217,6 @@ class Datosbasicos : AppCompatActivity1() {
                 binding.option1.isEnabled = true
             }
         }
-    }
-
-    //fun onSendFeedbackButtonClicked(view: View) {
-      //  sendFeedback()
-    //}
-    private fun applyTimeFormat(editText: EditText){
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            @SuppressLint("SetTextI18n")
-            override fun afterTextChanged(s: Editable?) {
-                if (s != null && s.length == 2 && !s.toString().contains(":")) {
-                    editText.setText(s.toString() + ":")
-                    editText.setSelection(editText.text.length)
-                }
-            }
-        })
     }
 
     private fun sendFeedback(){

@@ -16,4 +16,10 @@
 
     <style name="Theme.AppMedica.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="PickerTheme" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:colorAccent">#FFA726</item>
+    </style>
+
+
+
 </resources>

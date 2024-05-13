@@ -297,7 +297,9 @@
                     android:textColor="#000000"
                     android:textColorHint="#8D6E63"
                     android:textSize="30sp"
-                    tools:ignore="VisualLintTextFieldSize,DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
+                    tools:ignore="VisualLintTextFieldSize,DuplicateSpeakableTextCheck,TouchTargetSizeCheck"
+                    android:clickable="false"
+                    android:focusable="false"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/labelhora2"
@@ -339,7 +341,9 @@
                     android:textColor="#000000"
                     android:textColorHint="#8D6E63"
                     android:textSize="30sp"
-                    tools:ignore="VisualLintTextFieldSize" />
+                    tools:ignore="VisualLintTextFieldSize"
+                    android:clickable="false"
+                    android:focusable="false"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/labelhora3"
@@ -379,7 +383,9 @@
                     android:textColor="#000000"
                     android:textColorHint="#8D6E63"
                     android:textSize="30sp"
-                    tools:ignore="VisualLintTextFieldSize" />
+                    tools:ignore="VisualLintTextFieldSize"
+                    android:clickable="false"
+                    android:focusable="false"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/labelhora4"
@@ -419,7 +425,9 @@
                     android:textColor="#000000"
                     android:textColorHint="#8D6E63"
                     android:textSize="30sp"
-                    tools:ignore="VisualLintTextFieldSize" />
+                    tools:ignore="VisualLintTextFieldSize"
+                    android:clickable="false"
+                    android:focusable="false"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/labelhora5"
@@ -460,7 +468,9 @@
                     android:textColor="#000000"
                     android:textColorHint="#8D6E63"
                     android:textSize="30sp"
-                    tools:ignore="VisualLintTextFieldSize,TouchTargetSizeCheck" />
+                    tools:ignore="VisualLintTextFieldSize,TouchTargetSizeCheck"
+                    android:clickable="false"
+                    android:focusable="false"/>
             </LinearLayout>
 
             <Button

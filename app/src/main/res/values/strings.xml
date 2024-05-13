@@ -69,5 +69,10 @@
     <string name="actualizaci_n_de_datos">Actualización de datos</string>
     <string name="agendar_nueva_consulta">Agendar Nueva Consulta</string>
     <string name="medicare_assistr">MediCare Assistr</string>
+    <string name="fecha_de_la_consulta">Fecha de la consulta: (*)</string>
+    <string name="seleccione_fecha_de_la_consulta">Seleccione una fecha</string>
+    <string name="nombre_de_cl_nica_hospital">Nombre de clínica/hospital</string>
+    <string name="hora_de_la_consulta">Hora de la consulta: (*)</string>
+    <string name="cl_nica_de_la_consulta">Clínica de la consulta: (*)</string>
 
 </resources>
