@@ -8,6 +8,8 @@ import android.database.Cursor;
 
 import androidx.annotation.NonNull;
 
+import com.example.appmedica.com.example.appmedica.Consulta;
+
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -27,8 +29,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COMIDA = "comida";
     private static final String CENA = "cena";
 
-    // Define más columnas según sea necesario
-
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -46,7 +46,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + DESAYUNO + " VARCHAR,"
                 + COMIDA + " VARCHAR,"
                 + CENA + " VARCHAR)";
-
 
         // Ejecutar las sentencias SQL de creación
         db.execSQL(createTable1);
@@ -113,4 +112,5 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return usuario;
     }
+
 }

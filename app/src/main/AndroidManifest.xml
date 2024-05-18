@@ -13,10 +13,12 @@
         android:theme="@style/Theme.AppMedica"
         tools:targetApi="31">
         <activity
+            android:name=".MostrarConsulta"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".SplashActivity"
             android:exported="true"

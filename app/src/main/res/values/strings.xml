@@ -74,5 +74,18 @@
     <string name="nombre_de_cl_nica_hospital">Nombre de clínica/hospital</string>
     <string name="hora_de_la_consulta">Hora de la consulta: (*)</string>
     <string name="cl_nica_de_la_consulta">Clínica de la consulta: (*)</string>
+    <string name="ingrese_contacto_opcional">Ingrese contacto (opcional)</string>
+    <string name="ingrese_nombre_opcional">Ingrese nombre (opcional)</string>
+    <string name="agendar">Agendar</string>
+    <string name="nombre_del_doctor">Nombre del Doctor:</string>
+    <string name="contacto_del_doctor">Contacto del Doctor:</string>
+    <string name="nombre_de_consulta">Nombre de consulta (*):</string>
+    <string name="para_qu_es_la_consulta">¿Para qué es la consulta?</string>
+    <string name="consulta">Consulta:</string>
+    <string name="fecha">Fecha:</string>
+    <string name="hora">Hora:</string>
+    <string name="clinica">Clinica:</string>
+    <string name="nombre_del_dr">Nombre del Dr:</string>
+    <string name="contacto_del_dr">Contacto del Dr:</string>
 
 </resources>

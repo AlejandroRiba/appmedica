@@ -59,5 +59,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, Ajustes::class.java)
             startActivity(intent)
         }
+        val btn4: Button = findViewById(R.id.button2)
+        btn4.setOnClickListener {
+            val intent = Intent(this, MostrarConsulta::class.java)
+            startActivity(intent)
+        }
     }
 }

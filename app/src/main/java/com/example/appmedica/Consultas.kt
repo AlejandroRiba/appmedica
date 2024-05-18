@@ -6,9 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Button
+import android.widget.CheckBox
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -26,7 +29,7 @@ class Consultas : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val btn: ImageButton = findViewById(R.id.back1)
+        val btn: Button = findViewById(R.id.btn_regresar)
         btn.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -37,6 +40,11 @@ class Consultas : AppCompatActivity() {
 
         val editTextFecha = findViewById<EditText>(R.id.CFechaConsul)
         editTextFecha.setOnClickListener { showDatePickerDialog() }
+
+        val btnSendFeedback = findViewById<Button>(R.id.btn_alta)
+        btnSendFeedback.setOnClickListener{
+            sendFeedback()
+        }
 
     }
 
@@ -60,4 +68,36 @@ class Consultas : AppCompatActivity() {
         editTextTime.setText("$time")
     }
 
+    private fun sendFeedback() {
+        val identificador = findViewById<EditText>(R.id.CIdenti).text.toString()
+        val fecha = findViewById<EditText>(R.id.CFechaConsul).text.toString()
+        val hora = findViewById<EditText>(R.id.CHoraConsul).text.toString()
+        val clinica = findViewById<EditText>(R.id.CClinica).text.toString()
+        var nomdoc = findViewById<EditText>(R.id.CDoc).text.toString()
+        var teldoc = findViewById<EditText>(R.id.CNumDoc).text.toString()
+        // Verificar que los campos no estén vacíos
+        if (fecha.isEmpty() || hora.isEmpty() || clinica.isEmpty() || identificador.isEmpty()) {
+            Toast.makeText(this, "Por favor, complete los campos con (*)", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        if (nomdoc.isEmpty()) {
+            nomdoc = "N/A"
+        }
+        if (teldoc.isEmpty()) {
+            teldoc = "N/A"
+        }
+        Toast.makeText(this, "Consulta agendada con exito!!", Toast.LENGTH_SHORT).show()
+        // Obtener los datos recién insertados
+        //val cursor = databaseHandler.getConsultaPorNombre(identificador)
+        //val intent = Intent(this, MostrarConsulta::class.java).apply {
+            /*putExtra("id", cursor.id_cons)
+            putExtra("fecha", cursor.date)
+            putExtra("hora", cursor.time)
+            putExtra("clinica", cursor.clinic)
+            putExtra("doctor", cursor.doctor)
+            putExtra("cont_doc", cursor.contact_doct)*/
+        //}
+        //startActivity(intent)
+    }
 }
