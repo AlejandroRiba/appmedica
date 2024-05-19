@@ -16,10 +16,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.appmedica.com.example.appmedica.Consulta
 import java.util.Calendar
+import com.google.firebase.firestore.FirebaseFirestore
+
 
 
 class Consultas : AppCompatActivity() {
+
+     private val db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -55,7 +60,7 @@ class Consultas : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun onDateSelected(day: Int, month: Int, year: Int) {
         val editTextFecha = findViewById<EditText>(R.id.CFechaConsul)
-        editTextFecha.setText("$day / $month / $year")
+        editTextFecha.setText("$year-$month-$day")
     }
 
     private fun showTimePickerDialog() {
@@ -87,17 +92,49 @@ class Consultas : AppCompatActivity() {
         if (teldoc.isEmpty()) {
             teldoc = "N/A"
         }
-        Toast.makeText(this, "Consulta agendada con exito!!", Toast.LENGTH_SHORT).show()
-        // Obtener los datos recién insertados
-        //val cursor = databaseHandler.getConsultaPorNombre(identificador)
-        //val intent = Intent(this, MostrarConsulta::class.java).apply {
-            /*putExtra("id", cursor.id_cons)
-            putExtra("fecha", cursor.date)
-            putExtra("hora", cursor.time)
-            putExtra("clinica", cursor.clinic)
-            putExtra("doctor", cursor.doctor)
-            putExtra("cont_doc", cursor.contact_doct)*/
-        //}
-        //startActivity(intent)
+        val timestamp = System.currentTimeMillis()
+        db.collection("consultas")
+            .add(hashMapOf(
+                "idcons" to identificador,
+                "date" to fecha,
+                "time" to hora,
+                "clinic" to clinica,
+                "doctor" to nomdoc,
+                "contactdoc" to teldoc,
+                "timestamp" to timestamp,
+                "estado" to "pendiente"
+            ))
+            .addOnSuccessListener { documentReference ->
+                Toast.makeText(this, "Consulta agendada con exito!!", Toast.LENGTH_SHORT).show()
+                fetchLastDocument()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error al guardar!!", Toast.LENGTH_SHORT).show()
+            }
+    }
+    private fun fetchLastDocument() {
+        val collectionPath = "consultas"
+
+        db.collection(collectionPath)
+            .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
+            .limit(1)
+            .get()
+            .addOnSuccessListener { result ->
+                if (!result.isEmpty) {
+                    val document = result.documents[0]
+                    val consulta = document.toObject(Consulta::class.java)
+                    if (consulta != null){
+                        val intent = Intent(this, MostrarConsulta::class.java).apply {
+                            putExtra("id", consulta.idcons)
+                            putExtra("fecha", consulta.date)
+                            putExtra("hora", consulta.time)
+                            putExtra("clinica", consulta.clinic)
+                            putExtra("doctor", consulta.doctor)
+                            putExtra("cont_doc", consulta.contactdoc)
+                        }
+                        startActivity(intent)
+                    }
+                }
+            }
     }
 }

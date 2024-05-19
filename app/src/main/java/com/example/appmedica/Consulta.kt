@@ -1,31 +1,37 @@
 package com.example.appmedica.com.example.appmedica
 
 class Consulta {
-    var id_cons: String? = null
+    var idcons: String? = null
     var date: String? = null
     var time: String? = null
     var clinic: String? = null
     var doctor: String? = null
-    var contact_doct: String? = null
+    var contactdoc: String? = null
+    var timestamp: Long = 0
+    var estado: String? = null
 
     // Constructor vacío
     constructor()
 
     // Constructor con parámetros
     constructor(
-        id_cons: String?,
+        idcons: String?,
         date: String?,
         time: String?,
         clinic: String?,
         doctor: String?,
-        contact_doct: String?
+        contactdoc: String?,
+        timestamp: Long,
+        estado: String?
     ) {
-        this.id_cons = id_cons
+        this.idcons = idcons
         this.date = date
         this.time = time
         this.clinic = clinic
         this.doctor = doctor
-        this.contact_doct = contact_doct
+        this.contactdoc = contactdoc
+        this.timestamp = timestamp
+        this.estado = estado
     }
 
     // Métodos getter y setter según sea necesario para otras propiedades

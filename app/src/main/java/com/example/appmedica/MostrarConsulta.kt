@@ -33,12 +33,19 @@ class MostrarConsulta : AppCompatActivity() {
         val doc = intent.getStringExtra("doctor")
         val contacto = intent.getStringExtra("cont_doc")
 
-        t1.setText(consulta)
-        t2.setText(fecha)
-        t3.setText(hora)
-        t4.setText(clinica)
-        t5.setText(doc)
-        t6.setText(contacto)
+        val consultav = "Consulta: $consulta"
+        val fechav = "Fecha de consulta: $fecha"
+        val horav = "Hora de consulta: $hora"
+        val clinicav = "Clinica: $clinica"
+        val docv = "Nombre del Doctor: $doc"
+        val contactov = "Contacto del Doctor: $contacto"
+
+        t1.setText(consultav)
+        t2.setText(fechav)
+        t3.setText(horav)
+        t4.setText(clinicav)
+        t5.setText(docv)
+        t6.setText(contactov)
 
         val btn: ImageButton = findViewById(R.id.back2)
         btn.setOnClickListener{

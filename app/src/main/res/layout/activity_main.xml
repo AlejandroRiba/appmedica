@@ -77,8 +77,9 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="117dp"
-        android:layout_height="98dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="4dp"
         android:contentDescription="calendario"
         app:layout_constraintBottom_toBottomOf="@+id/calendario"
         app:layout_constraintEnd_toEndOf="@+id/calendario"

@@ -87,5 +87,14 @@
     <string name="clinica">Clinica:</string>
     <string name="nombre_del_dr">Nombre del Dr:</string>
     <string name="contacto_del_dr">Contacto del Dr:</string>
+    <string name="btnajustes">btnajustes</string>
+    <string name="consultas_agendadas">Consultas Agendadas</string>
+    <string name="consultatt">Consulta</string>
+    <string name="agendar_nnueva_consulta">Agendar\nNueva consulta</string>
+    <string name="volver_al_inicio">Volver al inicio</string>
+    <string name="opciones">Opciones</string>
+    <string name="eliminar_consulta">Eliminar Consulta</string>
+    <string name="marcar_como_asistida">Marcar como asistida</string>
+    <string name="editar_consulta">Editar Consulta</string>
 
 </resources>

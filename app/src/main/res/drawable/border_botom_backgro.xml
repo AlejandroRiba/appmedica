@@ -1,0 +1,18 @@
+<!-- border_bottom_black.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo transparente -->
+    <item android:drawable="@color/fondo" />
+    <!-- Borde inferior negro -->
+    <item
+        android:top="-20dp"
+        android:right="-20dp"
+        android:left="-20dp"
+    >
+    <shape>
+        <solid android:color="#00000000"/> <!-- Color transparente -->
+        <stroke
+            android:width="20dp"
+        android:color="#FDDBBF" /> <!-- Color del borde -->
+    </shape>
+</item>
+    </layer-list>

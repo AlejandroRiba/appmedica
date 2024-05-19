@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FDDBBF"
+    tools:context=".ListaConsultas">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp"
+            android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/titulo1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/consultas_agendadas"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="@dimen/tit"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.025"
+                tools:ignore="TextSizeCheck" />
+            <LinearLayout
+                android:id="@+id/container_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <!-- Espacio entre los elementos -->
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@android:color/transparent"/>
+
+                <!-- Items de registro se agregarán aquí -->
+                <ImageView
+                    android:id="@+id/imageViewLoading"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/cargando"/>
+                <!-- Espacio entre los elementos -->
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@android:color/transparent"/>
+            </LinearLayout>
+            <Button
+                android:id="@+id/btn_nuevaconsul"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#40C4FF"
+                android:text="@string/agendar_nnueva_consulta"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:layout_marginBottom="26dp"/>
+                <Button
+                    android:id="@+id/btn_regresar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#BFBBBB"
+                    android:text="@string/volver_al_inicio"
+                    android:padding="26dp"
+                    android:textColor="#000000"
+                    android:textSize="30sp"
+                    android:layout_marginBottom="30dp"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

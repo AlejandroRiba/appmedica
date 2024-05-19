@@ -9,11 +9,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.FirebaseApp
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+    private val db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -61,8 +65,22 @@ class MainActivity : AppCompatActivity() {
         }
         val btn4: Button = findViewById(R.id.button2)
         btn4.setOnClickListener {
-            val intent = Intent(this, MostrarConsulta::class.java)
+            val intent = Intent(this, ListaConsultas::class.java)
             startActivity(intent)
         }
+
+        verificarRegistros()
+
+    }
+    private fun verificarRegistros() {
+        val consulta = db.collection("consultas").whereEqualTo("estado","pendiente")
+        consulta.get()
+            .addOnSuccessListener { result ->
+                val hayRegistros = !result.isEmpty
+                val textoBoton = if (hayRegistros) "TIENES CITAS PENDIENTES \uD83D\uDEA8" else "SIN PROXIMAS CITAS"
+                // Obtener referencia al botón y establecer el texto
+                val boton = findViewById<Button>(R.id.button2)
+                boton.text = textoBoton
+            }
     }
 }
