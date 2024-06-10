@@ -20,6 +20,10 @@
         <item name="android:colorAccent">#FFA726</item>
     </style>
 
+    <!-- Splash Screen Theme -->
+    <style name="SplashTheme" parent="Theme.AppMedica.NoActionBar">
+        <item name="android:windowBackground">@color/colorSplashBackground</item>
+    </style>
 
 
 </resources>

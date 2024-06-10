@@ -79,9 +79,9 @@
     <string name="agendar">Agendar</string>
     <string name="nombre_del_doctor">Nombre del Doctor:</string>
     <string name="contacto_del_doctor">Contacto del Doctor:</string>
-    <string name="nombre_de_consulta">Nombre de consulta (*):</string>
+    <string name="nombre_de_consulta">Motivo de consulta (*):</string>
     <string name="para_qu_es_la_consulta">¿Para qué es la consulta?</string>
-    <string name="consulta">Consulta:</string>
+    <string name="consulta">Motivo:</string>
     <string name="fecha">Fecha:</string>
     <string name="hora">Hora:</string>
     <string name="clinica">Clinica:</string>
@@ -96,5 +96,8 @@
     <string name="eliminar_consulta">Eliminar Consulta</string>
     <string name="marcar_como_asistida">Marcar como asistida</string>
     <string name="editar_consulta">Editar Consulta</string>
+    <string name="puntos">. . .</string>
+    <string name="ver_perfil">Ver perfil</string>
+    <string name="consulta_agendada">Consulta Agendada</string>
 
 </resources>

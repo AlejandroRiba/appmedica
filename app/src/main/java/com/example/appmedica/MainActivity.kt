@@ -1,16 +1,31 @@
 package com.example.appmedica
 
+import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.os.Bundle
 import android.widget.Button
 import android.content.Intent
+import android.os.Build
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.appmedica.com.example.appmedica.AlarmNotification
+import com.example.appmedica.com.example.appmedica.AlarmNotification.Companion.NOTIFICATION_ID
+import com.example.appmedica.com.example.appmedica.MyApp
+import com.example.appmedica.com.example.appmedica.Utilidades
 import com.google.firebase.FirebaseApp
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.RemoteMessage
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(this)
         enableEdgeToEdge()
+        setTheme(R.style.Theme_AppMedica);
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -38,10 +54,11 @@ class MainActivity : AppCompatActivity() {
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
 
         if (client != null) {
+            val firstName = client.split(" ")[0]
             val bienvenida: String = when {
-                hour < 12 -> "Buenos días, $client"
-                hour < 18 -> "Buenas tardes, $client"
-                else -> "Buenas noches, $client"
+                hour < 12 -> "Buenos días, \n$firstName"
+                hour < 18 -> "Buenas tardes, \n$firstName"
+                else -> "Buenas noches, \n$firstName"
             }
             textView.text = bienvenida
         }
@@ -72,15 +89,23 @@ class MainActivity : AppCompatActivity() {
         verificarRegistros()
 
     }
+
+
     private fun verificarRegistros() {
-        val consulta = db.collection("consultas").whereEqualTo("estado","pendiente")
+        val databaseHandler = DatabaseHandler(applicationContext)
+        val nombre = databaseHandler.consultaAdulto()
+        val consulta = db.collection("usuarios")
+            .document(nombre)
+            .collection("citas")
+            .whereEqualTo("estado","pendiente")
         consulta.get()
             .addOnSuccessListener { result ->
                 val hayRegistros = !result.isEmpty
-                val textoBoton = if (hayRegistros) "TIENES CITAS PENDIENTES \uD83D\uDEA8" else "SIN PROXIMAS CITAS"
+                val textoBoton = if (hayRegistros) "TIENES CITAS PENDIENTES \uD83D\uDEA8" else "SIN PROXIMAS CITAS ✅"
                 // Obtener referencia al botón y establecer el texto
                 val boton = findViewById<Button>(R.id.button2)
                 boton.text = textoBoton
             }
     }
+
 }

@@ -2,10 +2,16 @@ package com.example.appmedica
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
+import android.graphics.Typeface
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -33,24 +39,52 @@ class MostrarConsulta : AppCompatActivity() {
         val doc = intent.getStringExtra("doctor")
         val contacto = intent.getStringExtra("cont_doc")
 
-        val consultav = "Consulta: $consulta"
-        val fechav = "Fecha de consulta: $fecha"
-        val horav = "Hora de consulta: $hora"
-        val clinicav = "Clinica: $clinica"
-        val docv = "Nombre del Doctor: $doc"
-        val contactov = "Contacto del Doctor: $contacto"
+        // Define las etiquetas y los datos
+        val etiquetas = arrayOf("Motivo:", "Fecha:", "Hora:", "Clínica:", "Nombre del Doctor:", "Contacto del Doctor:")
+        val datos = arrayOf("$consulta", "$fecha", "$hora", "$clinica", "$doc", "$contacto")
 
-        t1.setText(consultav)
-        t2.setText(fechav)
-        t3.setText(horav)
-        t4.setText(clinicav)
-        t5.setText(docv)
-        t6.setText(contactov)
+        // Itera sobre todos los TextViews y aplica el formato
+        val textViews = arrayOf(t1, t2, t3, t4, t5, t6)
 
-        val btn: ImageButton = findViewById(R.id.back2)
-        btn.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+        textViews.forEachIndexed { index, textView ->
+            val etiqueta = etiquetas[index]
+            val dato = datos[index]
+
+            if (!(dato == "N/A" && (index == 4 || index == 5))) {
+                // Crea un SpannableStringBuilder para construir el texto con diferentes estilos
+                val builder = SpannableStringBuilder()
+
+                // Agrega la etiqueta con estilo normal y color negro
+                builder.append(etiqueta)
+                builder.setSpan(ForegroundColorSpan(Color.BLACK), 0, etiqueta.length, 0)
+
+                // Agrega el dato con estilo cursiva y color #4C4D4E
+                builder.append(" $dato")
+                builder.setSpan(
+                    StyleSpan(Typeface.ITALIC),
+                    builder.length - dato.length,
+                    builder.length,
+                    0
+                )
+                builder.setSpan(
+                    ForegroundColorSpan(Color.parseColor("#4C4D4E")),
+                    builder.length - dato.length,
+                    builder.length,
+                    0
+                )
+
+                // Asigna el texto formateado al TextView correspondiente
+                textView.text = builder
+            } else {
+                // Si el dato es "n/a" y es el nombre del doctor o el contacto del doctor, oculta el TextView correspondiente
+                textView.visibility = TextView.GONE
+            }
         }
+
+            val btn: Button = findViewById(R.id.back2)
+            btn.setOnClickListener {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
     }
 }

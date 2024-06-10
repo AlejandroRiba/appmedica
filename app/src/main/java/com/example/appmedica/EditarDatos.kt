@@ -13,8 +13,11 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appmedica.databinding.ActivityEditarDatosBinding
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 
 class EditarDatos : AppCompatActivity() {
+    private val db = FirebaseFirestore.getInstance()
     private lateinit var binding: ActivityEditarDatosBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -307,11 +310,42 @@ class EditarDatos : AppCompatActivity() {
             return
         }
         val databaseHandler = DatabaseHandler(applicationContext)
+        val usuarioAnt = databaseHandler.consultaAdulto()
         databaseHandler.eliminarTodosLosUsuarios()
+        changeDocumentId(usuarioAnt,nombre)
         databaseHandler.agregarPersona(nombre,edad,contacto,sangretyp,time1,time2,time3,time4,time5)
         Toast.makeText(this, "Edición con exito!!", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, Ajustes::class.java)
         startActivity(intent)
+    }
+
+    private fun changeDocumentId(oldUserId: String, newUserId: String) {
+        val consultasRef = db.collection("usuarios").document(oldUserId).collection("citas")
+        val destinationRef = db.collection("usuarios").document(newUserId).collection("citas")
+
+        consultasRef.get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot) {
+                    // Copiar el documento a la nueva ubicación
+                    destinationRef.document(document.id).set(document.data)
+                        .addOnSuccessListener {
+                            // Documento copiado con éxito, ahora eliminar el original
+                            consultasRef.document(document.id).delete()
+                                .addOnFailureListener { e ->
+                                    // Manejar errores al eliminar el documento original
+                                    Toast.makeText(this, "Error al eliminar consulta original: ${e.message}", Toast.LENGTH_SHORT).show()
+                                }
+                        }
+                        .addOnFailureListener { e ->
+                            // Manejar errores al copiar el documento
+                            Toast.makeText(this, "Error al copiar consulta: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                // Manejar errores al obtener las consultas originales
+                Toast.makeText(this, "Error al obtener las consultas: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 
 }

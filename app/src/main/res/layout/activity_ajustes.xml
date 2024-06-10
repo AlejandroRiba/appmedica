@@ -59,45 +59,45 @@
         android:id="@+id/microfonoview"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="30dp"
+        android:contentDescription="@string/sol"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titulo1"
-        app:srcCompat="@drawable/mic"
-        android:contentDescription="@string/sol" />
+        app:srcCompat="@drawable/mic" />
 
     <ImageView
         android:id="@+id/orejaview"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="50dp"
+        android:contentDescription="@string/sol"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/microfonoview"
-        app:srcCompat="@drawable/narra"
-        android:contentDescription="@string/sol" />
+        app:srcCompat="@drawable/narra" />
 
     <ImageView
         android:id="@+id/actualizarview"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="50dp"
+        android:contentDescription="@string/sol"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/orejaview"
-        app:srcCompat="@drawable/actual"
-        android:contentDescription="@string/sol" />
+        app:srcCompat="@drawable/actual" />
 
     <ImageView
         android:id="@+id/borrarview"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="50dp"
+        android:contentDescription="@string/sol"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/actualizarview"
-        app:srcCompat="@drawable/elim"
-        android:contentDescription="@string/sol" />
+        app:srcCompat="@drawable/elim" />
 
     <TextView
         android:id="@+id/ajuste1"
@@ -161,10 +161,10 @@
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="52dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginEnd="30dp"
         android:scaleX="1.5"
         android:scaleY="1.5"
-        android:shadowColor="#448AFF"
+        android:shadowColor="#40C4FF"
         android:text=""
         android:thumbTint="@color/switch_colors"
         app:layout_constraintEnd_toEndOf="parent"
@@ -179,10 +179,9 @@
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginEnd="30dp"
         android:scaleX="1.5"
         android:scaleY="1.5"
-        android:shadowColor="#448AFF"
         android:text=""
         android:thumbTint="@color/switch_colors"
         app:layout_constraintEnd_toEndOf="parent"
@@ -197,8 +196,8 @@
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="72dp"
-        android:layout_marginEnd="35dp"
-        android:backgroundTint="#9DE14E"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="#BFBBBB"
         android:text="@string/clic"
         android:textColor="#000000"
         android:textSize="12sp"
@@ -213,8 +212,8 @@
         android:layout_width="72dp"
         android:layout_height="70dp"
         android:layout_marginTop="56dp"
-        android:layout_marginEnd="35dp"
-        android:backgroundTint="#FF5252"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="#BFBBBB"
         android:text="@string/clic"
         android:textColor="#000000"
         android:textSize="12sp"
