@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:textStyle="bold"
         android:text="@string/est_s_seguro_la_acci_n_no_se_puede_revertir"
         android:textColor="@android:color/black"
         android:textSize="30sp" />
@@ -21,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:backgroundTint="#40C4FF"
+        android:backgroundTint="@color/botonesOp"
         android:text="@string/confirmar"
         android:textColor="#000000"
         android:textSize="30sp" />
@@ -31,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:backgroundTint="#BFBBBB"
+        android:backgroundTint="#C36658"
         android:text="@string/cancelar"
         android:textColor="#000000"
         android:textSize="30sp" />

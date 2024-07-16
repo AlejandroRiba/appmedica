@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -34,7 +35,8 @@ class Ajustes : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val btnShowDialog: Button = findViewById(R.id.btn_show_dialog)
+        val btnEdit: LinearLayout = findViewById(R.id.row3)
+        val btnShowDialog: LinearLayout = findViewById(R.id.row4)
         btnShowDialog.setOnClickListener {
             showDialog("Borrará el registro creado.\n" +
                     "¿Está seguro?") {
@@ -47,7 +49,6 @@ class Ajustes : AppCompatActivity() {
                 }
             }
         }
-        val btnEdit: Button = findViewById(R.id.button3)
         btnEdit.setOnClickListener {
             showDialog("Editará sus datos.\n" +
                     "¿Está seguro?") {

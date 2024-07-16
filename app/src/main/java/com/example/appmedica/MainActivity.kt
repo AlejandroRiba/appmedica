@@ -1,40 +1,26 @@
 package com.example.appmedica
 
-import android.annotation.SuppressLint
-import android.app.AlarmManager
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
+import com.example.appmedica.R
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.content.Intent
-import android.os.Build
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
+import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.appmedica.com.example.appmedica.AlarmNotification
-import com.example.appmedica.com.example.appmedica.AlarmNotification.Companion.NOTIFICATION_ID
-import com.example.appmedica.com.example.appmedica.MyApp
-import com.example.appmedica.com.example.appmedica.Utilidades
 import com.google.firebase.FirebaseApp
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.messaging.RemoteMessage
-import java.text.SimpleDateFormat
 import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(this)
-        enableEdgeToEdge()
-        setTheme(R.style.Theme_AppMedica);
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -56,37 +42,50 @@ class MainActivity : AppCompatActivity() {
         if (client != null) {
             val firstName = client.split(" ")[0]
             val bienvenida: String = when {
-                hour < 12 -> "Buenos días, \n$firstName"
-                hour < 18 -> "Buenas tardes, \n$firstName"
-                else -> "Buenas noches, \n$firstName"
+                hour < 12 -> "Buenos días, \n$firstName ☀\uFE0F"
+                hour < 18 -> "Buenas tardes, \n$firstName \uD83C\uDF25\uFE0F"
+                else -> "Buenas noches, \n$firstName \uD83C\uDF19"
             }
             textView.text = bienvenida
         }
 
+        val cardViewconsulta = findViewById<CardView>(R.id.agrconsul)
+        // Hacer el CardView clickeable
+        cardViewconsulta.isClickable = true
+        cardViewconsulta.isFocusable = true
+        cardViewconsulta.setOnClickListener {
+            val intent = Intent(this, Consultas::class.java)
+            startActivity(intent)
+        }
 
-        val btn: Button = findViewById(R.id.agrmed)
-        btn.setOnClickListener {
+        val cardViewmed = findViewById<CardView>(R.id.agrmed)
+        // Hacer el CardView clickeable
+        cardViewmed.isClickable = true
+        cardViewmed.isFocusable = true
+        cardViewmed.setOnClickListener {
             val intent = Intent(this, MedicamentosActivity::class.java)
             startActivity(intent)
         }
 
-        val btn2: Button = findViewById(R.id.agrconsul)
-        btn2.setOnClickListener {
-            val intent = Intent(this, Consultas::class.java)
-            startActivity(intent)
-        }
-        val btn3: ImageButton = findViewById(R.id.imageButton6)
-        btn3.setOnClickListener {
+        val cardViewajustes = findViewById<CardView>(R.id.ajustes)
+        // Hacer el CardView clickeable
+        cardViewajustes.isClickable = true
+        cardViewajustes.isFocusable = true
+        cardViewajustes.setOnClickListener {
             val intent = Intent(this, Ajustes::class.java)
             startActivity(intent)
         }
-        val btn4: Button = findViewById(R.id.button2)
-        btn4.setOnClickListener {
+
+        val cardViewrecordatorio = findViewById<CardView>(R.id.recordatorios)
+        // Hacer el CardView clickeable
+        cardViewrecordatorio.isClickable = true
+        cardViewrecordatorio.isFocusable = true
+        cardViewrecordatorio.setOnClickListener {
             val intent = Intent(this, ListaConsultas::class.java)
             startActivity(intent)
         }
 
-        verificarRegistros()
+        //verificarRegistros()
 
     }
 
@@ -103,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                 val hayRegistros = !result.isEmpty
                 val textoBoton = if (hayRegistros) "TIENES CITAS PENDIENTES \uD83D\uDEA8" else "SIN PROXIMAS CITAS ✅"
                 // Obtener referencia al botón y establecer el texto
-                val boton = findViewById<Button>(R.id.button2)
+                val boton = findViewById<Button>(R.id.recordatorios)
                 boton.text = textoBoton
             }
     }

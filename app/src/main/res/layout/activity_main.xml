@@ -1,210 +1,299 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FDDBBF"
+    android:id="@+id/main"
+    android:background="@drawable/background1"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/calendario"
-        android:layout_width="362dp"
-        android:layout_height="126dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
-        android:backgroundTint="#FFD740"
-        android:text="@string/calendario"
-        android:textAlignment="textEnd"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
-        tools:ignore="VisualLintButtonSize" />
-
-    <Button
-        android:id="@+id/agrconsul"
-        android:layout_width="160dp"
-        android:layout_height="116dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="#7DB63A"
-        android:text="@string/agregar_consulta"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/verperfil"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/bienvenida"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/bienvenido_a_mi_app"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="@dimen/tit"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/agrmed"
-        android:layout_width="180dp"
-        android:layout_height="116dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="#FF7DB63A"
-        android:text="@string/agregar_medicamento"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/verperfil"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="4dp"
-        android:contentDescription="calendario"
-        app:layout_constraintBottom_toBottomOf="@+id/calendario"
-        app:layout_constraintEnd_toEndOf="@+id/calendario"
-        app:layout_constraintHorizontal_bias="0.057"
-        app:layout_constraintStart_toStartOf="@+id/calendario"
-        app:layout_constraintTop_toTopOf="@+id/calendario"
-        app:srcCompat="@drawable/calendar"
-        tools:ignore="HardcodedText" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="362dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="24dp"
-        android:backgroundTint="#448AFF"
-        android:text="@string/puntos"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bienvenida"
-        tools:ignore="VisualLintButtonSize" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="362dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
-        android:backgroundTint="#93D5F3"
-        android:text="@string/puntos"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        tools:ignore="VisualLintButtonSize" />
-
-    <ImageButton
-        android:id="@+id/imageButton6"
-        style="@android:style/Widget.DeviceDefault.ImageButton"
-        android:layout_width="186dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="24dp"
-        android:background="#00421313"
-        android:backgroundTint="#00651D1D"
-        android:contentDescription="@string/engranaje"
-        android:scaleType="fitStart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ajustes"
-        tools:ignore="MissingConstraints,DuplicateSpeakableTextCheck" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="109dp"
-        android:layout_height="30dp"
-        android:text="@string/ajustes"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton6"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton6"
-        app:layout_constraintHorizontal_bias="0.883"
-        app:layout_constraintStart_toStartOf="@+id/imageButton6"
-        app:layout_constraintTop_toTopOf="@+id/imageButton6"
-        tools:ignore="MissingConstraints,TextSizeCheck" />
-
-    <ImageButton
-        android:id="@+id/verperfil"
-        style="@android:style/Widget.DeviceDefault.ImageButton"
-        android:layout_width="186dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="20dp"
-        android:background="#00421313"
-        android:backgroundTint="#00651D1D"
-        android:contentDescription="@string/engranaje"
-        android:scaleType="fitStart"
-        app:layout_constraintBottom_toTopOf="@+id/imageButton6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/usr"
-        tools:ignore="MissingConstraints,DuplicateSpeakableTextCheck" />
-
-    <TextView
-        android:id="@+id/verperfillbl"
-        android:layout_width="109dp"
-        android:layout_height="30dp"
-        android:text="@string/ver_perfil"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/verperfil"
-        app:layout_constraintEnd_toEndOf="@+id/verperfil"
-        app:layout_constraintHorizontal_bias="0.883"
-        app:layout_constraintStart_toStartOf="@+id/verperfil"
-        app:layout_constraintTop_toTopOf="@+id/verperfil"
-        tools:ignore="MissingConstraints,TextSizeCheck" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="left" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="5dp" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent"
+        android:layout_marginRight="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginBottom="32dp">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="2dp" />
+        <RelativeLayout
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/bienvenida"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bienvenido_a_mi_app"
+                android:textColor="#CAD0D6"
+                android:textAlignment="center"
+                android:textSize="@dimen/tit"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <GridLayout
+            android:columnCount="2"
+            android:rowCount="4"
+            android:alignmentMode="alignMargins"
+            android:columnOrderPreserved="false"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/perfil"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="7dp"
+                android:layout_margin="12dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:foreground="?selectableItemBackground">
+
+                <LinearLayout
+                    android:padding="16dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="UseCompoundDrawables">
+                    <ImageView
+                        android:src="@drawable/perfil"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:contentDescription="@string/primerboton"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/texto"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/perfil"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/recordatorios"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="7dp"
+                android:layout_margin="12dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:foreground="?selectableItemBackground">
+
+                <LinearLayout
+                    android:padding="16dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="UseCompoundDrawables">
+                    <ImageView
+                        android:src="@drawable/recordatorio"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="10dp"
+                        android:contentDescription="@string/primerboton"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/texto"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/recordatorios"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/calendario"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="7dp"
+                android:layout_margin="12dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:foreground="?selectableItemBackground">
+
+                <LinearLayout
+                    android:padding="16dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="UseCompoundDrawables">
+                    <ImageView
+                        android:src="@drawable/calendar"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_horizontal"
+                        android:contentDescription="@string/primerboton"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/texto"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/calendario"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/agrconsul"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="7dp"
+                android:layout_margin="12dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:foreground="?selectableItemBackground">
+
+                <LinearLayout
+                    android:padding="16dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="UseCompoundDrawables">
+                    <ImageView
+                        android:src="@drawable/consulta"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:contentDescription="@string/primerboton"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/texto"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/nvaconsult"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/agrmed"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="7dp"
+                android:layout_margin="12dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:foreground="?selectableItemBackground">
+
+                <LinearLayout
+                    android:padding="16dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="UseCompoundDrawables">
+                    <ImageView
+                        android:src="@drawable/tratamiento"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:contentDescription="@string/primerboton"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/texto"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/tratamiento"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/ajustes"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="7dp"
+                android:layout_margin="12dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:foreground="?selectableItemBackground">
+
+                <LinearLayout
+                    android:padding="16dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="UseCompoundDrawables">
+                    <ImageView
+                        android:src="@drawable/ajustes"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:contentDescription="@string/primerboton"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/texto"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/ajustes"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </GridLayout>
+
+    </LinearLayout>
+</LinearLayout>

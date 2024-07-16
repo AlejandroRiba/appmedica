@@ -5,20 +5,20 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FDDBBF"
+    android:background="@color/colorPrimary"
     tools:context=".Ajustes">
 
     <TextView
         android:id="@+id/titulo1"
-        android:layout_width="329dp"
-        android:layout_height="75dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
         android:text="@string/tituloajustes"
         android:textAlignment="center"
-        android:textColor="#000000"
+        android:textColor="@color/texto"
         android:textSize="45sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,172 +55,209 @@
         app:layout_constraintTop_toBottomOf="@+id/back1"
         tools:ignore="MissingConstraints,VisualLintOverlap" />
 
-    <ImageView
-        android:id="@+id/microfonoview"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="30dp"
-        android:contentDescription="@string/sol"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titulo1"
-        app:srcCompat="@drawable/mic" />
-
-    <ImageView
-        android:id="@+id/orejaview"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="50dp"
-        android:contentDescription="@string/sol"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/microfonoview"
-        app:srcCompat="@drawable/narra" />
-
-    <ImageView
-        android:id="@+id/actualizarview"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="50dp"
-        android:contentDescription="@string/sol"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orejaview"
-        app:srcCompat="@drawable/actual" />
-
-    <ImageView
-        android:id="@+id/borrarview"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="50dp"
-        android:contentDescription="@string/sol"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actualizarview"
-        app:srcCompat="@drawable/elim" />
-
-    <TextView
-        android:id="@+id/ajuste1"
-        android:layout_width="wrap_content"
+    <!-- Row 1 -->
+    <LinearLayout
+        android:id="@+id/row1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/dictado_por_nvoz"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/microfonoview"
-        app:layout_constraintTop_toBottomOf="@+id/titulo1" />
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titulo1">
 
-    <TextView
-        android:id="@+id/ajuste2"
-        android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/microfonoview"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp"
+            android:contentDescription="@string/sol"
+            app:srcCompat="@drawable/mic" />
+
+        <TextView
+            android:id="@+id/ajuste1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="@string/dictado_por_nvoz"
+            android:textAlignment="center"
+            android:textColor="@color/texto"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:shadowColor="#40C4FF"
+            android:text=""
+            android:thumbTint="@color/switch_colors"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#80000000"
+        app:layout_constraintTop_toBottomOf="@+id/row1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Row 2 -->
+    <LinearLayout
+        android:id="@+id/row2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="64dp"
-        android:text="@string/narrador_de_ntexto"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/orejaview"
-        app:layout_constraintTop_toBottomOf="@+id/ajuste1" />
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/row1">
 
-    <TextView
-        android:id="@+id/ajuste3"
-        android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/orejaview"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp"
+            android:contentDescription="@string/sol"
+            app:srcCompat="@drawable/narra" />
+
+        <TextView
+            android:id="@+id/ajuste2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/narrador_de_ntexto"
+            android:textAlignment="center"
+            android:textColor="@color/texto"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Switch
+            android:id="@+id/switch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:shadowColor="#40C4FF"
+            android:text=""
+            android:thumbTint="@color/switch_colors"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#80000000"
+        app:layout_constraintTop_toBottomOf="@+id/row2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Row 3 -->
+    <LinearLayout
+        android:id="@+id/row3"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="72dp"
-        android:text="@string/actualizar_ndatos"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/actualizarview"
-        app:layout_constraintTop_toBottomOf="@+id/ajuste2" />
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/row2">
 
-    <TextView
-        android:id="@+id/ajuste4"
-        android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/actualizarview"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp"
+            android:contentDescription="@string/sol"
+            app:srcCompat="@drawable/actual" />
+
+        <TextView
+            android:id="@+id/ajuste3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/actualizar_ndatos"
+            android:textAlignment="center"
+            android:textColor="@color/texto"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#80000000"
+        app:layout_constraintTop_toBottomOf="@+id/row3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Row 3 -->
+    <LinearLayout
+        android:id="@+id/row4"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="64dp"
-        android:text="@string/borrar_ndatos"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/borrarview"
-        app:layout_constraintTop_toBottomOf="@+id/ajuste3" />
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="58dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="30dp"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        android:shadowColor="#40C4FF"
-        android:text=""
-        android:thumbTint="@color/switch_colors"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/ajuste1"
-        app:layout_constraintTop_toBottomOf="@+id/titulo1"
-        tools:ignore="UseSwitchCompatOrMaterialXml,DuplicateSpeakableTextCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/row3">
 
-    <Switch
-        android:id="@+id/switch2"
-        android:layout_width="58dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="30dp"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        android:text=""
-        android:thumbTint="@color/switch_colors"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/ajuste2"
-        app:layout_constraintTop_toBottomOf="@+id/switch1"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        <ImageView
+            android:id="@+id/eliminarview"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp"
+            android:contentDescription="@string/sol"
+            app:srcCompat="@drawable/elim" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="72dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="25dp"
-        android:backgroundTint="#BFBBBB"
-        android:text="@string/clic"
-        android:textColor="#000000"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/ajuste3"
-        app:layout_constraintTop_toBottomOf="@+id/switch2"
-        tools:ignore="DuplicateSpeakableTextCheck" />
+        <TextView
+            android:id="@+id/ajuste4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/borrar_ndatos"
+            android:textAlignment="center"
+            android:textColor="@color/texto"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_show_dialog"
-        android:layout_width="72dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="25dp"
-        android:backgroundTint="#BFBBBB"
-        android:text="@string/clic"
-        android:textColor="#000000"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/ajuste4"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
-
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#80000000"
+        app:layout_constraintTop_toBottomOf="@+id/row4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

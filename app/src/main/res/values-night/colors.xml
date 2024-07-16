@@ -3,9 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="fondo">#E0ABBF</color>
-    <color name="colorPrimary">#DBDCDD</color>
     <color name="colorSecondary">#0A678F</color>
-    <color name="azulPrincipal">#05476D</color>
-    <color name="botonesOp">#77A2FF</color>
-    <color name="texto">#1F2D3A</color>
+    <color name="colorPrimary">#4C4D4E</color>
+    <color name="texto">#CAD0D6</color>
 </resources>

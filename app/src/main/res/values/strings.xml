@@ -14,7 +14,7 @@
     <string name="bienregis">Datos generales :)</string>
     <string name="agregar_medicamento">Agregar Medicamento</string>
     <string name="agregar_consulta">Agendar Consulta</string>
-    <string name="calendario">Mostrar Calendario</string>
+    <string name="calendario">Calendario</string>
     <string name="alar_prox">Alarmas Próximas</string>
     <string name="botonregresar">botonregresar</string>
     <string name="bebible">Bebible</string>
@@ -56,10 +56,10 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="tituloajustes">Ajustes</string>
     <string name="previous">Previous</string>
-    <string name="dictado_por_nvoz">DICTADO POR\nVOZ</string>
-    <string name="borrar_ndatos">BORRAR\nDATOS</string>
-    <string name="actualizar_ndatos">ACTUALIZAR\nDATOS</string>
-    <string name="narrador_de_ntexto">NARRADOR DE\nTEXTO</string>
+    <string name="dictado_por_nvoz">Dictado por \nvoz</string>
+    <string name="borrar_ndatos">Borrar todos mis \ndatos</string>
+    <string name="actualizar_ndatos">Actualizar datos</string>
+    <string name="narrador_de_ntexto">Narrador de \ntexto</string>
     <string name="clic">Clic</string>
     <string name="cancelar">  Cancelar  </string>
     <string name="confirmar">Confirmar</string>
@@ -99,5 +99,9 @@
     <string name="puntos">. . .</string>
     <string name="ver_perfil">Ver perfil</string>
     <string name="consulta_agendada">Consulta Agendada</string>
-
+    <string name="primerboton">PrimerBoton</string>
+    <string name="recordatorios">Recordatorios</string>
+    <string name="perfil">Perfil</string>
+    <string name="nvaconsult">Agendar Consulta</string>
+    <string name="tratamiento">Agregar Medicamento</string>
 </resources>

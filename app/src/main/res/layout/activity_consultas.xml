@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:background="#FDDBBF"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent"
     tools:context=".Consultas">
 
@@ -31,7 +31,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/agendar_nueva_consulta"
                 android:textAlignment="center"
-                android:textColor="#000000"
+                android:textColor="@color/texto"
                 android:textSize="@dimen/tit"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
