@@ -85,6 +85,15 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val cardViewperfil = findViewById<CardView>(R.id.perfil)
+        // Hacer el CardView clickeable
+        cardViewperfil.isClickable = true
+        cardViewperfil.isFocusable = true
+        cardViewperfil.setOnClickListener {
+            val intent = Intent(this, PerfilActivity::class.java)
+            startActivity(intent)
+        }
+
         //verificarRegistros()
 
     }

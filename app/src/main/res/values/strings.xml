@@ -104,4 +104,6 @@
     <string name="perfil">Perfil</string>
     <string name="nvaconsult">Agendar Consulta</string>
     <string name="tratamiento">Agregar Medicamento</string>
+    <string name="title_activity_perfil">PerfilActivity</string>
+    <string name="mi_perfil">Mi Perfil</string>
 </resources>
