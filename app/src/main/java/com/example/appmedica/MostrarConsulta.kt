@@ -67,7 +67,7 @@ class MostrarConsulta : AppCompatActivity() {
                     0
                 )
                 builder.setSpan(
-                    ForegroundColorSpan(Color.parseColor("#4C4D4E")),
+                    ForegroundColorSpan(Color.parseColor("#010332")),
                     builder.length - dato.length,
                     builder.length,
                     0

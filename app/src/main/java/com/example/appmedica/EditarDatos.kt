@@ -315,7 +315,7 @@ class EditarDatos : AppCompatActivity() {
         changeDocumentId(usuarioAnt,nombre)
         databaseHandler.agregarPersona(nombre,edad,contacto,sangretyp,time1,time2,time3,time4,time5)
         Toast.makeText(this, "Edición con exito!!", Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, Ajustes::class.java)
+        val intent = Intent(this, PerfilActivity::class.java)
         startActivity(intent)
     }
 

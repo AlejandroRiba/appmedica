@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import android.app.AlertDialog
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.LinearLayout
@@ -15,6 +17,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appmedica.com.example.appmedica.AlarmUtils
 import com.google.firebase.firestore.FirebaseFirestore
+import java.io.File
 
 class Ajustes : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
@@ -44,6 +47,8 @@ class Ajustes : AppCompatActivity() {
                     databaseHandler.eliminarTodosLosUsuarios()
                     deleteAllConsultas(usuarioActual)
                     AlarmUtils.cancelAllAlarms(this)
+                    val filename = "imagen_perfil.png"
+                    deleteImageFromInternalStorage(this, filename)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }
@@ -95,5 +100,22 @@ class Ajustes : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error al obtener las consultas: ${e.message}", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun deleteImageFromInternalStorage(context: Context, filename: String): Boolean {
+        return try {
+            // Crear la ruta del archivo donde se guardó la imagen
+            val file = File(context.filesDir, filename)
+            if (file.exists()) {
+                // Eliminar el archivo
+                file.delete()
+            } else {
+                // El archivo no existe
+                false
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
     }
 }

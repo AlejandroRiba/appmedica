@@ -47,7 +47,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/background1"
+                android:src="@drawable/desconocido"
                 tools:ignore="ContentDescription"
                 android:id="@+id/fotodeusuario"
                 app:strokeColor="@color/black"
@@ -58,7 +58,87 @@
                 app:shapeAppearanceOverlay="@style/circleImageView"/>
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textViewNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nombre"
+                android:textColor="#CAD0D6"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:id="@+id/textViewEdad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edad"
+                android:textColor="#CAD0D6"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:id="@+id/textViewSangre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sangre"
+                android:textColor="#CAD0D6"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:id="@+id/textViewContacto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contacto1"
+                android:textColor="#CAD0D6"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
 
+            <Button
+                android:id="@+id/editarDatos"
+                android:layout_width="140dp"
+                android:layout_height="60dp"
+                android:text="@string/editar"
+                android:fontFamily="arial"
+                android:textAlignment="textEnd"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textStyle="bold"
+                android:background="@drawable/button_with_shadow"
+                android:drawableStart="@drawable/edit_icon"
+                android:contentDescription="@string/actualizar_ndatos"
+                android:layout_margin="20dp"
+                tools:ignore="RtlSymmetry"
+                android:textAllCaps="false"/>
 
+            <Button
+                android:id="@+id/editarFoto"
+                android:layout_width="140dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/button_with_shadow"
+                android:contentDescription="@string/actualizar_ndatos"
+                android:drawableStart="@drawable/edit_photo"
+                android:fontFamily=""
+                android:paddingEnd="20dp"
+                android:textStyle="bold"
+                android:paddingStart="20dp"
+                android:text="@string/editar2"
+                android:textAlignment="textEnd"
+                android:textAllCaps="false"
+                tools:ignore="RtlSymmetry" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

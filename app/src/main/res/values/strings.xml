@@ -11,7 +11,7 @@
     <string name="txtedad">Edad: *</string>
     <string name="feedbackedad">Su edad, Ej. 62</string>
     <string name="txtsangre">Tipo de sangre:</string>
-    <string name="bienregis">Datos generales :)</string>
+    <string name="bienregis">Ingrese sus datos generales</string>
     <string name="agregar_medicamento">Agregar Medicamento</string>
     <string name="agregar_consulta">Agendar Consulta</string>
     <string name="calendario">Calendario</string>
@@ -106,4 +106,11 @@
     <string name="tratamiento">Agregar Medicamento</string>
     <string name="title_activity_perfil">PerfilActivity</string>
     <string name="mi_perfil">Mi Perfil</string>
+    <string name="agregar_foto_de_perfil">Agregar foto de perfil</string>
+    <string name="nombre">Nombre:</string>
+    <string name="edad">Edad:</string>
+    <string name="sangre">Tipo de sangre:</string>
+    <string name="contacto1">Contacto de emergencia:</string>
+    <string name="editar">Editar\nDatos</string>
+    <string name="editar2">Editar o Agregar\nFoto</string>
 </resources>

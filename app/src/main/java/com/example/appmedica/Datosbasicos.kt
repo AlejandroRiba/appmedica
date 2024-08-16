@@ -1,21 +1,49 @@
 package com.example.appmedica
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.CompoundButton
-import android.text.Editable
-import android.text.TextWatcher
+import android.util.Log
 import android.widget.EditText
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.appmedica.databinding.ActivityDatosbasicosBinding
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import androidx.appcompat.app.AppCompatActivity as AppCompatActivity1
 
 class Datosbasicos : AppCompatActivity1() {
 
+    private val pickMedia =  registerForActivityResult(ActivityResultContracts.PickVisualMedia()){ uri ->
+        if(uri!=null){
+            //Se selecciono una imagen
+            Log.i("aria", "Seleccionado")
+            imagePeril.setImageURI(uri)
+            // Convertir URI a Bitmap
+            val bitmap = uriToBitmap(uri)
+
+            // Guardar el Bitmap en los archivos internos
+            val filename = "imagen_perfil.png"
+            saveImageToInternalStorage(this, bitmap, filename)
+        }else{
+            //no se selecciono nada
+            Log.i("aria", "NO seleccionado")
+        }
+    }
+
     private lateinit var binding: ActivityDatosbasicosBinding
+    private lateinit var imagePeril: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +52,11 @@ class Datosbasicos : AppCompatActivity1() {
         setContentView(binding.root)
 
         initDate()
+
+        imagePeril = findViewById(R.id.fotodeusuario)
+        imagePeril.setOnClickListener{
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
 
         val editTextTime1 = findViewById<EditText>(R.id.CampoHora1)
         val editTextTime2 = findViewById<EditText>(R.id.CampoHora2)
@@ -274,6 +307,42 @@ class Datosbasicos : AppCompatActivity1() {
         Toast.makeText(this, "Registro con exito!!", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun uriToBitmap(uri: Uri): Bitmap? {
+        return try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                val source = ImageDecoder.createSource(contentResolver, uri)
+                ImageDecoder.decodeBitmap(source)
+            } else {
+                @Suppress("DEPRECATION")
+                MediaStore.Images.Media.getBitmap(contentResolver, uri)
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    private fun saveImageToInternalStorage(context: Context, bitmap: Bitmap?, filename: String): Boolean {
+        if (bitmap == null) return false
+
+        return try {
+            // Crear o abrir el archivo en los archivos internos
+            val file = File(context.filesDir, filename)
+            val outputStream = FileOutputStream(file)
+
+            // Comprimir y guardar el bitmap en el archivo como PNG
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+
+            outputStream.flush()
+            outputStream.close()
+
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
     }
 
 }
