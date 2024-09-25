@@ -279,7 +279,6 @@ class Datosbasicos : AppCompatActivity1() {
         }
 
         val edad = edadText.toInt()
-        val contacto = contactoText.toInt()
 
         // Verificar que se haya seleccionado al menos una opción de sangre
         if(checkBoxOption1.isChecked){
@@ -303,9 +302,9 @@ class Datosbasicos : AppCompatActivity1() {
             return
         }
         val databaseHandler = DatabaseHandler(applicationContext)
-        databaseHandler.agregarPersona(nombre,edad,contacto,sangretyp,time1,time2,time3,time4,time5)
+        databaseHandler.agregarPersona(nombre,edad,contactoText,sangretyp,time1,time2,time3,time4,time5)
         Toast.makeText(this, "Registro con exito!!", Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, Ajustes::class.java)
         startActivity(intent)
     }
 

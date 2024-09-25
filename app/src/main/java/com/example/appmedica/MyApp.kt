@@ -28,10 +28,10 @@ class MyApp : Application() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             val channel = NotificationChannel(
                 NOTIFICATION_CHANNEL_ID,
-                "Notificaciones de FCM",
+                "Notificaciones de Recordatorios",
                 NotificationManager.IMPORTANCE_HIGH
             )
-            channel.description = "Estas notificaciones van a ser recibidas desde FCM"
+            channel.description = "Estas notificaciones van a ser recibidas desde la app"
             val notificationManager = getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(channel)
         }

@@ -1,6 +1,7 @@
 package com.example.appmedica;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -8,7 +9,6 @@ import android.database.Cursor;
 
 import androidx.annotation.NonNull;
 
-import com.example.appmedica.com.example.appmedica.Consulta;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -40,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_NAME_1 + " VARCHAR PRIMARY KEY,"
                 + EDAD + " INTEGER,"
                 + TIPO_BLOOD + " VARCHAR,"
-                + CONTACTO + " INTEGER,"
+                + CONTACTO + " VARCHAR,"
                 + DESPERTAR + " VARCHAR,"
                 + DORMIR + " VARCHAR,"
                 + DESAYUNO + " VARCHAR,"
@@ -52,14 +52,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(@NonNull SQLiteDatabase db, int i, int i1) {
+    public void onUpgrade(@NonNull SQLiteDatabase db, int oldversion, int newversion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
-        db.execSQL(TABLE_USER);
+        onCreate(db);
     }
     @SuppressLint("Range")
     public String consultaAdulto(){
         SQLiteDatabase db = getReadableDatabase();
-        String nombreUsuario = null;
+        String nombreUsuario;
         Cursor cursor = db.rawQuery("SELECT name FROM Usuario LIMIT 1", null);
         if (cursor.moveToFirst()) {
             nombreUsuario = cursor.getString(cursor.getColumnIndex(KEY_NAME_1));
@@ -73,13 +73,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return nombreUsuario;
     }
     // Métodos para manipular la base de datos según sea necesario (inserción, actualización, eliminación, consulta)
-    public void agregarPersona(String nombre, Integer edad, Integer contacto, String sangretip, String hora1, String hora2, String hora3, String hora4, String hora5){
+    public void agregarPersona(String nombre, Integer edad, String contacto, String sangretip, String hora1, String hora2, String hora3, String hora4, String hora5){
         SQLiteDatabase db = getWritableDatabase();
         if(db != null){
-            db.execSQL("INSERT INTO Usuario VALUES('"+nombre+"','"+edad+"','"+sangretip+"','"+contacto+"','"+hora1+"','"+hora2+"','"+hora3+"','"+hora4+"','"+hora5+"')");
+            ContentValues values = new ContentValues();
+            values.put(KEY_NAME_1, nombre);
+            values.put(EDAD, edad);
+            values.put(TIPO_BLOOD, sangretip);
+            values.put(CONTACTO, contacto);
+            values.put(DESPERTAR, hora1);
+            values.put(DORMIR, hora2);
+            values.put(DESAYUNO, hora3);
+            values.put(COMIDA, hora4);
+            values.put(CENA, hora5);
+            db.insert(TABLE_USER, null, values);
             db.close();
         }
     }
+
 
     public void eliminarTodosLosUsuarios() {
         SQLiteDatabase db = getWritableDatabase();
