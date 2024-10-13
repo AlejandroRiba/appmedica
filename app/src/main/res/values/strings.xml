@@ -113,4 +113,13 @@
     <string name="contacto1">Contacto de emergencia:</string>
     <string name="editar">Editar\nDatos</string>
     <string name="editar2">Editar o Agregar\nFoto</string>
+    <string name="foto_de_perfil_de_usuario">Foto de perfil de usuario</string>
+    <string name="regresar">Regresar</string>
+    <string-array name="dosis">
+        <item>1 vez</item>
+        <item>2 veces</item>
+        <item>3 veces</item>
+        <item>4 veces</item>
+        <item>Otra</item>
+    </string-array>
 </resources>

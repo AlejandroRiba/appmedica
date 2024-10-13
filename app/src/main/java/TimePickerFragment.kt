@@ -13,9 +13,7 @@ class TimePickerFragment(val listener:(String) -> Unit) : DialogFragment(), Time
         val c = Calendar.getInstance()
         val hour = c.get(Calendar.HOUR_OF_DAY)
         val minute = c.get(Calendar.MINUTE)
-        val picker =
-            TimePickerDialog(activity as Context, R.style.PickerTheme, this, hour, minute, false)
-        return picker
+        return TimePickerDialog(activity as Context, R.style.PickerTheme, this, hour, minute, false)
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {

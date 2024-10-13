@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
     android:fitsSystemWindows="true"
     android:background="@color/colorPrimary"
     tools:context=".Datosbasicos">
 
     <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="15dp"
@@ -55,7 +55,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:src="@drawable/desconocido"
-                    tools:ignore="ContentDescription"
+                    android:contentDescription="@string/foto_de_perfil_de_usuario"
                     android:id="@+id/fotodeusuario"
                     app:strokeColor="@color/azulPrincipal"
                     app:strokeWidth="4dp"
@@ -63,7 +63,6 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="2dp"
-                    android:layout_margin="10dp"
                     android:layout_gravity="center"
                     app:shapeAppearanceOverlay="@style/circleImageView"/>
                 <TextView
@@ -141,10 +140,10 @@
                 tools:ignore="RtlHardcoded" />
 
             <LinearLayout
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <CheckBox
                     android:id="@+id/option1"
@@ -156,7 +155,8 @@
                     android:text="@string/amenos"
                     android:textColor="#000000"
                     android:buttonTint="#050505"
-                    android:textSize="32sp"/>
+                    android:textSize="32sp"
+                    android:padding="12dp"/>
 
                 <CheckBox
                     android:id="@+id/option2"
@@ -168,7 +168,8 @@
                     android:text="@string/amas"
                     android:textColor="#000000"
                     android:buttonTint="#050505"
-                    android:textSize="32sp" />
+                    android:textSize="32sp"
+                    android:padding="12dp"/>
 
                 <CheckBox
                     android:id="@+id/option3"
@@ -176,29 +177,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/checkbox_rounded_background"
+                    android:buttonTint="#050505"
                     android:enabled="true"
                     android:text="@string/bmenos"
                     android:textColor="#000000"
-                    android:buttonTint="#050505"
-                    android:textSize="32sp" />
+                    android:textSize="32sp"
+                    android:padding="12dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
 
                 <CheckBox
                     android:id="@+id/option4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/checkbox_rounded_background"
                     android:enabled="true"
                     android:text="@string/bmas"
                     android:textColor="#000000"
                     android:buttonTint="#050505"
-                    android:textSize="32sp" />
-            </LinearLayout>
-            <LinearLayout
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="10dp">
+                    android:textSize="32sp"
+                    android:padding="12dp"/>
 
                 <CheckBox
                     android:id="@+id/option5"
@@ -210,7 +215,8 @@
                     android:text="@string/omenos"
                     android:textColor="#000000"
                     android:buttonTint="#050505"
-                    android:textSize="32sp" />
+                    android:textSize="32sp"
+                    android:padding="12dp"/>
 
                 <CheckBox
                     android:id="@+id/option6"
@@ -222,7 +228,16 @@
                     android:text="@string/omas"
                     android:textColor="#000000"
                     android:buttonTint="#050505"
-                    android:textSize="32sp" />
+                    android:textSize="32sp"
+                    android:padding="12dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
 
                 <CheckBox
                     android:id="@+id/option7"
@@ -234,7 +249,8 @@
                     android:text="@string/abmenos"
                     android:textColor="#000000"
                     android:buttonTint="#050505"
-                    android:textSize="32sp" />
+                    android:textSize="32sp"
+                    android:padding="12dp"/>
 
                 <CheckBox
                     android:id="@+id/option8"
@@ -246,8 +262,11 @@
                     android:textColor="#000000"
                     android:buttonTint="#050505"
                     android:textSize="32sp"
-                    tools:ignore="Deprecated" />
+                    tools:ignore="Deprecated"
+                    android:padding="12dp"/>
+
             </LinearLayout>
+
             <TextView
                 android:id="@+id/txcontacto"
                 android:layout_width="fill_parent"

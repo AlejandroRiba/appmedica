@@ -1,5 +1,6 @@
 package com.example.appmedica
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -10,10 +11,13 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.CompoundButton
 import android.util.Log
+import android.view.MotionEvent
+import android.view.View
 import android.widget.EditText
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -21,9 +25,10 @@ import com.example.appmedica.databinding.ActivityDatosbasicosBinding
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import androidx.appcompat.app.AppCompatActivity as AppCompatActivity1
+import androidx.appcompat.app.AppCompatActivity
+import com.example.appmedica.utils.KeyboardUtils
 
-class Datosbasicos : AppCompatActivity1() {
+class Datosbasicos : AppCompatActivity() {
 
     private val pickMedia =  registerForActivityResult(ActivityResultContracts.PickVisualMedia()){ uri ->
         if(uri!=null){
@@ -45,6 +50,7 @@ class Datosbasicos : AppCompatActivity1() {
     private lateinit var binding: ActivityDatosbasicosBinding
     private lateinit var imagePeril: ImageView
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -69,6 +75,21 @@ class Datosbasicos : AppCompatActivity1() {
         editTextTime3.setOnClickListener { showTimePickerDialog( editTextTime3) }
         editTextTime4.setOnClickListener { showTimePickerDialog( editTextTime4) }
         editTextTime5.setOnClickListener { showTimePickerDialog( editTextTime5) }
+
+        // Referencia al ScrollView
+        val scrollView = findViewById<ScrollView>(R.id.scroll_view) // Asegúrate de tener un ID para el ScrollView
+        scrollView.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                // Oculta el teclado al tocar cualquier parte del ScrollView
+                val view = currentFocus
+                if (view != null) {
+                    KeyboardUtils.hideKeyboard(this, view)
+                    view.clearFocus() // Opcional: quitar el foco del EditText
+                }
+            }
+            false // Retornar false para permitir que otros eventos se manejen
+        }
+
 
         val btnSendFeedback = findViewById<Button>(R.id.enviardatos)
         btnSendFeedback.setOnClickListener{

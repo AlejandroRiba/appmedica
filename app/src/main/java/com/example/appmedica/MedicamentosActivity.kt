@@ -24,14 +24,34 @@ class MedicamentosActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+        //Referencia al botón de capsula
         val btn1: ImageButton = findViewById(R.id.imageButton)
         btn1.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, CapsulaActivity::class.java)
             startActivity(intent)
         }
+        //Referencia al botón de tableta
         val btn2: ImageButton = findViewById(R.id.imageButton2)
         btn2.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, TabletaActivity::class.java)
+            startActivity(intent)
+        }
+        //Referencia al botón de bebible
+        val btn3: ImageButton = findViewById(R.id.imageButton3)
+        btn3.setOnClickListener{
+            val intent = Intent(this, BebibleActivity::class.java)
+            startActivity(intent)
+        }
+        //Referencia al botón de inyectable
+        val btn4: ImageButton = findViewById(R.id.imageButton4)
+        btn4.setOnClickListener{
+            val intent = Intent(this, InyectableActivity::class.java)
+            startActivity(intent)
+        }
+        //Referencia al botón de gotas
+        val btn5: ImageButton = findViewById(R.id.imageButton5)
+        btn5.setOnClickListener{
+            val intent = Intent(this, GotasActivity::class.java)
             startActivity(intent)
         }
     }

@@ -67,6 +67,31 @@
             android:name=".MedicamentosActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".CapsulaActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppMedica" />
+        <activity
+            android:name=".BebibleActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppMedica" />
+        <activity
+            android:name=".GotasActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppMedica" />
+        <activity
+            android:name=".InyectableActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppMedica" />
+        <activity
+            android:name=".TabletaActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppMedica" />
 
         <meta-data
             android:name="preloaded_fonts"
