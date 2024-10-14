@@ -42,10 +42,10 @@ class CapsulaActivity : AppCompatActivity() {
         ArrayAdapter.createFromResource(
             this,
             R.array.dosis,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_sangres
         ).also { adapter ->
             // Especificar el layout que se utilizará cuando las opciones aparezcan desplegadas
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(R.layout.spinner_sangres)
             // Aplicar el adaptador al Spinner
             spinner.adapter = adapter
         }

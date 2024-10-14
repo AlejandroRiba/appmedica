@@ -8,10 +8,11 @@
     tools:context=".EditarDatos">
 
     <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="15dp"
-        android:paddingBottom="15dp"
+        android:paddingBottom="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:scrollbars="none">
@@ -105,134 +106,13 @@
                 android:gravity="left"
                 android:paddingTop="30dp"
                 tools:ignore="RtlHardcoded" />
-
-            <LinearLayout
-                android:gravity="center"
+            <Spinner
+                android:id="@+id/tipo_sangre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/op1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/checkbox_rounded_background"
-                    android:enabled="true"
-                    android:text="@string/amenos"
-                    android:textColor="#000000"
-                    android:buttonTint="#050505"
-                    android:textSize="32sp"
-                    android:padding="12dp"/>
-
-                <CheckBox
-                    android:id="@+id/op2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/checkbox_rounded_background"
-                    android:enabled="true"
-                    android:text="@string/amas"
-                    android:textColor="#000000"
-                    android:buttonTint="#050505"
-                    android:textSize="32sp"
-                    android:padding="12dp"/>
-
-                <CheckBox
-                    android:id="@+id/op3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/checkbox_rounded_background"
-                    android:buttonTint="#050505"
-                    android:enabled="true"
-                    android:text="@string/bmenos"
-                    android:textColor="#000000"
-                    android:textSize="32sp"
-                    android:padding="12dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="10dp">
-
-                <CheckBox
-                    android:id="@+id/op4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/checkbox_rounded_background"
-                    android:enabled="true"
-                    android:text="@string/bmas"
-                    android:textColor="#000000"
-                    android:buttonTint="#050505"
-                    android:textSize="32sp"
-                    android:padding="12dp"/>
-
-                <CheckBox
-                    android:id="@+id/op5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/checkbox_rounded_background"
-                    android:enabled="true"
-                    android:text="@string/omenos"
-                    android:textColor="#000000"
-                    android:buttonTint="#050505"
-                    android:textSize="32sp"
-                    android:padding="12dp"/>
-
-                <CheckBox
-                    android:id="@+id/op6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/checkbox_rounded_background"
-                    android:enabled="true"
-                    android:text="@string/omas"
-                    android:textColor="#000000"
-                    android:buttonTint="#050505"
-                    android:textSize="32sp"
-                    android:padding="12dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="10dp">
-
-                <CheckBox
-                    android:id="@+id/op7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/checkbox_rounded_background"
-                    android:enabled="true"
-                    android:text="@string/abmenos"
-                    android:textColor="#000000"
-                    android:buttonTint="#050505"
-                    android:textSize="32sp"
-                    android:padding="12dp"/>
-
-                <CheckBox
-                    android:id="@+id/op8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/checkbox_rounded_background"
-                    android:enabled="true"
-                    android:text="@string/abmas"
-                    android:textColor="#000000"
-                    android:buttonTint="#050505"
-                    android:textSize="32sp"
-                    tools:ignore="Deprecated"
-                    android:padding="12dp"/>
-
-            </LinearLayout>
+                android:padding="20dp"
+                android:scrollbarSize="100dp"
+                android:layout_marginBottom="24dp"/>
 
             <TextView
                 android:id="@+id/txcontacto"
@@ -244,7 +124,7 @@
                 android:textSize="30sp"
                 android:textStyle="bold"
                 android:gravity="left"
-                android:paddingTop="30dp"
+                android:paddingTop="16dp"
                 tools:ignore="RtlHardcoded" />
 
             <EditText

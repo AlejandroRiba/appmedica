@@ -47,8 +47,7 @@ class Consultas : AppCompatActivity() {
         }
         val btn: Button = findViewById(R.id.btn_regresar)
         btn.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            finish() //cierra el activity y pasa al anterior
         }
 
         val editTextTime = findViewById<EditText>(R.id.CHoraConsul)

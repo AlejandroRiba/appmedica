@@ -61,7 +61,7 @@
     <string name="actualizar_ndatos">Actualizar datos</string>
     <string name="narrador_de_ntexto">Narrador de \ntexto</string>
     <string name="clic">Clic</string>
-    <string name="cancelar">  Cancelar  </string>
+    <string name="cancelar">Cancelar\u0000</string>
     <string name="confirmar">Confirmar</string>
     <string name="est_s_seguro_la_acci_n_no_se_puede_revertir">¿Estás seguro?\n La acción no se puede revertir</string>
     <string name="title_activity_editarcampos">EditarDatos</string>
@@ -115,11 +115,23 @@
     <string name="editar2">Editar o Agregar\nFoto</string>
     <string name="foto_de_perfil_de_usuario">Foto de perfil de usuario</string>
     <string name="regresar">Regresar</string>
+    <string name="cargando_consultas">cargando consultas</string>
     <string-array name="dosis">
         <item>1 vez</item>
         <item>2 veces</item>
         <item>3 veces</item>
         <item>4 veces</item>
         <item>Otra</item>
+    </string-array>
+    <string-array name="sangres">
+        <item>* Seleccione una opción</item>
+        <item>A +</item>
+        <item>A -</item>
+        <item>B +</item>
+        <item>B -</item>
+        <item>O +</item>
+        <item>O -</item>
+        <item>AB +</item>
+        <item>AB -</item>
     </string-array>
 </resources>

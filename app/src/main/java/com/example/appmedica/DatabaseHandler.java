@@ -101,6 +101,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    public boolean actualizarUsuario(String nombreAnterior, String nuevoNombre, int edad, String tipoBlood, String contacto, String despertar, String dormir, String desayuno, String comida, String cena) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        // Asignar valores a ContentValues
+        contentValues.put(KEY_NAME_1, nuevoNombre); // Agregar el nuevo nombre
+        contentValues.put(EDAD, edad);
+        contentValues.put(TIPO_BLOOD, tipoBlood);
+        contentValues.put(CONTACTO, contacto);
+        contentValues.put(DESPERTAR, despertar);
+        contentValues.put(DORMIR, dormir);
+        contentValues.put(DESAYUNO, desayuno);
+        contentValues.put(COMIDA, comida);
+        contentValues.put(CENA, cena);
+
+        // Actualizar el registro en la base de datos usando el nombre anterior
+        int result = db.update(TABLE_USER, contentValues, KEY_NAME_1 + "=?", new String[]{nombreAnterior});
+
+        db.close();
+        return result > 0; // Devuelve true si se actualizó al menos un registro
+    }
+
+
+
     @SuppressLint("Range")
     public Usuario consultaDatos() {
         SQLiteDatabase db = getReadableDatabase();

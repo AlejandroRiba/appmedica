@@ -3,23 +3,23 @@ package com.example.appmedica
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.View
+import android.view.MotionEvent
+import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.CheckBox
-import android.widget.CompoundButton
 import android.widget.EditText
+import android.widget.ScrollView
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appmedica.databinding.ActivityEditarDatosBinding
+import com.example.appmedica.utils.KeyboardUtils
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 
 class EditarDatos : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private lateinit var binding: ActivityEditarDatosBinding
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,23 +43,29 @@ class EditarDatos : AppCompatActivity() {
         time3.setText(usuario.h3)
         time4.setText(usuario.h4)
         time5.setText(usuario.h5)
-        initDate()
-        if (usuario.blood == "A+") {
-            binding.op2.isChecked = true
-        } else if(usuario.blood == "A-"){
-            binding.op1.isChecked = true
-        }else if(usuario.blood == "B+"){
-            binding.op4.isChecked = true
-        }else if(usuario.blood == "B-"){
-            binding.op3.isChecked = true
-        }else if(usuario.blood == "O+"){
-            binding.op6.isChecked = true
-        }else if(usuario.blood == "O-"){
-            binding.op5.isChecked = true
-        }else if(usuario.blood == "AB+"){
-            binding.op8.isChecked = true
-        }else if(usuario.blood == "AB-"){
-            binding.op7.isChecked = true
+
+        // Obtener referencia al Spinner
+        val spinner: Spinner = findViewById(R.id.tipo_sangre)
+
+        // Crear un ArrayAdapter usando el string-array y un layout predeterminado para el spinner
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.sangres,
+            R.layout.spinner_sangres
+        ).also { adapter ->
+            // Especificar el layout que se utilizará cuando las opciones aparezcan desplegadas
+            adapter.setDropDownViewResource(R.layout.spinner_sangres)
+            // Aplicar el adaptador al Spinner
+            spinner.adapter = adapter
+        }
+
+        // Verificar si el valor de sangre de la base de datos esta en el array está en el string-array
+        val options = resources.getStringArray(R.array.sangres)
+        val index = options.indexOf(usuario.blood)
+
+        if (index != -1) {
+            // Si se encontró el índice, selecciona la opción en el Spinner
+            spinner.setSelection(index)
         }
 
         time1.setOnClickListener { showTimePickerDialog( time1) }
@@ -68,188 +74,30 @@ class EditarDatos : AppCompatActivity() {
         time4.setOnClickListener { showTimePickerDialog( time4) }
         time5.setOnClickListener { showTimePickerDialog( time5) }
 
+        // Referencia al ScrollView
+        val scrollView = findViewById<ScrollView>(R.id.scroll_view) // Asegúrate de tener un ID para el ScrollView
+        scrollView.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                // Oculta el teclado al tocar cualquier parte del ScrollView
+                val view = currentFocus
+                if (view != null) {
+                    KeyboardUtils.hideKeyboard(this, view)
+                    view.clearFocus() // Opcional: quitar el foco del EditText
+                }
+            }
+            false // Retornar false para permitir que otros eventos se manejen
+        }
+
         val btnSendFeedback = findViewById<Button>(R.id.enviardatosEdit)
         btnSendFeedback.setOnClickListener{
             sendFeedback()
         }
         val btnCancel = findViewById<Button>(R.id.cancelOperacion)
         btnCancel.setOnClickListener{
-            val intent = Intent(this, Ajustes::class.java)
-            startActivity(intent)
+            finish() //cerramos EditarDatos, envia al activity anterior
         }
     }
 
-    private fun initDate(){
-        checkBox()
-    }
-
-    private fun checkBox(){
-        binding.op1.setOnCheckedChangeListener { _: CompoundButton, _:Boolean ->
-            if(binding.op1.isChecked){
-                binding.op2.isEnabled =false
-                binding.op3.isEnabled =false
-                binding.op4.isEnabled =false
-                binding.op5.isEnabled =false
-                binding.op6.isEnabled =false
-                binding.op7.isEnabled =false
-                binding.op8.isEnabled =false
-            }
-            else if(!binding.op1.isChecked){
-                binding.op2.isEnabled = true
-                binding.op3.isEnabled = true
-                binding.op4.isEnabled = true
-                binding.op5.isEnabled = true
-                binding.op6.isEnabled = true
-                binding.op7.isEnabled = true
-                binding.op8.isEnabled = true
-            }
-        }
-        binding.op2.setOnCheckedChangeListener { _: CompoundButton, _:Boolean ->
-            if(binding.op2.isChecked){
-                binding.op1.isEnabled =false
-                binding.op3.isEnabled =false
-                binding.op4.isEnabled =false
-                binding.op5.isEnabled =false
-                binding.op6.isEnabled =false
-                binding.op7.isEnabled =false
-                binding.op8.isEnabled =false
-            }
-            else if(!binding.op2.isChecked){
-                binding.op1.isEnabled = true
-                binding.op3.isEnabled = true
-                binding.op4.isEnabled = true
-                binding.op5.isEnabled = true
-                binding.op6.isEnabled = true
-                binding.op7.isEnabled = true
-                binding.op8.isEnabled = true
-            }
-        }
-        binding.op3.setOnCheckedChangeListener { _: CompoundButton, _:Boolean ->
-            if(binding.op3.isChecked){
-                binding.op2.isEnabled =false
-                binding.op1.isEnabled =false
-                binding.op4.isEnabled =false
-                binding.op5.isEnabled =false
-                binding.op6.isEnabled =false
-                binding.op7.isEnabled =false
-                binding.op8.isEnabled =false
-            }
-            else if(!binding.op3.isChecked){
-                binding.op2.isEnabled = true
-                binding.op1.isEnabled = true
-                binding.op4.isEnabled = true
-                binding.op5.isEnabled = true
-                binding.op6.isEnabled = true
-                binding.op7.isEnabled = true
-                binding.op8.isEnabled = true
-            }
-        }
-        binding.op4.setOnCheckedChangeListener { _: CompoundButton, _:Boolean ->
-            if(binding.op4.isChecked){
-                binding.op2.isEnabled =false
-                binding.op3.isEnabled =false
-                binding.op1.isEnabled =false
-                binding.op5.isEnabled =false
-                binding.op6.isEnabled =false
-                binding.op7.isEnabled =false
-                binding.op8.isEnabled =false
-            }
-            else if(!binding.op4.isChecked){
-                binding.op2.isEnabled = true
-                binding.op3.isEnabled = true
-                binding.op1.isEnabled = true
-                binding.op5.isEnabled = true
-                binding.op6.isEnabled = true
-                binding.op7.isEnabled = true
-                binding.op8.isEnabled = true
-            }
-        }
-        binding.op5.setOnCheckedChangeListener { _: CompoundButton, _:Boolean ->
-            if(binding.op5.isChecked){
-                binding.op2.isEnabled =false
-                binding.op3.isEnabled =false
-                binding.op4.isEnabled =false
-                binding.op1.isEnabled =false
-                binding.op6.isEnabled =false
-                binding.op7.isEnabled =false
-                binding.op8.isEnabled =false
-            }
-            else if(!binding.op5.isChecked){
-                binding.op2.isEnabled = true
-                binding.op3.isEnabled = true
-                binding.op4.isEnabled = true
-                binding.op1.isEnabled = true
-                binding.op6.isEnabled = true
-                binding.op7.isEnabled = true
-                binding.op8.isEnabled = true
-            }
-        }
-        binding.op6.setOnCheckedChangeListener { _: CompoundButton, _:Boolean ->
-            if(binding.op6.isChecked){
-                binding.op2.isEnabled =false
-                binding.op3.isEnabled =false
-                binding.op4.isEnabled =false
-                binding.op5.isEnabled =false
-                binding.op1.isEnabled =false
-                binding.op7.isEnabled =false
-                binding.op8.isEnabled =false
-            }
-            else if(!binding.op6.isChecked){
-                binding.op2.isEnabled = true
-                binding.op3.isEnabled = true
-                binding.op4.isEnabled = true
-                binding.op5.isEnabled = true
-                binding.op1.isEnabled = true
-                binding.op7.isEnabled = true
-                binding.op8.isEnabled = true
-            }
-        }
-        binding.op7.setOnCheckedChangeListener { _: CompoundButton, _:Boolean ->
-            if(binding.op7.isChecked){
-                binding.op2.isEnabled =false
-                binding.op3.isEnabled =false
-                binding.op4.isEnabled =false
-                binding.op5.isEnabled =false
-                binding.op6.isEnabled =false
-                binding.op1.isEnabled =false
-                binding.op8.isEnabled = false
-
-            }
-            else if(!binding.op7.isChecked){
-                binding.op2.isEnabled = true
-                binding.op3.isEnabled = true
-                binding.op4.isEnabled = true
-                binding.op5.isEnabled = true
-                binding.op6.isEnabled = true
-                binding.op1.isEnabled = true
-                binding.op8.isEnabled = true
-            }
-        }
-        binding.op8.setOnCheckedChangeListener { _: CompoundButton, _:Boolean ->
-            if(binding.op8.isChecked){
-                binding.op2.isEnabled =false
-                binding.op3.isEnabled =false
-                binding.op4.isEnabled =false
-                binding.op5.isEnabled =false
-                binding.op6.isEnabled =false
-                binding.op7.isEnabled =false
-                binding.op1.isEnabled =false
-            }
-            else if(!binding.op8.isChecked){
-                binding.op2.isEnabled = true
-                binding.op3.isEnabled = true
-                binding.op4.isEnabled = true
-                binding.op5.isEnabled = true
-                binding.op6.isEnabled = true
-                binding.op7.isEnabled = true
-                binding.op1.isEnabled = true
-            }
-        }
-    }
-
-    fun onSendFeedbackButtonClicked(view: View) {
-      sendFeedback()
-    }
     private fun showTimePickerDialog(editText: EditText) {
         val timePicker = TimePickerFragment { onTimeSelected(it, editText) }
         timePicker.show(supportFragmentManager, "timePicker")
@@ -269,15 +117,8 @@ class EditarDatos : AppCompatActivity() {
         val time3 = findViewById<EditText>(R.id.CampoHo3).text.toString()
         val time4 = findViewById<EditText>(R.id.CampoHo4).text.toString()
         val time5 = findViewById<EditText>(R.id.CampoHo5).text.toString()
-        val checkBoxOption1 = findViewById<CheckBox>(R.id.op1)
-        val checkBoxOption2 = findViewById<CheckBox>(R.id.op2)
-        val checkBoxOption3 = findViewById<CheckBox>(R.id.op3)
-        val checkBoxOption4 = findViewById<CheckBox>(R.id.op4)
-        val checkBoxOption5 = findViewById<CheckBox>(R.id.op5)
-        val checkBoxOption6 = findViewById<CheckBox>(R.id.op6)
-        val checkBoxOption7 = findViewById<CheckBox>(R.id.op7)
-        val checkBoxOption8 = findViewById<CheckBox>(R.id.op8)
-        var sangretyp = ""
+        val spinner: Spinner = findViewById(R.id.tipo_sangre)
+        val sangretyp = spinner.selectedItem.toString()
 
         // Verificar que los campos no estén vacíos
         if (nombre.isEmpty() || edadText.isEmpty() || contactoText.isEmpty() || time5.isEmpty()|| time4.isEmpty()|| time3.isEmpty()|| time2.isEmpty()|| time1.isEmpty()) {
@@ -288,34 +129,22 @@ class EditarDatos : AppCompatActivity() {
         val edad = edadText.toInt()
 
         // Verificar que se haya seleccionado al menos una opción de sangre
-        if(checkBoxOption1.isChecked){
-            sangretyp = "A-"
-        } else if(checkBoxOption2.isChecked){
-            sangretyp = "A+"
-        } else if(checkBoxOption3.isChecked){
-            sangretyp = "B-"
-        } else if(checkBoxOption4.isChecked){
-            sangretyp = "B+"
-        } else if(checkBoxOption5.isChecked){
-            sangretyp = "O-"
-        } else if(checkBoxOption6.isChecked){
-            sangretyp = "O+"
-        } else if(checkBoxOption7.isChecked){
-            sangretyp = "AB-"
-        } else if(checkBoxOption8.isChecked) {
-            sangretyp = "AB+"
-        } else{
-            Toast.makeText(this, "Por favor, seleccione una opción", Toast.LENGTH_SHORT).show()
+        if(sangretyp == "* Seleccione una opción"){
+            Toast.makeText(this, "Por favor, seleccione un tipo de sangre.", Toast.LENGTH_SHORT).show()
             return
         }
         val databaseHandler = DatabaseHandler(applicationContext)
         val usuarioAnt = databaseHandler.consultaAdulto()
-        databaseHandler.eliminarTodosLosUsuarios()
         changeDocumentId(usuarioAnt,nombre)
-        databaseHandler.agregarPersona(nombre,edad,contactoText,sangretyp,time1,time2,time3,time4,time5)
-        Toast.makeText(this, "Edición con exito!!", Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, PerfilActivity::class.java)
-        startActivity(intent)
+        // Llamar a la función de actualización
+        val success = databaseHandler.actualizarUsuario(usuarioAnt, nombre, edad, sangretyp, contactoText, time1, time2, time3, time4, time5)
+
+        if (success) {
+            Toast.makeText(this, "Edición exitosa", Toast.LENGTH_SHORT).show()
+            finish() // Regresar a la actividad anterior
+        } else {
+            Toast.makeText(this, "Error al actualizar los datos", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun changeDocumentId(oldUserId: String, newUserId: String) {

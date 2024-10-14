@@ -19,9 +19,11 @@
 
     <Button
         android:id="@+id/btn_confirm"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:backgroundTint="@color/botonesOp"
         android:text="@string/confirmar"
         android:textColor="#000000"
@@ -29,12 +31,13 @@
 
     <Button
         android:id="@+id/btn_cancel"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:backgroundTint="#C36658"
         android:text="@string/cancelar"
         android:textColor="#000000"
         android:textSize="30sp" />
-
 </LinearLayout>

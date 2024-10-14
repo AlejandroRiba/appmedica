@@ -32,10 +32,12 @@ class Ajustes : AppCompatActivity() {
         }
         val databaseHandler = DatabaseHandler(applicationContext)
         val usuarioActual = databaseHandler.consultaAdulto()
+        //Referencia al botón de regreso
         val btn: ImageButton = findViewById(R.id.back1)
         btn.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         val btnEdit: LinearLayout = findViewById(R.id.row3)
@@ -51,6 +53,7 @@ class Ajustes : AppCompatActivity() {
                     deleteImageFromInternalStorage(this, filename)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finish() //cerramos la actividad de ajustes para que entre directo al main
                 }
             }
         }
@@ -58,7 +61,7 @@ class Ajustes : AppCompatActivity() {
             showDialog("Editará sus datos.\n" +
                     "¿Está seguro?") {
                 val intent = Intent(this, EditarDatos::class.java)
-                startActivity(intent)
+                startActivity(intent) //aqui no se cierra porque se espera al finalizar la act EditarDatos
             }
         }
 }
@@ -102,7 +105,7 @@ class Ajustes : AppCompatActivity() {
             }
     }
 
-    private fun deleteImageFromInternalStorage(context: Context, filename: String): Boolean {
+    private fun deleteImageFromInternalStorage(context: Context, filename: String): Boolean { //eliminar la foto de perfil
         return try {
             // Crear la ruta del archivo donde se guardó la imagen
             val file = File(context.filesDir, filename)

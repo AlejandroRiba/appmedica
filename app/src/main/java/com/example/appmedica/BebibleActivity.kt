@@ -39,8 +39,7 @@ class BebibleActivity : AppCompatActivity() {
         val cancelar: Button = findViewById(R.id.btn_cancelar)
         //Definimos la acción del botón (regresamos al menú de medicamentos)
         cancelar.setOnClickListener{
-            val intent = Intent(this, MedicamentosActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
 }
