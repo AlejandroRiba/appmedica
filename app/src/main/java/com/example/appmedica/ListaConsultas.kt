@@ -17,16 +17,19 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.appmedica.utils.FirebaseHelper
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ListaConsultas : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private lateinit var container: LinearLayout
+    private lateinit var firebaseHelper: FirebaseHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_lista_consultas)
+        firebaseHelper = FirebaseHelper(this)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -67,53 +70,41 @@ class ListaConsultas : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
         progressBar.layoutParams.width = convertirStringADP("100dp")
         progressBar.layoutParams.height = convertirStringADP("100dp")
-        val databaseHandler = DatabaseHandler(applicationContext)
-        val nombre = databaseHandler.consultaAdulto()
-        val consulta = db.collection("usuarios")
-            .document(nombre)
-            .collection("citas")
-            .orderBy("date", Query.Direction.ASCENDING)
-        consulta.get()
-            .addOnSuccessListener { result ->
-                val hayRegistros = !result.isEmpty
-                if (hayRegistros){
-                    for (document in result) {
-                        val estado = document.getString("estado")
-                        if(estado == "pendiente"){
-                            progressBar.visibility = View.INVISIBLE
-                            progressBar.layoutParams.width = convertirStringADP("0dp")
-                            progressBar.layoutParams.height = convertirStringADP("0dp")
-                            val idcons = document.getString("idcons")
-                            val fecha = document.getString("date")
-                            val hora = document.getString("time")
-                            val clinica = document.getString("clinic")
-                            val doc = document.getString("doctor")
-                            val num = document.getString("contactdoc")
-                            val registroView = layoutInflater.inflate(R.layout.item_registro, null)
-                            val textViewNombre = registroView.findViewById<TextView>(R.id.textViewNombre)
-                            val textViewFecha = registroView.findViewById<TextView>(R.id.textViewFecha)
-                            val textViewHora = registroView.findViewById<TextView>(R.id.textViewHora)
-                            val textViewClinica = registroView.findViewById<TextView>(R.id.textViewClinica)
-                            val textViewDoctor = registroView.findViewById<TextView>(R.id.textViewDoctor)
-                            val textViewContacto = registroView.findViewById<TextView>(R.id.textViewContacto)
-                            textViewNombre.text = "$idcons"
-                            textViewFecha.text = "Fecha: $fecha"
-                            textViewHora.text = "Hora: $hora"
-                            textViewClinica.text = "Clinica: $clinica"
-                            textViewDoctor.text = "Doctor: $doc"
-                            textViewContacto.text = "Contacto: $num"
-                            container.addView(registroView)
-                            val btnAjustes = registroView.findViewById<ImageButton>(R.id.btnOptions)
-                            btnAjustes.setOnClickListener {
-                                showDialog(idcons.toString())
-                            }
+        firebaseHelper.obtenerCitas()
+            .addOnSuccessListener { citas ->
+                // Aquí tienes la lista de citas
+                if (citas.isNotEmpty()) {
+                    progressBar.visibility = View.INVISIBLE
+                    container.removeAllViews() // Limpia el contenedor antes de agregar nuevas vistas
+
+                    for ((cita, documentId) in citas) {
+                        val registroView = layoutInflater.inflate(R.layout.item_registro, null)
+                        val textViewNombre = registroView.findViewById<TextView>(R.id.textViewNombre)
+                        val textViewFecha = registroView.findViewById<TextView>(R.id.textViewFecha)
+                        val textViewHora = registroView.findViewById<TextView>(R.id.textViewHora)
+                        val textViewClinica = registroView.findViewById<TextView>(R.id.textViewClinica)
+                        val textViewDoctor = registroView.findViewById<TextView>(R.id.textViewDoctor)
+                        val textViewContacto = registroView.findViewById<TextView>(R.id.textViewContacto)
+
+                        textViewNombre.text = "${cita.idcons}"
+                        textViewFecha.text = "Fecha: ${cita.date}"
+                        textViewHora.text = "Hora: ${cita.time}"
+                        textViewClinica.text = "Clinica: ${cita.clinic}"
+                        textViewDoctor.text = "Doctor: ${cita.doctor}"
+                        textViewContacto.text = "Contacto: ${cita.contactdoc}"
+
+                        container.addView(registroView)
+                        val btnAjustes = registroView.findViewById<ImageButton>(R.id.btnOptions)
+                        btnAjustes.setOnClickListener {
+                            showDialog(documentId)
                         }
                     }
+                } else {
+                    Toast.makeText(this, "No se encontraron consultas.", Toast.LENGTH_SHORT).show()
                 }
-
             }
             .addOnFailureListener {
-                Toast.makeText(this, "No se encontraron consultas.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error al obtener consultas.", Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -133,28 +124,14 @@ class ListaConsultas : AppCompatActivity() {
         }
 
         btnAsistido.setOnClickListener {
-            marcarAsistido(idcons)
+            firebaseHelper.marcarAsistido(idcons)
             dialog.dismiss()
             val intent = Intent(this, ListaConsultas::class.java)
+            finish()
             startActivity(intent)
         }
 
         dialog.show()
-    }
-    private fun marcarAsistido(idcons: String) {
-        val databaseHandler = DatabaseHandler(applicationContext)
-        val userName = databaseHandler.consultaAdulto()
-        val consultasRef = db.collection("usuarios").document(userName).collection("citas").document(idcons)
-
-        // Realizar una consulta para buscar el documento con el campo "idcons" igual a idcons
-        consultasRef.update("estado", "asistido")
-            .addOnSuccessListener {
-                // La actualización fue exitosa
-                Toast.makeText(this, "Estado actualizado con éxito", Toast.LENGTH_SHORT).show()
-            }.addOnFailureListener {
-                // Manejar errores al actualizar el documento
-                Toast.makeText(this, "No se pudo ejecutar la acción.", Toast.LENGTH_SHORT).show()
-            }
     }
 
 }

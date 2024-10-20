@@ -25,6 +25,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import androidx.appcompat.app.AppCompatActivity
+import com.example.appmedica.utils.FirebaseHelper
 import com.example.appmedica.utils.KeyboardUtils
 
 class Datosbasicos : AppCompatActivity() {
@@ -146,6 +147,19 @@ class Datosbasicos : AppCompatActivity() {
 
         val databaseHandler = DatabaseHandler(applicationContext)
         databaseHandler.agregarPersona(nombre,edad,contactoText,sangretyp,time1,time2,time3,time4,time5)
+        val firebaseHelper = FirebaseHelper(this)
+        val usuarioData = mapOf(
+            "name" to nombre,
+            "age" to edadText,
+            "contact" to contactoText,
+            "blood" to sangretyp,
+            "h1" to time1,
+            "h2" to time2,
+            "h3" to time3,
+            "h4" to time4,
+            "h5" to time5
+        )
+        firebaseHelper.agregarUsuario(usuarioData)
         Toast.makeText(this, "Registro con exito!!", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

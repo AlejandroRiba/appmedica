@@ -1,45 +1,34 @@
 package com.example.appmedica
 
 import android.annotation.SuppressLint
-import android.app.AlarmManager
-import android.app.DatePickerDialog
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
-import android.widget.CheckBox
-import android.widget.DatePicker
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.appmedica.com.example.appmedica.AlarmNotification
 import com.example.appmedica.com.example.appmedica.AlarmUtils
 import com.example.appmedica.com.example.appmedica.Consulta
 import com.example.appmedica.com.example.appmedica.Utilidades
-import com.google.firebase.firestore.DocumentSnapshot
+import com.example.appmedica.utils.FirebaseHelper
+import com.google.firebase.Timestamp
 import java.util.Calendar
-import com.google.firebase.firestore.FirebaseFirestore
-import java.text.SimpleDateFormat
-import java.util.Locale
-import kotlin.math.log10
 
 
 class Consultas : AppCompatActivity() {
 
      private var ultimoRequestCode = 0
-     private val db = FirebaseFirestore.getInstance()
+     private lateinit var firebaseHelper: FirebaseHelper
+    private lateinit var fechaTimestamp: Timestamp
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_consultas)
+        firebaseHelper = FirebaseHelper(this)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -69,8 +58,16 @@ class Consultas : AppCompatActivity() {
     }
     @SuppressLint("SetTextI18n")
     private fun onDateSelected(day: Int, month: Int, year: Int) {
+        // Crear un objeto Calendar para construir el Timestamp
+        val calendar = Calendar.getInstance().apply {
+            set(year, month - 1, day, 0, 0, 0) // Resta 1 al mes porque Calendar.MONTH es cero-indexado
+            set(Calendar.MILLISECOND, 0)
+        }
+        fechaTimestamp = Timestamp(calendar.time) // Crea el Timestamp
+
         val editTextFecha = findViewById<EditText>(R.id.CFechaConsul)
-        editTextFecha.setText("$year-$month-$day")
+        // Formato de fecha: YYYY-MM-DD
+        editTextFecha.setText("$year-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}")
     }
 
     private fun showTimePickerDialog() {
@@ -80,7 +77,7 @@ class Consultas : AppCompatActivity() {
 
     private fun onTimeSelected(time: String) {
         val editTextTime = findViewById<EditText>(R.id.CHoraConsul)
-        editTextTime.setText("$time")
+        editTextTime.setText(time)
     }
 
     private fun sendFeedback() {
@@ -102,68 +99,64 @@ class Consultas : AppCompatActivity() {
         if (teldoc.isEmpty()) {
             teldoc = "N/A"
         }
-        val timestamp = System.currentTimeMillis()
-        val databaseHandler = DatabaseHandler(applicationContext)
-        val nombre = databaseHandler.consultaAdulto()
-        val documentReference = db.collection("usuarios")
-            .document(nombre)
-            .collection("citas")
-            .document(identificador)
-        // Comprueba si el documento existe
-        documentReference.get().addOnSuccessListener { documentSnapshot ->
-            if (documentSnapshot.exists()) {
-                // El documento ya existe
-                Toast.makeText(this, "Ya existe cita con ese motivo.\nPruebe otro.", Toast.LENGTH_SHORT).show()
+
+        val datosCita = mapOf(
+            "idcons" to identificador,
+            "date" to fecha,
+            "time" to hora,
+            "clinic" to clinica,
+            "doctor" to nomdoc,
+            "contactdoc" to teldoc,
+            "timestamp" to fechaTimestamp,
+            "estado" to "pendiente"
+        )
+        firebaseHelper.agregarCita(
+            datosCita = datosCita
+        ).addOnSuccessListener { result ->
+            val (exito, citaId) = result // Descomponemos el Pair
+            if (exito) {
+                // La cita se creó correctamente
+                if (citaId != null) {
+                    fetchLastDocument(citaId)
+                } // Llama a fetchLastDocument()
             } else {
-                // El documento no existe, procede a crearlo
-                documentReference.set(hashMapOf(
-                    "idcons" to identificador,
-                    "date" to fecha,
-                    "time" to hora,
-                    "clinic" to clinica,
-                    "doctor" to nomdoc,
-                    "contactdoc" to teldoc,
-                    "timestamp" to timestamp,
-                    "estado" to "pendiente"
-                ))
-                    .addOnSuccessListener {
-                        Toast.makeText(this, "Consulta agendada con éxito!!", Toast.LENGTH_SHORT).show()
-                        fetchLastDocument()
-                    }
-                    .addOnFailureListener { e ->
-                        Toast.makeText(this, "Error al guardar!!", Toast.LENGTH_SHORT).show()
-                    }
+                // No se pudo crear la cita
+                Toast.makeText(this, "No se pudo agendar la cita.", Toast.LENGTH_SHORT).show()
+                finish()//regresa al activity anterior
             }
+        }.addOnFailureListener {
+            // Manejo de cualquier otro error
+            Toast.makeText(this, "Ocurrió un error al intentar crear la cita.", Toast.LENGTH_SHORT).show()
+            finish()//regresa al activity anterior
+        }
+
+    }
+    private fun fetchLastDocument(citaId: String) {
+        // Llama a leerCita y maneja el resultado
+        firebaseHelper.leerCita(citaId).addOnSuccessListener { consulta ->
+            if (consulta != null) {
+                val intent = Intent(this, MostrarConsulta::class.java).apply {
+                    putExtra("id", consulta.idcons)
+                    putExtra("fecha", consulta.date)
+                    putExtra("hora", consulta.time)
+                    putExtra("clinica", consulta.clinic)
+                    putExtra("doctor", consulta.doctor)
+                    putExtra("cont_doc", consulta.contactdoc)
+                }
+                recordatorios(consulta) // Asegúrate de que este método exista
+                finish() // Cierra la actividad actual
+                startActivity(intent)
+            } else {
+                // Manejo del caso en que consulta es null
+                Toast.makeText(this, "No se encontró la cita.", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener { e ->
+            // Manejo de errores en la lectura de la cita
+            Log.e("FirebaseHelper", "Error al leer la cita: ${e.message}")
+            Toast.makeText(this, "Error al cargar la cita.", Toast.LENGTH_SHORT).show()
         }
     }
-    private fun fetchLastDocument() {
-        val databaseHandler = DatabaseHandler(applicationContext)
-        val nombre = databaseHandler.consultaAdulto()
-        db.collection("usuarios")
-            .document(nombre)
-            .collection("citas")
-            .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
-            .limit(1)
-            .get()
-            .addOnSuccessListener { result ->
-                if (!result.isEmpty) {
-                    val document = result.documents[0]
-                    val consulta = document.toObject(Consulta::class.java)
-                    if (consulta != null){
-                        val intent = Intent(this, MostrarConsulta::class.java).apply {
-                            putExtra("id", consulta.idcons)
-                            putExtra("fecha", consulta.date)
-                            putExtra("hora", consulta.time)
-                            putExtra("clinica", consulta.clinic)
-                            putExtra("doctor", consulta.doctor)
-                            putExtra("cont_doc", consulta.contactdoc)
-                        }
-                        recordatorios(consulta)
-                        startActivity(intent)
-                    }
-                }
-            }
-    }
+
 
     private fun generateUniqueRequestCode(consulta: Consulta): Int {
         return consulta.idcons.hashCode() // Esto generará un requestCode único basado en el ID de la consulta

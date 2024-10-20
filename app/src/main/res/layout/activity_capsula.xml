@@ -1,89 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="@color/colorPrimary">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/scrollform"
+        android:scrollbars="none">
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
         android:id="@+id/main"
         android:gravity="center_horizontal">
 
-        <TextView
-            android:id="@+id/titulo1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="24dp"
-            android:text="Nuevo tratamiento:\nCapsula"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="@dimen/tit"
-            android:textStyle="bold"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
+            <TextView
+                android:id="@+id/titulo1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp"
+                android:text="Nuevo tratamiento:\nCápsula"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="@dimen/tit"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
 
-        <EditText
-            android:id="@+id/nombre_medicamento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:inputType="text"
-            android:backgroundTint="#536DFE"
-            android:hint="Nombre del Medicamento"
-            android:layout_marginBottom="24dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
+            <EditText
+                android:id="@+id/nombre_medicamento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:inputType="text"
+                android:backgroundTint="#536DFE"
+                android:hint="Nombre del\nMedicamento *"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                tools:ignore="VisualLintTextFieldSize" />
 
-        <Spinner
-            android:id="@+id/frecuencia"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="24dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:text="Cápsulas por toma:"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
 
-        <EditText
-            android:id="@+id/dosis"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:inputType="text"
-            android:hint="Dosis"
-            android:backgroundTint="#536DFE"
-            android:layout_marginBottom="24dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
+            <Spinner
+                android:id="@+id/cantidad"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
 
-        <Button
-            android:id="@+id/btn_guardar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#40C4FF"
-            android:textColor="#000000"
-            android:textSize="30sp"
-            android:text="Guardar"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="Botón para guardar el tratamiento" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:text="Frecuencia de toma:"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
 
-        <Button
-            android:id="@+id/btn_cancelar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textSize="30sp"
-            android:text="Cancelar"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="Botón para regresar a la pantalla anterior" />
+            <Spinner
+                android:id="@+id/frecuencia"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:text="Horario de la primer toma:"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <Spinner
+                android:id="@+id/primertoma"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:text="Duración del tratamiento:"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <Spinner
+                android:id="@+id/duracion"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <Button
+                android:id="@+id/btn_guardar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#40C4FF"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:text="Guardar"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="Botón para guardar el tratamiento"
+                tools:ignore="VisualLintButtonSize" />
+
+            <Button
+                android:id="@+id/btn_cancelar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:text="Cancelar"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="Botón para regresar a la pantalla anterior"
+                tools:ignore="VisualLintButtonSize" />
+        </LinearLayout>
+    </ScrollView>
 
 
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

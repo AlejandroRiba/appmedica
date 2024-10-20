@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appmedica.com.example.appmedica.AlarmUtils
+import com.example.appmedica.utils.FirebaseHelper
 import com.google.firebase.firestore.FirebaseFirestore
 import java.io.File
 
@@ -32,6 +33,7 @@ class Ajustes : AppCompatActivity() {
         }
         val databaseHandler = DatabaseHandler(applicationContext)
         val usuarioActual = databaseHandler.consultaAdulto()
+        val firebaseHelper = FirebaseHelper(this)
         //Referencia al botón de regreso
         val btn: ImageButton = findViewById(R.id.back1)
         btn.setOnClickListener{
@@ -47,10 +49,10 @@ class Ajustes : AppCompatActivity() {
                     "¿Está seguro?") {
                 showDialog("¿Está completamente seguro?") {
                     databaseHandler.eliminarTodosLosUsuarios()
-                    deleteAllConsultas(usuarioActual)
-                    AlarmUtils.cancelAllAlarms(this)
+                    firebaseHelper.eliminarUsuario()
+                    AlarmUtils.cancelAllAlarms(this) //cancela los recordatorios
                     val filename = "imagen_perfil.png"
-                    deleteImageFromInternalStorage(this, filename)
+                    deleteImageFromInternalStorage(this, filename) //eliminar foto de perfil
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish() //cerramos la actividad de ajustes para que entre directo al main
@@ -89,20 +91,6 @@ class Ajustes : AppCompatActivity() {
         }
 
         dialog.show()
-    }
-
-    private fun deleteAllConsultas(userName: String) {
-        val consultasRef = db.collection("usuarios").document(userName).collection("citas")
-
-        consultasRef.get()
-            .addOnSuccessListener { querySnapshot ->
-                for (document in querySnapshot) {
-                    consultasRef.document(document.id).delete()
-                }
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Error al obtener las consultas: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
     }
 
     private fun deleteImageFromInternalStorage(context: Context, filename: String): Boolean { //eliminar la foto de perfil

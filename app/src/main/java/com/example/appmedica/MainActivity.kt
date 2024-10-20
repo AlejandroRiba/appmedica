@@ -11,17 +11,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.appmedica.utils.PreferenceManager
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var preferenceManager: PreferenceManager
     private val db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        FirebaseApp.initializeApp(this)
+        //FirebaseApp.initializeApp(this)
         setContentView(R.layout.activity_main)
+
+        preferenceManager = PreferenceManager(this)
+
+        // Si no existe un UUID, generamos uno y lo guardamos
+        if (preferenceManager.getUniqueId() == null) {
+            preferenceManager.generateAndSaveUniqueId()
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -29,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         }
         val databaseHandler = DatabaseHandler(applicationContext)
         val client = databaseHandler.consultaAdulto()
-        if(client == "Usuario"){
+        if (client == "Usuario") {
             val intent = Intent(this, Datosbasicos::class.java)
             startActivity(intent)
             finish()
@@ -42,8 +51,8 @@ class MainActivity : AppCompatActivity() {
         if (client != null) {
             val firstName = client.split(" ")[0]
             val bienvenida: String = when {
-                hour < 12 -> "Buenos días, \n$firstName ☀\uFE0F"
-                hour < 18 -> "Buenas tardes, \n$firstName \uD83C\uDF25\uFE0F"
+                hour in 6..11 -> "Buenos días, \n$firstName ☀\uFE0F"
+                hour in 12..18 -> "Buenas tardes, \n$firstName \uD83C\uDF25\uFE0F"
                 else -> "Buenas noches, \n$firstName \uD83C\uDF19"
             }
             textView.text = bienvenida
@@ -96,24 +105,6 @@ class MainActivity : AppCompatActivity() {
 
         //verificarRegistros()
 
-    }
-
-
-    private fun verificarRegistros() {
-        val databaseHandler = DatabaseHandler(applicationContext)
-        val nombre = databaseHandler.consultaAdulto()
-        val consulta = db.collection("usuarios")
-            .document(nombre)
-            .collection("citas")
-            .whereEqualTo("estado","pendiente")
-        consulta.get()
-            .addOnSuccessListener { result ->
-                val hayRegistros = !result.isEmpty
-                val textoBoton = if (hayRegistros) "TIENES CITAS PENDIENTES \uD83D\uDEA8" else "SIN PROXIMAS CITAS ✅"
-                // Obtener referencia al botón y establecer el texto
-                val boton = findViewById<Button>(R.id.recordatorios)
-                boton.text = textoBoton
-            }
     }
 
 }

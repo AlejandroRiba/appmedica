@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:orientation="vertical"
-                android:padding="16dp"
+                android:padding="8dp"
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
@@ -77,8 +77,12 @@
                     android:text="@string/perfil"
                     android:textAlignment="center"
                     android:textColor="@color/texto"
+                    android:textStyle="bold"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeMaxTextSize="22sp"
+                    android:autoSizeStepGranularity="1sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -97,9 +101,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_gravity="center_vertical"
                 android:orientation="vertical"
-                android:padding="16dp"
+                android:padding="8dp"
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
@@ -118,8 +122,12 @@
                     android:text="@string/recordatorios"
                     android:textAlignment="center"
                     android:textColor="@color/texto"
+                    android:textStyle="bold"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeMaxTextSize="20sp"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:autoSizeStepGranularity="2sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -140,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:orientation="vertical"
-                android:padding="16dp"
+                android:padding="8dp"
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
@@ -155,10 +163,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="2dp"
+                    android:maxLines="1"
                     android:text="@string/calendario"
                     android:textAlignment="center"
                     android:textColor="@color/texto"
+                    android:autoSizeMinTextSize="16sp"
+                    android:autoSizeMaxTextSize="20sp"
                     android:textSize="20sp"
+                    android:autoSizeTextType="uniform"
                     android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -180,7 +192,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:orientation="vertical"
-                android:padding="16dp"
+                android:padding="8dp"
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
@@ -196,10 +208,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="2dp"
+                    android:maxLines="2"
                     android:text="@string/nvaconsult"
                     android:textAlignment="center"
                     android:textColor="@color/texto"
+                    android:autoSizeMinTextSize="16sp"
+                    android:autoSizeMaxTextSize="20sp"
                     android:textSize="20sp"
+                    android:autoSizeTextType="uniform"
                     android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -221,7 +237,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:orientation="vertical"
-                android:padding="16dp"
+                android:padding="8dp"
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
@@ -237,10 +253,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="2dp"
+                    android:maxLines="2"
                     android:text="@string/tratamiento"
                     android:textAlignment="center"
                     android:textColor="@color/texto"
+                    android:autoSizeMinTextSize="16sp"
+                    android:autoSizeMaxTextSize="20sp"
                     android:textSize="20sp"
+                    android:autoSizeTextType="uniform"
                     android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -262,7 +282,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:orientation="vertical"
-                android:padding="16dp"
+                android:padding="8dp"
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
@@ -281,7 +301,10 @@
                     android:text="@string/ajustes"
                     android:textAlignment="center"
                     android:textColor="@color/texto"
+                    android:autoSizeMinTextSize="16sp"
+                    android:autoSizeMaxTextSize="20sp"
                     android:textSize="20sp"
+                    android:autoSizeTextType="uniform"
                     android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

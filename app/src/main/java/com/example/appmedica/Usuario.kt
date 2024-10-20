@@ -4,7 +4,7 @@ class Usuario {
     var name: String? = null
     var age: Int = 0
     var blood: String? = null
-    var contact: Int = 0
+    var contact: String? = null
     var h1: String? = null
     var h2: String? = null
     var h3: String? = null
@@ -19,7 +19,7 @@ class Usuario {
         name: String?,
         age: Int,
         blood: String?,
-        contact: Int,
+        contact: String?,
         h1: String?,
         h2: String?,
         h3: String?,

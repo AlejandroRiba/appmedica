@@ -3,7 +3,10 @@ package com.example.appmedica.com.example.appmedica
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.os.Build
+import android.util.Log
+import com.google.firebase.FirebaseApp
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 
@@ -14,6 +17,9 @@ class MyApp : Application() {
     }
     override fun onCreate() {
         super.onCreate()
+        // Inicializa Firebase
+        FirebaseApp.initializeApp(this)
+
         Firebase.messaging.token.addOnCompleteListener{
             if(!it.isSuccessful){
                 println("El token no fue generado")
@@ -25,15 +31,13 @@ class MyApp : Application() {
         createNotificationChannel()
     }
     private fun createNotificationChannel(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            val channel = NotificationChannel(
-                NOTIFICATION_CHANNEL_ID,
-                "Notificaciones de Recordatorios",
-                NotificationManager.IMPORTANCE_HIGH
-            )
-            channel.description = "Estas notificaciones van a ser recibidas desde la app"
-            val notificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
-        }
+        val channel = NotificationChannel(
+            NOTIFICATION_CHANNEL_ID,
+            "Notificaciones de Recordatorios",
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        channel.description = "Estas notificaciones van a ser recibidas desde la app"
+        val notificationManager = getSystemService(NotificationManager::class.java)
+        notificationManager.createNotificationChannel(channel)
     }
 }

@@ -134,7 +134,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             usuario.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME_1)));
             usuario.setAge(cursor.getInt(cursor.getColumnIndex(EDAD)));
             usuario.setBlood(cursor.getString(cursor.getColumnIndex(TIPO_BLOOD)));
-            usuario.setContact(cursor.getInt(cursor.getColumnIndex(CONTACTO)));
+            usuario.setContact(cursor.getString(cursor.getColumnIndex(CONTACTO)));
             usuario.setH1(cursor.getString(cursor.getColumnIndex(DESPERTAR)));
             usuario.setH2(cursor.getString(cursor.getColumnIndex(DORMIR)));
             usuario.setH3(cursor.getString(cursor.getColumnIndex(DESAYUNO)));

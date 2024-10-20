@@ -12,6 +12,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appmedica.databinding.ActivityEditarDatosBinding
+import com.example.appmedica.utils.FirebaseHelper
 import com.example.appmedica.utils.KeyboardUtils
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -135,7 +136,20 @@ class EditarDatos : AppCompatActivity() {
         }
         val databaseHandler = DatabaseHandler(applicationContext)
         val usuarioAnt = databaseHandler.consultaAdulto()
-        changeDocumentId(usuarioAnt,nombre)
+        val firebaseHelper = FirebaseHelper(this)
+        val usuarioData = mapOf(
+            "name" to nombre,
+            "age" to edadText,
+            "contact" to contactoText,
+            "blood" to sangretyp,
+            "h1" to time1,
+            "h2" to time2,
+            "h3" to time3,
+            "h4" to time4,
+            "h5" to time5
+        )
+        firebaseHelper.editarUsuario(usuarioData)
+        //changeDocumentId(usuarioAnt,nombre)
         // Llamar a la función de actualización
         val success = databaseHandler.actualizarUsuario(usuarioAnt, nombre, edad, sangretyp, contactoText, time1, time2, time3, time4, time5)
 
