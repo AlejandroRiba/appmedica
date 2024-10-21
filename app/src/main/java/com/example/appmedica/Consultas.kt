@@ -2,10 +2,17 @@ package com.example.appmedica
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ScrollView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,25 +22,71 @@ import com.example.appmedica.com.example.appmedica.AlarmUtils
 import com.example.appmedica.com.example.appmedica.Consulta
 import com.example.appmedica.com.example.appmedica.Utilidades
 import com.example.appmedica.utils.FirebaseHelper
+import com.example.appmedica.utils.KeyboardUtils
 import com.google.firebase.Timestamp
 import java.util.Calendar
 
 
+@Suppress("NAME_SHADOWING")
 class Consultas : AppCompatActivity() {
 
-     private var ultimoRequestCode = 0
-     private lateinit var firebaseHelper: FirebaseHelper
+    private lateinit var firebaseHelper: FirebaseHelper
     private lateinit var fechaTimestamp: Timestamp
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_consultas)
         firebaseHelper = FirebaseHelper(this)
+
+        // Referencia al ScrollView
+        val scrollView = findViewById<ScrollView>(R.id.scrollform) // Asegúrate de tener un ID para el ScrollView
+        scrollView.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                // Oculta el teclado al tocar cualquier parte del ScrollView
+                val view = currentFocus
+                if (view != null) {
+                    KeyboardUtils.hideKeyboard(this, view)
+                    view.clearFocus() // Opcional: quitar el foco del EditText
+                }
+            }
+            false // Retornar false para permitir que otros eventos se manejen
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val textViews = listOf<TextView>(
+            findViewById(R.id.lblident),
+            findViewById(R.id.lblfecha),
+            findViewById(R.id.lblhora),
+            findViewById(R.id.lbllugar)
+        )
+        val redColor = Color.parseColor("#8b1515") // Color rojo en hexadecimal
+        for (textView in textViews) {
+            // Obtén el texto desde el TextView
+            val labelText = textView.text.toString()
+            val spannableString = SpannableString(labelText)
+
+            // Aplicar el color rojo al asterisco
+            val start = labelText.indexOf("*")
+            if (start != -1) { // Verifica si el asterisco existe
+                val end = start + 1 // La posición después del asterisco
+                spannableString.setSpan(
+                    ForegroundColorSpan(redColor), // Color rojo
+                    start, // Inicio del asterisco
+                    end, // Fin del asterisco
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+            // Asignar el SpannableString al TextView
+            textView.text = spannableString
+        }
+
+
         val btn: Button = findViewById(R.id.btn_regresar)
         btn.setOnClickListener{
             finish() //cierra el activity y pasa al anterior
@@ -107,7 +160,6 @@ class Consultas : AppCompatActivity() {
             "clinic" to clinica,
             "doctor" to nomdoc,
             "contactdoc" to teldoc,
-            "timestamp" to fechaTimestamp,
             "estado" to "pendiente"
         )
         firebaseHelper.agregarCita(
@@ -143,7 +195,7 @@ class Consultas : AppCompatActivity() {
                     putExtra("doctor", consulta.doctor)
                     putExtra("cont_doc", consulta.contactdoc)
                 }
-                recordatorios(consulta) // Asegúrate de que este método exista
+                //recordatorios(consulta) // Asegúrate de que este método exista
                 finish() // Cierra la actividad actual
                 startActivity(intent)
             } else {

@@ -2,16 +2,14 @@ package com.example.appmedica
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import android.graphics.Color
-import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableString
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -40,7 +38,7 @@ class MostrarConsulta : AppCompatActivity() {
         val contacto = intent.getStringExtra("cont_doc")
 
         // Define las etiquetas y los datos
-        val etiquetas = arrayOf("Motivo:", "Fecha:", "Hora:", "Clínica:", "Nombre del Doctor:", "Contacto del Doctor:")
+        val etiquetas = arrayOf("Motivo", "Fecha", "Hora", "Clínica", "Nombre del Doctor", "Contacto del Doctor")
         val datos = arrayOf("$consulta", "$fecha", "$hora", "$clinica", "$doc", "$contacto")
 
         // Itera sobre todos los TextViews y aplica el formato
@@ -49,42 +47,35 @@ class MostrarConsulta : AppCompatActivity() {
         textViews.forEachIndexed { index, textView ->
             val etiqueta = etiquetas[index]
             val dato = datos[index]
-
-            if (!(dato == "N/A" && (index == 4 || index == 5))) {
-                // Crea un SpannableStringBuilder para construir el texto con diferentes estilos
-                val builder = SpannableStringBuilder()
-
-                // Agrega la etiqueta con estilo normal y color negro
-                builder.append(etiqueta)
-                builder.setSpan(ForegroundColorSpan(Color.BLACK), 0, etiqueta.length, 0)
-
-                // Agrega el dato con estilo cursiva y color #4C4D4E
-                builder.append(" $dato")
-                builder.setSpan(
-                    StyleSpan(Typeface.ITALIC),
-                    builder.length - dato.length,
-                    builder.length,
-                    0
-                )
-                builder.setSpan(
-                    ForegroundColorSpan(Color.parseColor("#010332")),
-                    builder.length - dato.length,
-                    builder.length,
-                    0
-                )
-
-                // Asigna el texto formateado al TextView correspondiente
-                textView.text = builder
-            } else {
-                // Si el dato es "n/a" y es el nombre del doctor o el contacto del doctor, oculta el TextView correspondiente
-                textView.visibility = TextView.GONE
-            }
+            textView.text = createColoredText(etiqueta, dato)
         }
 
-            val btn: Button = findViewById(R.id.back2)
-            btn.setOnClickListener {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-            }
+        val btn: Button = findViewById(R.id.back2)
+        btn.setOnClickListener {
+            val intent = Intent(this, ListaConsultas::class.java) //para recargar lista de consultas
+            finish()
+            startActivity(intent)
+        }
+
     }
+
+    // Función para crear un texto con dos partes de colores diferentes
+    fun createColoredText(label: String, content: String): SpannableString {
+        // Color negro (puedes cambiarlo por un color de tu elección)
+        val custom = Color.parseColor("#1F2D3A")
+
+        val fullText = "$label: $content"
+        val spannableString = SpannableString(fullText)
+
+        // Cambia el color del contenido (lo que va después de los dos puntos)
+        spannableString.setSpan(
+            ForegroundColorSpan(custom),
+            fullText.indexOf(":") + 2, // Inicio del texto después de los dos puntos
+            fullText.length, // Hasta el final del texto
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        return spannableString
+    }
+
 }

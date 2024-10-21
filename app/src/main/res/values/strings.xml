@@ -61,7 +61,7 @@
     <string name="actualizar_ndatos">Actualizar datos</string>
     <string name="narrador_de_ntexto">Narrador de \ntexto</string>
     <string name="clic">Clic</string>
-    <string name="cancelar">Cancelar\u0000</string>
+    <string name="cancelar">Cancelar</string>
     <string name="confirmar">Confirmar</string>
     <string name="est_s_seguro_la_acci_n_no_se_puede_revertir">¿Estás seguro?\n La acción no se puede revertir</string>
     <string name="title_activity_editarcampos">EditarDatos</string>
@@ -84,7 +84,7 @@
     <string name="consulta">Motivo:</string>
     <string name="fecha">Fecha:</string>
     <string name="hora">Hora:</string>
-    <string name="clinica">Clinica:</string>
+    <string name="clinica">Clínica:</string>
     <string name="nombre_del_dr">Nombre del Dr:</string>
     <string name="contacto_del_dr">Contacto del Dr:</string>
     <string name="btnajustes">btnajustes</string>
@@ -93,9 +93,9 @@
     <string name="agendar_nnueva_consulta">Agendar\nNueva consulta</string>
     <string name="volver_al_inicio">Volver al inicio</string>
     <string name="opciones">Opciones</string>
-    <string name="eliminar_consulta">Eliminar Consulta</string>
+    <string name="eliminar_consulta">Eliminar consulta</string>
     <string name="marcar_como_asistida">Marcar como asistida</string>
-    <string name="editar_consulta">Editar Consulta</string>
+    <string name="editar_consulta">Editar consulta</string>
     <string name="puntos">. . .</string>
     <string name="ver_perfil">Ver perfil</string>
     <string name="consulta_agendada">Consulta Agendada</string>
@@ -116,6 +116,8 @@
     <string name="foto_de_perfil_de_usuario">Foto de perfil de usuario</string>
     <string name="regresar">Regresar</string>
     <string name="cargando_consultas">cargando consultas</string>
+    <string name="ok">Ok</string>
+    <string name="actualizar">Actualizar</string>
     <!-- Opciones para el formulario de capsulas -->
     <string-array name="dosis">
         <item>* Seleccione una opción</item>

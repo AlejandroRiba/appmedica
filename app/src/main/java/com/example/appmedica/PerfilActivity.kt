@@ -1,5 +1,6 @@
 package com.example.appmedica
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -25,7 +26,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appmedica.R.id.main
-import com.google.android.material.imageview.ShapeableImageView
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -41,8 +41,7 @@ class PerfilActivity : ComponentActivity() {
             val bitmap = uriToBitmap(uri)
 
             // Guardar el Bitmap en los archivos internos
-            val filename = "imagen_perfil.png"
-            saveImageToInternalStorage(this, bitmap, filename)
+            saveImageToInternalStorage(this, bitmap)
         }else{
             //no se selecciono nada
             Log.i("aria", "NO seleccionado")
@@ -51,6 +50,7 @@ class PerfilActivity : ComponentActivity() {
 
     private lateinit var imagePeril: Button
     private lateinit var foto: ImageView
+    private val filename = "imagen_perfil.png"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil)
@@ -60,8 +60,7 @@ class PerfilActivity : ComponentActivity() {
             insets
         }
         // Recuperar la imagen desde los archivos internos
-        val filename = "imagen_perfil.png"
-        val bitmap = loadImageFromInternalStorage(filename)
+        val bitmap = loadImageFromInternalStorage()
 
         // Mostrar la imagen en el ImageView
         foto = findViewById(R.id.fotodeusuario)
@@ -79,8 +78,7 @@ class PerfilActivity : ComponentActivity() {
         //Referencia al botón de editar datoa
         val editBtn = findViewById<Button>(R.id.editarDatos)
         editBtn.setOnClickListener {
-            showDialog("Editará sus datos.\n" +
-                    "¿Está seguro?") {
+            showDialog {
                 val intent = Intent(this, EditarDatos::class.java)
                 startActivity(intent)
                 //finish() //para que no se guarde la activity con los datos viejos
@@ -135,14 +133,15 @@ class PerfilActivity : ComponentActivity() {
         return spannableString
     }
 
-    private fun showDialog(message: String, listener: () -> Unit) {
+    @SuppressLint("SetTextI18n")
+    private fun showDialog(listener: () -> Unit) {
         val builder = AlertDialog.Builder(this)
         val inflater = LayoutInflater.from(this)
         val view = inflater.inflate(R.layout.dialog_confirm, null)
         builder.setView(view)
 
         val textMessage = view.findViewById<TextView>(R.id.text_message)
-        textMessage.text = message
+        textMessage.text = "Editará sus datos.\n¿Está seguro?"
 
         val btnCancel = view.findViewById<Button>(R.id.btn_cancel)
         val btnConfirm = view.findViewById<Button>(R.id.btn_confirm)
@@ -161,7 +160,7 @@ class PerfilActivity : ComponentActivity() {
         dialog.show()
     }
 
-    private fun loadImageFromInternalStorage(filename: String): Bitmap? {
+    private fun loadImageFromInternalStorage(): Bitmap? {
         return try {
             // Crear la ruta del archivo donde se guardó la imagen
             val file = File(filesDir, filename)
@@ -192,7 +191,7 @@ class PerfilActivity : ComponentActivity() {
         }
     }
 
-    private fun saveImageToInternalStorage(context: Context, bitmap: Bitmap?, filename: String): Boolean {
+    private fun saveImageToInternalStorage(context: Context, bitmap: Bitmap?): Boolean {
         if (bitmap == null) return false
 
         return try {

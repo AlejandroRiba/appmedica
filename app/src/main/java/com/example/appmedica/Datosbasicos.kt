@@ -25,6 +25,8 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.example.appmedica.utils.FirebaseHelper
 import com.example.appmedica.utils.KeyboardUtils
 
@@ -39,8 +41,7 @@ class Datosbasicos : AppCompatActivity() {
             val bitmap = uriToBitmap(uri)
 
             // Guardar el Bitmap en los archivos internos
-            val filename = "imagen_perfil.png"
-            saveImageToInternalStorage(this, bitmap, filename)
+            saveImageToInternalStorage(this, bitmap)
         }else{
             //no se selecciono nada
             Log.i("aria", "NO seleccionado")
@@ -49,6 +50,7 @@ class Datosbasicos : AppCompatActivity() {
 
     private lateinit var binding: ActivityDatosbasicosBinding
     private lateinit var imagePeril: ImageView
+    private val filename = "imagen_perfil.png"
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +58,26 @@ class Datosbasicos : AppCompatActivity() {
 
         binding = ActivityDatosbasicosBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Referencia al ScrollView
+        val scrollView = findViewById<ScrollView>(R.id.scroll_view) // Asegúrate de tener un ID para el ScrollView
+        scrollView.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                // Oculta el teclado al tocar cualquier parte del ScrollView
+                val view = currentFocus
+                if (view != null) {
+                    KeyboardUtils.hideKeyboard(this, view)
+                    view.clearFocus() // Opcional: quitar el foco del EditText
+                }
+            }
+            false // Retornar false para permitir que otros eventos se manejen
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         imagePeril = findViewById(R.id.fotodeusuario)
         imagePeril.setOnClickListener{
@@ -88,20 +110,6 @@ class Datosbasicos : AppCompatActivity() {
         editTextTime3.setOnClickListener { showTimePickerDialog( editTextTime3) }
         editTextTime4.setOnClickListener { showTimePickerDialog( editTextTime4) }
         editTextTime5.setOnClickListener { showTimePickerDialog( editTextTime5) }
-
-        // Referencia al ScrollView
-        val scrollView = findViewById<ScrollView>(R.id.scroll_view) // Asegúrate de tener un ID para el ScrollView
-        scrollView.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_UP) {
-                // Oculta el teclado al tocar cualquier parte del ScrollView
-                val view = currentFocus
-                if (view != null) {
-                    KeyboardUtils.hideKeyboard(this, view)
-                    view.clearFocus() // Opcional: quitar el foco del EditText
-                }
-            }
-            false // Retornar false para permitir que otros eventos se manejen
-        }
 
         val btnSendFeedback = findViewById<Button>(R.id.enviardatos)
         btnSendFeedback.setOnClickListener{
@@ -181,7 +189,7 @@ class Datosbasicos : AppCompatActivity() {
         }
     }
 
-    private fun saveImageToInternalStorage(context: Context, bitmap: Bitmap?, filename: String): Boolean {
+    private fun saveImageToInternalStorage(context: Context, bitmap: Bitmap?): Boolean {
         if (bitmap == null) return false
 
         return try {

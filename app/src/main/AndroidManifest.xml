@@ -35,7 +35,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppMedica">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,47 +49,42 @@
             android:name=".EditarDatos"
             android:exported="false"
             android:label="@string/title_activity_editarcampos"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppMedica.NoActionBar" />
         <activity
             android:name=".Ajustes"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppMedica" />
+        <activity
+            android:name=".EditarConsulta"
+            android:exported="false"
+            android:theme="@style/Theme.AppMedica.NoActionBar" />
         <activity
             android:name=".Datosbasicos"
             android:exported="false"
             android:label="@string/title_activity_datosbasicos"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppMedica.NoActionBar" />
         <activity
             android:name=".MedicamentosActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".CapsulaActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppMedica" />
         <activity
             android:name=".BebibleActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppMedica" />
         <activity
             android:name=".GotasActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppMedica" />
         <activity
             android:name=".InyectableActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppMedica" />
         <activity
             android:name=".TabletaActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppMedica" />
 
         <meta-data

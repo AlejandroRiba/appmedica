@@ -156,7 +156,7 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"
                     android:contentDescription="@string/primerboton"
-                    android:src="@drawable/calendar" />
+                    android:src="@drawable/button_with_shadow" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -164,7 +164,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="2dp"
                     android:maxLines="1"
-                    android:text="@string/calendario"
+                    android:text="@string/puntos"
                     android:textAlignment="center"
                     android:textColor="@color/texto"
                     android:autoSizeMinTextSize="16sp"

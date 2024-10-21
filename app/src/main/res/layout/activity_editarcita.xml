@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:background="@color/colorPrimary"
-    android:layout_height="match_parent"
-    tools:context=".Consultas">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:id="@+id/scrollform"
@@ -30,7 +29,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="@string/agendar_nueva_consulta"
+                android:text="@string/editar_consulta"
                 android:textAlignment="center"
                 android:textColor="@color/texto"
                 android:textSize="@dimen/tit"
@@ -277,7 +276,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="#40C4FF"
-                android:text="@string/agendar"
+                android:text="@string/actualizar"
                 android:textAllCaps="false"
                 android:textColor="#000000"
                 android:textSize="30sp"

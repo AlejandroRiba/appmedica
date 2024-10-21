@@ -64,7 +64,7 @@ class FirebaseHelper(private val context: Context) {
 
 
     // Método para actualizar una cita
-    fun ActualizarCita( //-- UPDATE
+    fun actualizarCita( //-- UPDATE
         identificador: String,
         nuevosDatos: Map<String, Any>
     ): Task<Boolean> {
@@ -76,7 +76,6 @@ class FirebaseHelper(private val context: Context) {
 
         documentReference.set(nuevosDatos, SetOptions.merge())
             .addOnSuccessListener {
-                Toast.makeText(context, "Cita actualizada con éxito!", Toast.LENGTH_SHORT).show()
                 taskCompletionSource.setResult(true) // Indica éxito
             }
             .addOnFailureListener {
@@ -150,7 +149,7 @@ class FirebaseHelper(private val context: Context) {
             }
     }
 
-    fun obtenerCitas(): Task<List<Pair<Consulta, String>>> {
+    fun obtenerCitas(): Task<List<Pair<Consulta, String>>> { //citas ordenadas por fecha
         val taskCompletionSource = TaskCompletionSource<List<Pair<Consulta, String>>>()
         val consulta = db.collection("usuarios")
             .document(userId!!)
@@ -169,13 +168,12 @@ class FirebaseHelper(private val context: Context) {
                         val clinica = document.getString("clinic")
                         val doc = document.getString("doctor")
                         val num = document.getString("contactdoc")
-                        val times = document.getLong("timestamp") ?: 0L
 
                         // Obtén el ID del documento
                         val documentId = document.id
 
                         // Crea el objeto Consulta y añádelo a la lista
-                        val cita = Consulta(idcons, fecha, hora, clinica, doc, num,times,estado)
+                        val cita = Consulta(idcons, fecha, hora, clinica, doc, num,estado)
                         // Añade el par a la lista
                         citas.add(Pair(cita, documentId))
                     }

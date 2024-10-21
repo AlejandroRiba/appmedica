@@ -1,25 +1,19 @@
 package com.example.appmedica
 
-import com.example.appmedica.R
+
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appmedica.utils.PreferenceManager
-import com.google.firebase.FirebaseApp
-import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var preferenceManager: PreferenceManager
-    private val db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //FirebaseApp.initializeApp(this)
@@ -50,9 +44,9 @@ class MainActivity : AppCompatActivity() {
 
         if (client != null) {
             val firstName = client.split(" ")[0]
-            val bienvenida: String = when {
-                hour in 6..11 -> "Buenos días, \n$firstName ☀\uFE0F"
-                hour in 12..18 -> "Buenas tardes, \n$firstName \uD83C\uDF25\uFE0F"
+            val bienvenida: String = when (hour) {
+                in 6..11 -> "Buenos días, \n$firstName ☀\uFE0F"
+                in 12..18 -> "Buenas tardes, \n$firstName \uD83C\uDF25\uFE0F"
                 else -> "Buenas noches, \n$firstName \uD83C\uDF19"
             }
             textView.text = bienvenida

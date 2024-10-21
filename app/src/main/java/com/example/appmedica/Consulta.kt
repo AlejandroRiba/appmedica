@@ -7,7 +7,6 @@ class Consulta {
     var clinic: String? = null
     var doctor: String? = null
     var contactdoc: String? = null
-    var timestamp: Long = 0
     var estado: String? = null
 
     // Constructor vacío
@@ -21,7 +20,6 @@ class Consulta {
         clinic: String?,
         doctor: String?,
         contactdoc: String?,
-        timestamp: Long,
         estado: String?
     ) {
         this.idcons = idcons
@@ -30,7 +28,6 @@ class Consulta {
         this.clinic = clinic
         this.doctor = doctor
         this.contactdoc = contactdoc
-        this.timestamp = timestamp
         this.estado = estado
     }
 
