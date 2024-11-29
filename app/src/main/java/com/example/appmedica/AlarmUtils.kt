@@ -5,16 +5,23 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import java.util.Calendar
 
 object AlarmUtils {
-    private val pendingIntentList = mutableListOf<PendingIntent>()
+    private val pendingIntentMap = mutableMapOf<Int, PendingIntent>()
 
     @SuppressLint("ScheduleExactAlarm")
-    fun scheduleNotification(context: Context, calendar: Calendar, notificationCont: Pair<String, String>, requestCode: Int) {
+    fun scheduleNotification(context: Context, calendar: Calendar, notificationCont: Pair<Pair<String, String>, String>?, requestCode: Int, idcons: String, clinica: String, hora: String, fecha: String) {
         val intent = Intent(context, AlarmNotification::class.java).apply {
-            putExtra("notification_title", notificationCont.first)
-            putExtra("notification_text", notificationCont.second)
+            putExtra("notification_title", notificationCont?.first?.first)
+            putExtra("notification_text", notificationCont?.first?.second)
+            putExtra("actualReminder", notificationCont?.second)
+            putExtra("idcons", idcons)
+            putExtra("clinica", clinica)
+            putExtra("fecha", fecha)
+            putExtra("hora", hora)
+            putExtra("requestCode", requestCode)
         }
         val pendingIntent = PendingIntent.getBroadcast(
             context,
@@ -23,7 +30,13 @@ object AlarmUtils {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        pendingIntentList.add(pendingIntent)
+        // Almacenar el PendingIntent con su ID (requestCode)
+        pendingIntentMap[requestCode] = pendingIntent
+        Log.d("intent", idcons)
+        if (notificationCont != null) {
+            Log.d("actualreminder", notificationCont.second)
+        } //Mensaje para monitorear
+
 
         val now = Calendar.getInstance()
         if (calendar.before(now)) {
@@ -37,9 +50,20 @@ object AlarmUtils {
 
     fun cancelAllAlarms(context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        for (pendingIntent in pendingIntentList) {
+        for ((_, pendingIntent) in pendingIntentMap) {
             alarmManager.cancel(pendingIntent)
         }
-        pendingIntentList.clear()
+        pendingIntentMap.clear() // Limpiar todo el mapa
+    }
+
+    fun cancelAlarm(context: Context, requestCode: Int) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        // Buscar el PendingIntent asociado al requestCode
+        val pendingIntent = pendingIntentMap[requestCode]
+        if (pendingIntent != null) {
+            alarmManager.cancel(pendingIntent)
+            pendingIntentMap.remove(requestCode) // Eliminar el recordatorio del mapa
+        }
     }
 }

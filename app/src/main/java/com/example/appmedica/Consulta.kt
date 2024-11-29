@@ -1,6 +1,8 @@
 package com.example.appmedica.com.example.appmedica
 
-class Consulta {
+import java.io.Serializable
+
+class Consulta : Serializable{
     var idcons: String? = null
     var date: String? = null
     var time: String? = null

@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.example.appmedica.com.example.appmedica.Consulta
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskCompletionSource
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.Query
@@ -53,6 +54,9 @@ class FirebaseHelper(private val context: Context) {
     fun eliminarUsuario() { //++ DELETE
         val docRef = db.collection("usuarios").document(userId!!) // Asegúrate de que userId no sea nulo
 
+        // Primero eliminamos las subcolecciones
+        eliminarSubcolecciones(docRef)
+
         docRef.delete()
             .addOnSuccessListener {
                 Log.d("FirebaseHelper", "Usuario eliminado correctamente")
@@ -62,7 +66,17 @@ class FirebaseHelper(private val context: Context) {
             }
     }
 
-
+    fun eliminarSubcolecciones(docRef: DocumentReference) {
+        docRef.collection("citas").get() // Cambia "subcoleccion1" por el nombre de tu subcolección
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    document.reference.delete() // Elimina cada documento en la subcolección
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("FirebaseHelper", "Error al eliminar documentos en subcolección", e)
+            }
+    }
     // Método para actualizar una cita
     fun actualizarCita( //-- UPDATE
         identificador: String,

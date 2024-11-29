@@ -84,4 +84,97 @@ object Utilidades {
         return calendar
     }
 
+    //Función que devuelve una fecha prudente para el recordatorio
+    fun obtenerFechaRecordatorio(fecha: String, hora: String): Pair<Calendar, String> {
+        val calendar = obtenerFechaHora(fecha, hora)
+
+        // Intentar restar 3 días
+        val recordatorioTresDias = calendar.clone() as Calendar
+        recordatorioTresDias.add(Calendar.DAY_OF_YEAR, -3)
+        if (!recordatorioTresDias.before(Calendar.getInstance())) {
+            return Pair(recordatorioTresDias, "otro")
+        }
+
+        // Si ya pasó, intentar restar 1 día
+        val recordatorioUnDia = calendar.clone() as Calendar
+        recordatorioUnDia.add(Calendar.DAY_OF_YEAR, -1)
+        if (!recordatorioUnDia.before(Calendar.getInstance())) {
+            return Pair(recordatorioUnDia, "3dias")
+        }
+
+        // Si también pasó, restar 2 horas
+        val recordatorioDosHoras = calendar.clone() as Calendar
+        recordatorioDosHoras.add(Calendar.HOUR_OF_DAY, -2)
+        if(!recordatorioDosHoras.before(Calendar.getInstance())){
+            return Pair(recordatorioDosHoras, "1dia")
+        }
+
+        //SI también ya pasaron, restar 5 mins en consecuencia
+        val recordatorioCincoMins =  calendar.clone() as Calendar
+        recordatorioCincoMins.add(Calendar.MINUTE, -5)
+        return Pair(recordatorioCincoMins, "2hrs") //manda el actual para devolver el mensaje siguiente
+
+    }
+
+    fun obtenerMensajeCita(
+        actualReminder: String,
+        cita: String,
+        clinica: String,
+        tiempo: String,//hora
+        fecha: String
+    ): Pair<Pair<String, String>, String> {
+        val ahora = Calendar.getInstance()
+
+        return when (actualReminder) {
+            // La cita siguiente
+            "5mins" -> {
+                Pair(
+                    "CITA PENDIENTE AHORA MISMO !" to
+                            "Tu cita ${cita} está registrada para hoy a esta hora.\nClick aquí para ver detalles.",
+                    "ahora"
+                )
+            }
+
+            // La cita es hoy en 5 mins
+            "2hrs" -> {
+                Pair(
+                    "CITA PENDIENTE EN 5 MINUTOS !" to
+                            "Tu cita $cita está registrada para hoy a las $tiempo en $clinica.\nClick aquí para ver detalles.",
+                    "5mins"
+                )
+            }
+
+            // La cita es hoy en 2 horas
+            "1dia" -> {
+                Pair(
+                    "CITA PENDIENTE EN 2 HRS !" to
+                            "Tu cita $cita está registrada para hoy a las $tiempo en ${clinica}.\nClick aquí para ver detalles.",
+                    "2hrs"
+                )
+            }
+
+            // La cita es en 3 días
+            "otro" -> {
+                Pair(
+                    "CITA PENDIENTE EN TRES DÍAS !" to
+                            "Tu cita $cita está registrada para ${fecha} a las $tiempo en ${clinica}.\nClick aquí para ver detalles.",
+                    "3dias"
+                )
+            }
+
+            // La cita es en 1 día
+            "3dias" -> {
+                Pair(
+                    "CITA PENDIENTE MAÑANA !" to
+                            "Tu cita $cita está registrada para mañana a las $tiempo en ${clinica}.\nClick aquí para ver detalles.",
+                    "1dia"
+                )
+            }
+
+            // Default
+            else -> Pair("CITA SIN DETALLES" to "No se pudo determinar un mensaje para la cita.", "none")
+        }
+    }
+
+
 }

@@ -195,7 +195,7 @@ class Consultas : AppCompatActivity() {
                     putExtra("doctor", consulta.doctor)
                     putExtra("cont_doc", consulta.contactdoc)
                 }
-                //recordatorios(consulta) // Asegúrate de que este método exista
+                recordatorios(consulta, citaId) // Asegúrate de que este método exista
                 finish() // Cierra la actividad actual
                 startActivity(intent)
             } else {
@@ -210,49 +210,37 @@ class Consultas : AppCompatActivity() {
     }
 
 
-    private fun generateUniqueRequestCode(consulta: Consulta): Int {
-        return consulta.idcons.hashCode() // Esto generará un requestCode único basado en el ID de la consulta
+    private fun generateUniqueRequestCode(citaId: String): Int {
+        return citaId.hashCode() // Esto generará un requestCode único basado en el ID de la consulta
     }
-    private fun recordatorios(consulta: Consulta) {
+    private fun recordatorios(consulta: Consulta, citaId: String) {
         val fecha = consulta.date
         val hora = consulta.time
-        val mismodia1 = Pair("CITA PENDIENTE AHORA MISMO !", "Tu cita ${consulta.idcons} está registrada para hoy a esta hora.\n Click aquí para ver detalles.")
-        val mismodia = Pair("CITA PENDIENTE HOY !", "Tu cita ${consulta.idcons} está registrada para hoy a las ${consulta.time} en ${consulta.clinic}.\n Click aquí para ver detalles.")
-        val mismodia2 = Pair("CITA PENDIENTE EN 2 HRS !", "Tu cita ${consulta.idcons} está registrada para hoy a las ${consulta.time} en ${consulta.clinic}.\n Click aquí para ver detalles.")
-        val tresantes = Pair("CITA PENDIENTE EN TRES DÍAS !", "Tu cita ${consulta.idcons} está registrada para ${consulta.date} a las ${consulta.time} en ${consulta.clinic}.\n Click aquí para ver detalles.")
-        val ayer = Pair("CITA PENDIENTE MAÑANA !", "Tu cita ${consulta.idcons} está registrada para mañana a las ${consulta.time} en ${consulta.clinic}.\n Click aquí para ver detalles.")
-        val notifdia = fecha?.let { fecha ->
+
+
+        val fechayreminder = fecha?.let { fecha ->
             hora?.let { hora ->
-                Utilidades.obtenerFechaHora(fecha, hora)
-            }
-        }
-        val notifdia5 = fecha?.let { fecha ->
-            hora?.let { hora ->
-                Utilidades.restarCincoMinutos(fecha, hora)
-            }
-        }
-        val notifantes = fecha?.let { fecha ->
-            hora?.let { hora ->
-                Utilidades.restarTresDias(fecha, hora)
-            }
-        }
-        val notifantes2 = fecha?.let { fecha ->
-            hora?.let { hora ->
-                Utilidades.restarDosHoras(fecha, hora)
+                Utilidades.obtenerFechaRecordatorio(fecha, hora) //Busca la fecha para el primer recordatorio
             }
         }
 
-        val notifayer = fecha?.let { fecha ->
-            hora?.let { hora ->
-                Utilidades.restarDia(fecha, hora)
-            }
+        val notifantes = fechayreminder?.first // Accedes al Calendar
+        val actualReminder = fechayreminder?.second // Accedes al String
+
+        val mensaje = Utilidades.obtenerMensajeCita(actualReminder?:"ahora", consulta.idcons?:"", consulta.clinic?:"", hora?:"00:00", fecha?:"")
+
+        val requestCodeBase = generateUniqueRequestCode(citaId)
+        notifantes?.let {
+            AlarmUtils.scheduleNotification(this,it, mensaje, requestCodeBase,
+                consulta.idcons ?: "", // Consulta id
+                consulta.clinic ?: "", // Consulta clínica
+                hora ?: "00:00",
+                fecha)
         }
-        val requestCodeBase = generateUniqueRequestCode(consulta)
-        notifantes?.let { AlarmUtils.scheduleNotification(this,it, tresantes, requestCodeBase + 1) }
-        notifantes2?.let { AlarmUtils.scheduleNotification(this,it, mismodia2, requestCodeBase + 2) }
+        /*notifantes2?.let { AlarmUtils.scheduleNotification(this,it, mismodia2, requestCodeBase + 2) }
         notifayer?.let { AlarmUtils.scheduleNotification(this,it, ayer, requestCodeBase + 3) }
         notifdia?.let { AlarmUtils.scheduleNotification(this,it, mismodia1, requestCodeBase + 4) }
-        notifdia5?.let { AlarmUtils.scheduleNotification(this,it, mismodia, requestCodeBase + 5) }
+        notifdia5?.let { AlarmUtils.scheduleNotification(this,it, mismodia, requestCodeBase + 5) }*/
     }
 
 }
