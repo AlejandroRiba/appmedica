@@ -81,8 +81,8 @@ class FirebaseHelper(private val context: Context) {
     fun actualizarCita( //-- UPDATE
         identificador: String,
         nuevosDatos: Map<String, Any>
-    ): Task<Boolean> {
-        val taskCompletionSource = TaskCompletionSource<Boolean>()
+    ): Task<Consulta?> {
+        val taskCompletionSource = TaskCompletionSource<Consulta?>()
         val documentReference = db.collection("usuarios")
             .document(userId!!)
             .collection("citas")
@@ -90,11 +90,19 @@ class FirebaseHelper(private val context: Context) {
 
         documentReference.set(nuevosDatos, SetOptions.merge())
             .addOnSuccessListener {
-                taskCompletionSource.setResult(true) // Indica éxito
+                documentReference.get()
+                    .addOnSuccessListener { documentSnapshot ->
+                        if(documentSnapshot.exists()){
+                            val consulta = documentSnapshot.toObject(Consulta::class.java)
+                            taskCompletionSource.setResult(consulta)
+                        }else{
+                            taskCompletionSource.setResult(null)
+                        }
+                    }
             }
             .addOnFailureListener {
                 Toast.makeText(context, "Error al guardar!", Toast.LENGTH_SHORT).show()
-                taskCompletionSource.setResult(false) // Indica fallo
+                taskCompletionSource.setResult(null) // Indica fallo
             }
 
         return taskCompletionSource.task

@@ -1,8 +1,11 @@
 package com.example.appmedica
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -29,6 +32,13 @@ import java.util.Calendar
 
 @Suppress("NAME_SHADOWING")
 class Consultas : AppCompatActivity() {
+
+    fun isInternetAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return activeNetwork.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
 
     private lateinit var firebaseHelper: FirebaseHelper
     private lateinit var fechaTimestamp: Timestamp
@@ -100,7 +110,12 @@ class Consultas : AppCompatActivity() {
 
         val btnSendFeedback = findViewById<Button>(R.id.btn_alta)
         btnSendFeedback.setOnClickListener{
-            sendFeedback()
+            if (isInternetAvailable(this)) {
+                btnSendFeedback.isEnabled = false //deshabilito el botón para evitar sobrellamadas
+                sendFeedback()
+            } else {
+                Toast.makeText(this, "No hay conexión a Internet", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }
@@ -210,9 +225,7 @@ class Consultas : AppCompatActivity() {
     }
 
 
-    private fun generateUniqueRequestCode(citaId: String): Int {
-        return citaId.hashCode() // Esto generará un requestCode único basado en el ID de la consulta
-    }
+
     private fun recordatorios(consulta: Consulta, citaId: String) {
         val fecha = consulta.date
         val hora = consulta.time
@@ -229,7 +242,7 @@ class Consultas : AppCompatActivity() {
 
         val mensaje = Utilidades.obtenerMensajeCita(actualReminder?:"ahora", consulta.idcons?:"", consulta.clinic?:"", hora?:"00:00", fecha?:"")
 
-        val requestCodeBase = generateUniqueRequestCode(citaId)
+        val requestCodeBase = Utilidades.generateUniqueRequestCode(citaId)
         notifantes?.let {
             AlarmUtils.scheduleNotification(this,it, mensaje, requestCodeBase,
                 consulta.idcons ?: "", // Consulta id
@@ -237,10 +250,6 @@ class Consultas : AppCompatActivity() {
                 hora ?: "00:00",
                 fecha)
         }
-        /*notifantes2?.let { AlarmUtils.scheduleNotification(this,it, mismodia2, requestCodeBase + 2) }
-        notifayer?.let { AlarmUtils.scheduleNotification(this,it, ayer, requestCodeBase + 3) }
-        notifdia?.let { AlarmUtils.scheduleNotification(this,it, mismodia1, requestCodeBase + 4) }
-        notifdia5?.let { AlarmUtils.scheduleNotification(this,it, mismodia, requestCodeBase + 5) }*/
     }
 
 }

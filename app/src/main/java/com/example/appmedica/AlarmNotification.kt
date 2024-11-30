@@ -10,7 +10,6 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.appmedica.ListaConsultas
 import com.example.appmedica.R
-import java.util.Calendar
 
 class AlarmNotification:BroadcastReceiver() {
     companion object{
@@ -24,8 +23,10 @@ class AlarmNotification:BroadcastReceiver() {
         val clinica = intent?.getStringExtra("clinica") ?: "none"
         val fecha =  intent?.getStringExtra("fecha") ?: "none"
         val hora =  intent?.getStringExtra("hora") ?: "none"
-        val requestCodeBase = intent?.getIntExtra("requestCodeBase", 0)
+        val requestCodeBase = intent?.getIntExtra("requestCode", 0)
         if (requestCodeBase != null) {
+            Log.d("REMINDER_REQUESTCODE", requestCodeBase.toString())
+            AlarmUtils.deleteReminder(context, requestCodeBase)
             programNextNotification(context, actualReminder, idcons, clinica, fecha, hora, requestCodeBase)
         }
         showNotification(context, title, text)
@@ -38,11 +39,15 @@ class AlarmNotification:BroadcastReceiver() {
         val flag = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, flag)
 
+        val bigTextStyle = NotificationCompat.BigTextStyle()
+            .bigText(text)  // El texto largo que quieres mostrar
+
         val notification = NotificationCompat.Builder(context, MyApp.NOTIFICATION_CHANNEL_ID)
             .setContentTitle(title)
-            .setContentText(text)
+            .setStyle(bigTextStyle)
             .setSmallIcon(R.drawable.notification_logo)
             .setAutoCancel(true)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
             .setContentIntent(pendingIntent)
             .build()
 

@@ -4,6 +4,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object Utilidades {
+
+    fun generateUniqueRequestCode(citaId: String): Int {
+        return citaId.hashCode() // Esto generará un requestCode único basado en el ID de la consulta
+    }
+
     // Función para convertir cadenas de fecha y hora en un objeto Calendar
     fun obtenerFechaHora(fecha: String, hora: String): Calendar {
         val dateFormat = SimpleDateFormat("yyyy-M-d", Locale.getDefault())
@@ -112,7 +117,13 @@ object Utilidades {
         //SI también ya pasaron, restar 5 mins en consecuencia
         val recordatorioCincoMins =  calendar.clone() as Calendar
         recordatorioCincoMins.add(Calendar.MINUTE, -5)
-        return Pair(recordatorioCincoMins, "2hrs") //manda el actual para devolver el mensaje siguiente
+        if(!recordatorioCincoMins.before(Calendar.getInstance())){
+            return Pair(recordatorioCincoMins, "2hrs") //manda el actual para devolver el mensaje siguiente
+        }
+
+        //Si no hay 5 mins de holgura notifica a la hora
+        val recordatorioAct = calendar.clone() as Calendar
+        return Pair(recordatorioAct, "5mins")
 
     }
 

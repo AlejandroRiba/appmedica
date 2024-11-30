@@ -17,6 +17,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.appmedica.com.example.appmedica.AlarmUtils
+import com.example.appmedica.com.example.appmedica.Consulta
+import com.example.appmedica.com.example.appmedica.Utilidades
 import com.example.appmedica.utils.FirebaseHelper
 import com.example.appmedica.utils.KeyboardUtils
 import com.google.firebase.Timestamp
@@ -158,8 +161,11 @@ class EditarConsulta: AppCompatActivity()  {
             identificador = docId,
             nuevosDatos = datosCita
         ).addOnSuccessListener { result ->
-            if (result) {
+            if (result != null) {
                 // La cita se actualizo correctamente
+                val requestCode = Utilidades.generateUniqueRequestCode(docId)
+                AlarmUtils.deleteReminder(this, requestCode)
+                recordatorios(result, docId) //Se actualizan los recordatorios
                 val intent = Intent(this, ListaConsultas::class.java) //para recargar lista de consultas
                 finish()//finalizamos la edición
                 Toast.makeText(this, "Cita actualizada con éxito!!.", Toast.LENGTH_SHORT).show()
@@ -204,4 +210,31 @@ class EditarConsulta: AppCompatActivity()  {
         val editTextTime = findViewById<EditText>(R.id.CHoraConsul)
         editTextTime.setText(time)
     }
+
+    private fun recordatorios(consulta: Consulta, citaId: String) {
+        val fecha = consulta.date
+        val hora = consulta.time
+
+
+        val fechayreminder = fecha?.let { fecha ->
+            hora?.let { hora ->
+                Utilidades.obtenerFechaRecordatorio(fecha, hora) //Busca la fecha para el primer recordatorio
+            }
+        }
+
+        val notifantes = fechayreminder?.first // Accedes al Calendar
+        val actualReminder = fechayreminder?.second // Accedes al String
+
+        val mensaje = Utilidades.obtenerMensajeCita(actualReminder?:"ahora", consulta.idcons?:"", consulta.clinic?:"", hora?:"00:00", fecha?:"")
+
+        val requestCodeBase = Utilidades.generateUniqueRequestCode(citaId)
+        notifantes?.let {
+            AlarmUtils.scheduleNotification(this,it, mensaje, requestCodeBase,
+                consulta.idcons ?: "", // Consulta id
+                consulta.clinic ?: "", // Consulta clínica
+                hora ?: "00:00",
+                fecha)
+        }
+    }
+
 }

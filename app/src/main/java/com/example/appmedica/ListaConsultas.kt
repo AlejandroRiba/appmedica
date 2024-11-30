@@ -20,7 +20,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.appmedica.com.example.appmedica.AlarmUtils
 import com.example.appmedica.com.example.appmedica.Consulta
+import com.example.appmedica.com.example.appmedica.Utilidades
 import com.example.appmedica.utils.FirebaseHelper
 
 class ListaConsultas : AppCompatActivity() {
@@ -50,6 +52,7 @@ class ListaConsultas : AppCompatActivity() {
         val btn2 : Button = findViewById(R.id.btn_nuevaconsul)
         btn2.setOnClickListener {
             val intent = Intent(this, Consultas::class.java)
+            finish()//Finaliza la lista de consultas actual
             startActivity(intent)
         }
 
@@ -152,7 +155,9 @@ class ListaConsultas : AppCompatActivity() {
             startActivity(intent) //la volvemos a abrir para que se actualice
         }
 
+        val requestCode = Utilidades.generateUniqueRequestCode(idcons)
         btnDelete.setOnClickListener {
+            AlarmUtils.deleteReminder(this, requestCode)
             firebaseHelper.eliminarCita(idcons, this)
             dialog.dismiss()
             val intent = Intent(this, ListaConsultas::class.java) //para recargar lista de consultas
