@@ -162,7 +162,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/khula_light"
                 android:gravity="left"
                 android:text="@string/cl_nica_de_la_consulta"
                 android:textColor="#000000"

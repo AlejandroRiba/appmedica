@@ -35,11 +35,13 @@ object AlarmUtils {
         val now = Calendar.getInstance()
         if (calendar.before(now)) {
             // La fecha y hora ya han pasado simplemente no hace nada
+            Log.d("AlarmUtils", "la fecha ya pasó")
             return
         }
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+        Log.d("AlarmUtils", "Recordatorio ${notificationCont?.second} $idcons creado")
 
         // Guardar el recordatorio
         val reminder = Reminder(
