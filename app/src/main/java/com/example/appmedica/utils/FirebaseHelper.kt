@@ -3,9 +3,11 @@ package com.example.appmedica.utils
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import com.example.appmedica.Usuario
 import com.example.appmedica.com.example.appmedica.Consulta
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskCompletionSource
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -50,6 +52,30 @@ class FirebaseHelper(private val context: Context) {
                 Log.e("FirebaseHelper", "Error al editar usuario", e)
             }
     }
+
+    fun obtenerUsuario(): Task<Usuario?> { // ++ READ
+        val taskCompletionSource = TaskCompletionSource<Usuario?>()
+        val userDocRef = db.collection("usuarios").document(userId!!)
+
+        userDocRef.get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    // Convierte los datos del documento en un objeto Consulta
+                    val usuario = documentSnapshot.toObject(Usuario::class.java)
+                    taskCompletionSource.setResult(usuario) // Devuelve el objeto Consulta
+                } else {
+                    taskCompletionSource.setResult(null) // Documento no encontrado
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("FirebaseHelper", "Error al leer la cita: ${e.message}")
+                taskCompletionSource.setResult(null) // En caso de error
+            }
+
+        return taskCompletionSource.task
+    }
+
+
 
     fun eliminarUsuario() { //++ DELETE
         val docRef = db.collection("usuarios").document(userId!!) // Asegúrate de que userId no sea nulo

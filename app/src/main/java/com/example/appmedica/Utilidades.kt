@@ -38,7 +38,7 @@ object Utilidades {
     // Función para obtener la fecha actual en formato yyyy-MM-dd
     fun obtenerFechaActual(): String {
         val calendar = Calendar.getInstance()
-        val dateFormat = SimpleDateFormat("yyyy-M-d", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         return dateFormat.format(calendar.time)
     }
 
@@ -49,17 +49,44 @@ object Utilidades {
     }
 
     // Función para convertir una hora en formato HH:mm a un objeto Date
-    fun convertirHora(hora: String): Date? {
+    fun convertirHora(hora: String): String {
         val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-        return timeFormat.parse(hora)
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        // Obtener el Calendar con la fecha y hora actuales
+        val time = timeFormat.parse(hora)
+        val calendar = Calendar.getInstance()
+        if (time != null) {
+            val timeCalendar = Calendar.getInstance()
+            timeCalendar.time = time
+            // Asignar la hora y minutos del 'time' al Calendar actual
+            calendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY))  // Mantener la hora actual
+            calendar.set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE))  // Establecer los minutos parseados
+        }
+
+        return simpleDateFormat.format(calendar.time)
     }
 
     // Función para agregar días a una fecha
-    fun agregarDias(fecha: Date, dias: Int): Date {
-        val calendar = Calendar.getInstance()
-        calendar.time = fecha
-        calendar.add(Calendar.DAY_OF_YEAR, dias)
-        return calendar.time
+    fun agregarDias(fecha: String, dias: Int): String {
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+
+        // Parsear la fecha proporcionada a un objeto Date
+        val date = simpleDateFormat.parse(fecha)
+
+        if (date != null) {
+            // Crear un objeto Calendar y establecer la fecha
+            val calendar = Calendar.getInstance()
+            calendar.time = date
+
+            // Sumar los días al Calendar
+            calendar.add(Calendar.DAY_OF_MONTH, dias)
+
+            // Retornar la nueva fecha formateada
+            return simpleDateFormat.format(calendar.time)
+        } else {
+            // Si la fecha no es válida
+            throw IllegalArgumentException("Fecha no válida")
+        }
     }
 
     // Función para obtener el nombre del día de la semana a partir de una fecha
@@ -196,6 +223,23 @@ object Utilidades {
             // Default
             else -> Pair("CITA SIN DETALLES" to "No se pudo determinar un mensaje para la cita.", "none")
         }
+    }
+
+    //Función para extraer los días de una cadena (opciones del menú)
+    fun extractDays(input: String): String {
+        val regex = Regex("""^\d{1,3}\s+días$""") // Acepta 1 a 3 dígitos seguidos de "días"
+        return if (regex.matches(input)) {
+            input.split(" ")[0] // Extrae el número antes del espacio y convierte a Int
+        } else {
+            "0" // Devuelve null si el formato no es válido
+        }
+    }
+
+    //Función para extraer las horas de una cadena (opciones del menú)
+    fun extractHours(input: String): String? {
+        val regex = Regex("""^Cada\s+(\d+)\s+hrs$""") // Valida el formato exacto "cada ## hrs"
+        val matchResult = regex.find(input)
+        return matchResult?.groups?.get(1)?.value // Extrae el número si coincide
     }
 
 

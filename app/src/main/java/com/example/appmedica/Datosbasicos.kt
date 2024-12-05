@@ -158,7 +158,7 @@ class Datosbasicos : AppCompatActivity() {
         val firebaseHelper = FirebaseHelper(this)
         val usuarioData = mapOf(
             "name" to nombre,
-            "age" to edadText,
+            "age" to edad,
             "contact" to contactoText,
             "blood" to sangretyp,
             "h1" to time1,

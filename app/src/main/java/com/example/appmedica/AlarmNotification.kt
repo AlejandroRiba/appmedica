@@ -36,7 +36,7 @@ class AlarmNotification:BroadcastReceiver() {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
-        val flag = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+        val flag = PendingIntent.FLAG_IMMUTABLE
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, flag)
 
         val bigTextStyle = NotificationCompat.BigTextStyle()

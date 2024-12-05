@@ -5,11 +5,11 @@ class Usuario {
     var age: Int = 0
     var blood: String? = null
     var contact: String? = null
-    var h1: String? = null
-    var h2: String? = null
-    var h3: String? = null
-    var h4: String? = null
-    var h5: String? = null
+    var h1: String? = null //despertar
+    var h2: String? = null //dormid
+    var h3: String? = null //desayunar
+    var h4: String? = null //comer
+    var h5: String? = null //cenar
 
     // Constructor vacío
     constructor()

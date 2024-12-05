@@ -13,7 +13,8 @@ import com.google.firebase.messaging.ktx.messaging
 
 class MyApp : Application() {
     companion object {
-        const val NOTIFICATION_CHANNEL_ID = "notification_fcm"
+        const val NOTIFICATION_CHANNEL_ID = "notification_cita"
+        const val NOTIFICATION_CHANNEL_ID2 = "notification_medicamento"
     }
     override fun onCreate() {
         super.onCreate()
@@ -33,11 +34,24 @@ class MyApp : Application() {
     private fun createNotificationChannel(){
         val channel = NotificationChannel(
             NOTIFICATION_CHANNEL_ID,
-            "Notificaciones de Recordatorios",
+            "Notificaciones de Citas Pendientes",
             NotificationManager.IMPORTANCE_HIGH
-        )
-        channel.description = "Estas notificaciones van a ser recibidas desde la app"
+        ).apply{
+            description = "Estas notificaciones sirven para citas médicas."
+        }
+
+        val channel2 = NotificationChannel(
+            NOTIFICATION_CHANNEL_ID2,
+            "Notificaciones de Medicamentos",
+            NotificationManager.IMPORTANCE_HIGH
+        ).apply{
+            description = "Estas notificaciones van a ser para la toma de medicamentos."
+        }
+
+
         val notificationManager = getSystemService(NotificationManager::class.java)
         notificationManager.createNotificationChannel(channel)
+        notificationManager.createNotificationChannel(channel2)
     }
+
 }

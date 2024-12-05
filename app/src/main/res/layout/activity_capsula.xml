@@ -36,7 +36,7 @@
                 android:layout_marginEnd="10dp"/>
 
             <EditText
-                android:id="@+id/nombre_medicamento"
+                android:id="@+id/nombremedicamento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
@@ -45,8 +45,7 @@
                 android:hint="Nombre del\nMedicamento *"
                 android:layout_marginBottom="24dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                tools:ignore="VisualLintTextFieldSize" />
+                android:layout_marginEnd="10dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -61,6 +60,19 @@
                 android:id="@+id/cantidad"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <EditText
+                android:id="@+id/edtext_other_cantidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Especifica la toma"
+                android:height="60dp"
+                android:textSize="30sp"
+                android:inputType="number"
+                android:backgroundTint="#536DFE"
                 android:layout_marginBottom="24dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"/>
@@ -82,6 +94,19 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"/>
 
+            <EditText
+                android:id="@+id/edtext_other_frecuencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Especifica la\nfrecuencia (horas)"
+                android:height="60dp"
+                android:textSize="30sp"
+                android:inputType="number"
+                android:backgroundTint="#536DFE"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -99,6 +124,21 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"/>
 
+            <EditText
+                android:id="@+id/edtext_other_primertoma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Especifica el\nhorario"
+                android:height="60dp"
+                android:textSize="30sp"
+                android:inputType="text"
+                android:backgroundTint="#536DFE"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:clickable="false"
+                android:focusable="false"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,6 +152,19 @@
                 android:id="@+id/duracion"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <EditText
+                android:id="@+id/edtext_other_duracion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Especifica la\nduración (días)"
+                android:height="60dp"
+                android:textSize="30sp"
+                android:inputType="number"
+                android:backgroundTint="#536DFE"
                 android:layout_marginBottom="24dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"/>

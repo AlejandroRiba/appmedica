@@ -124,7 +124,7 @@
         <item>1 cápsula</item>
         <item>2 cápsulas</item>
         <item>3 cápsulas</item>
-        <item>Otra (ingrese)</item>
+        <item>Otro (ingrese)</item>
     </string-array>
     <!-- Opciones para el formulario de capsulas -->
     <string-array name="dosis_Tab">
@@ -134,7 +134,7 @@
         <item>1 pastilla</item>
         <item>2 pastillas</item>
         <item>3 pastillas</item>
-        <item>Otra (ingrese)</item>
+        <item>Otro (ingrese)</item>
     </string-array>
     <!-- Opciones para el formulario de jarabes -->
     <string-array name="dosis_beb">
@@ -143,14 +143,14 @@
         <item>10 ml</item>
         <item>15 ml</item>
         <item>20 ml</item>
-        <item>Otra (ingrese)</item>
+        <item>Otro (ingrese)</item>
     </string-array>
     <string-array name="medida_beb">
         <item>* Seleccione una opción</item>
         <item>Cuchara (5 ml)</item>
         <item>Jeringa</item>
         <item>Vasito medidor</item>
-        <item>Otra (ingrese)</item>
+        <item>Otro (ingrese)</item>
     </string-array>
     <!-- Opciones para el formulario general de medicamentos -->
     <string-array name="frecuencia">
@@ -159,7 +159,12 @@
         <item>Cada 12 hrs</item>
         <item>Cada 24 hrs</item>
         <item>Con cada comida</item>
-        <item>Otra (ingrese)</item>
+        <item>Con el desayuno</item>
+        <item>Con la comida</item>
+        <item>Con la cena</item>
+        <item>Al despertar</item>
+        <item>Antes de dormir</item>
+        <item>Otro (ingrese)</item>
     </string-array>
     <string-array name="primertoma">
         <item>* Seleccione una opción</item>
@@ -168,7 +173,8 @@
         <item>Con el desayuno</item>
         <item>Con la comida</item>
         <item>Con la cena</item>
-        <item>Otro horario (ingrese)</item>
+        <item>Ahora mismo</item>
+        <item>Otro (ingrese)</item>
     </string-array>
     <string-array name="duracion">
         <item>* Seleccione una opción</item>
@@ -177,7 +183,7 @@
         <item>14 días</item>
         <item>30 días</item>
         <item>Tratamiento continuo</item>
-        <item>Otra (ingrese)</item>
+        <item>Otro (ingrese)</item>
     </string-array>
     <!-- Opciones para el spinner de las sangres -->
     <string-array name="sangres">
