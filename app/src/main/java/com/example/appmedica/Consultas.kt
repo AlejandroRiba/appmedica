@@ -283,8 +283,9 @@ class Consultas : AppCompatActivity() {
         val mensaje = Utilidades.obtenerMensajeCita(actualReminder?:"ahora", consulta.idcons?:"", consulta.clinic?:"", hora?:"00:00", fecha?:"")
 
         val requestCodeBase = Utilidades.generateUniqueRequestCode(citaId)
+
         notifantes?.let {
-            AlarmUtils.scheduleNotification(this,it, mensaje, requestCodeBase,
+            AlarmUtils.scheduleNotification(this@Consultas,it, mensaje, requestCodeBase,
                 consulta.idcons ?: "", // Consulta id
                 consulta.clinic ?: "", // Consulta clínica
                 hora ?: "00:00",

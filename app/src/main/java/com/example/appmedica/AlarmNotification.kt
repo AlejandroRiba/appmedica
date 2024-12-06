@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.example.appmedica.ListaConsultas
 import com.example.appmedica.R
@@ -15,6 +16,7 @@ class AlarmNotification:BroadcastReceiver() {
     companion object{
         var NOTIFICATION_ID = 0
     }
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onReceive(context: Context, intent: Intent?) {
         val title = intent?.getStringExtra("notification_title") ?: "Título predeterminado"
         val text = intent?.getStringExtra("notification_text") ?: "Texto predeterminado"
@@ -28,7 +30,8 @@ class AlarmNotification:BroadcastReceiver() {
             Log.d("REMINDER_REQUESTCODE", requestCodeBase.toString())
             AlarmUtils.deleteReminder(context, requestCodeBase)
             programNextNotification(context, actualReminder, idcons, clinica, fecha, hora, requestCodeBase)
-        }
+        }else
+            Log.d("REMINDER_REQUESTCODE", "null")
         showNotification(context, title, text)
     }
     private fun showNotification(context: Context,  title: String, text: String) {
@@ -55,7 +58,8 @@ class AlarmNotification:BroadcastReceiver() {
         manager.notify(NOTIFICATION_ID++, notification)
     }
 
-    private fun programNextNotification(context: Context ,actualReminder: String, idcons: String, clinica: String, fecha: String, hora: String, requestCodeBase: Int){
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun programNextNotification(context: Context, actualReminder: String, idcons: String, clinica: String, fecha: String, hora: String, requestCodeBase: Int){
         val notifantes = when (actualReminder) {
             "5mins" -> Utilidades.obtenerFechaHora(fecha, hora) // Busca la fecha para el primer recordatorio
             "2hrs" -> Utilidades.restarCincoMinutos(fecha, hora) // 2 horas antes
