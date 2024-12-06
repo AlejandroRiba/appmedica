@@ -36,7 +36,7 @@
                 android:layout_marginEnd="10dp"/>
 
             <EditText
-                android:id="@+id/nombre_medicamento"
+                android:id="@+id/nombremedicamento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
@@ -65,6 +65,19 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"/>
 
+            <EditText
+                android:id="@+id/edtext_other_cantidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Especifica la toma (ml)"
+                android:height="60dp"
+                android:textSize="30sp"
+                android:inputType="number"
+                android:backgroundTint="#536DFE"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,6 +91,19 @@
                 android:id="@+id/frecuencia"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <EditText
+                android:id="@+id/edtext_other_frecuencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Especifica la\nfrecuencia (horas)"
+                android:height="60dp"
+                android:textSize="30sp"
+                android:inputType="number"
+                android:backgroundTint="#536DFE"
                 android:layout_marginBottom="24dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"/>
@@ -99,6 +125,19 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"/>
 
+            <EditText
+                android:id="@+id/edtext_other_medida"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Especifica la\nmedida usada"
+                android:height="60dp"
+                android:textSize="30sp"
+                android:inputType="text"
+                android:backgroundTint="#536DFE"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,6 +155,21 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"/>
 
+            <EditText
+                android:id="@+id/edtext_other_primertoma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Especifica el\nhorario"
+                android:height="60dp"
+                android:textSize="30sp"
+                android:inputType="text"
+                android:backgroundTint="#536DFE"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:clickable="false"
+                android:focusable="false"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,6 +181,36 @@
 
             <Spinner
                 android:id="@+id/duracion"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <EditText
+                android:id="@+id/edtext_other_duracion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Especifica la\nduración (días)"
+                android:height="60dp"
+                android:textSize="30sp"
+                android:inputType="number"
+                android:backgroundTint="#536DFE"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:text="Color:"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <Spinner
+                android:id="@+id/color_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginBottom="24dp"

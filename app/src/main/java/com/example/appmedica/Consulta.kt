@@ -9,6 +9,7 @@ class Consulta : Serializable{
     var clinic: String? = null
     var doctor: String? = null
     var contactdoc: String? = null
+    var selectedcolor: String? = null
     var estado: String? = null
 
     // Constructor vacío
@@ -22,6 +23,7 @@ class Consulta : Serializable{
         clinic: String?,
         doctor: String?,
         contactdoc: String?,
+        selectedcolor: String?,
         estado: String?
     ) {
         this.idcons = idcons
@@ -30,6 +32,7 @@ class Consulta : Serializable{
         this.clinic = clinic
         this.doctor = doctor
         this.contactdoc = contactdoc
+        this.selectedcolor = selectedcolor
         this.estado = estado
     }
 

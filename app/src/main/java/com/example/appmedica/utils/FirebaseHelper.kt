@@ -216,12 +216,13 @@ class FirebaseHelper(private val context: Context) {
                         val clinica = document.getString("clinic")
                         val doc = document.getString("doctor")
                         val num = document.getString("contactdoc")
+                        val selectedcolor = document.getString("selectedcolor")
 
                         // Obtén el ID del documento
                         val documentId = document.id
 
                         // Crea el objeto Consulta y añádelo a la lista
-                        val cita = Consulta(idcons, fecha, hora, clinica, doc, num,estado)
+                        val cita = Consulta(idcons, fecha, hora, clinica, doc, num, selectedcolor, estado)
                         // Añade el par a la lista
                         citas.add(Pair(cita, documentId))
                     }

@@ -2,6 +2,7 @@ package com.example.appmedica
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
@@ -20,6 +21,7 @@ import androidx.core.text.isDigitsOnly
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appmedica.com.example.appmedica.Utilidades
+import com.example.appmedica.utils.ColorSpinnerAdapter
 import com.example.appmedica.utils.FirebaseHelper
 import com.example.appmedica.utils.KeyboardUtils
 import java.text.SimpleDateFormat
@@ -33,6 +35,7 @@ class CapsulaActivity : AppCompatActivity() {
     private lateinit var spinner2: Spinner
     private lateinit var spinner3: Spinner
     private lateinit var spinner4: Spinner
+    private lateinit var spinnercolor: Spinner
 
     private lateinit var othercantidad: EditText
     private lateinit var otherfrecuencia: EditText
@@ -44,6 +47,7 @@ class CapsulaActivity : AppCompatActivity() {
     private lateinit var duracion: String
     private lateinit var cantidad: String
     private lateinit var primertoma: String
+    private lateinit var selectedcolor: String
 
     private lateinit var db : FirebaseHelper
 
@@ -78,6 +82,8 @@ class CapsulaActivity : AppCompatActivity() {
         spinner3 = findViewById(R.id.cantidad)
         // Obtener referencia al Spinner primertoma
         spinner4 = findViewById(R.id.primertoma)
+        //Obtener referencia al Spinner de colores
+        spinnercolor = findViewById(R.id.color_spinner)
 
         //Referencia al campo other de cantidad
         othercantidad = findViewById(R.id.edtext_other_cantidad)
@@ -98,6 +104,7 @@ class CapsulaActivity : AppCompatActivity() {
         duracion = ""
         cantidad = ""
         primertoma = ""
+        selectedcolor = ""
 
         //Asignacion de opciones y listeners
         inicializaSpinners()
@@ -106,7 +113,7 @@ class CapsulaActivity : AppCompatActivity() {
         val cancelar: Button = findViewById(R.id.btn_cancelar)
         //Definimos la acción del botón (regresamos al menú de medicamentos)
         cancelar.setOnClickListener{
-            finish() //regresa a la activity anterior
+            finish() //finaliza la activity actual (se puede agregar la lógica para que haga otra cosa cuando actualicemos las pantallas)
         }
 
         //Obtener referencia al botón de guardar
@@ -176,7 +183,8 @@ class CapsulaActivity : AppCompatActivity() {
                     "cantidad" to cantidadReal,
                     "frecuencia" to frecuenciaReal,
                     "primertoma" to primertomaReal,
-                    "duracion" to duracionReal
+                    "duracion" to duracionReal,
+                    "color" to selectedcolor
                 )
 
                 Log.d("MedActivity", medicineData.toString())
@@ -236,6 +244,11 @@ class CapsulaActivity : AppCompatActivity() {
             adapter.setDropDownViewResource(R.layout.spinner_sangres)
             spinner4.adapter = adapter
         }
+        // Obtiene el array de colores desde strings.xml
+        val colors = resources.getStringArray(R.array.color_items)
+        // Configura el adaptador personalizado
+        val adapter = ColorSpinnerAdapter(this, colors.toList())
+        spinnercolor.adapter = adapter
 
         //Crear los listeners para detectar cuando la opción es "otro"
         //Spinner cantidad
@@ -352,6 +365,23 @@ class CapsulaActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 otherduracion.visibility = View.GONE //Me aseguro de que no se vea
                 duracion = ""
+            }
+
+        }
+        //Spinner color
+        spinnercolor.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedcolor = parent?.getItemAtPosition(position).toString()
+                view?.setBackgroundColor(Color.parseColor(selectedcolor))
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                selectedcolor = parent?.getItemAtPosition(0).toString()
             }
 
         }

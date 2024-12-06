@@ -7,10 +7,14 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.MotionEvent
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ScrollView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -20,6 +24,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.appmedica.com.example.appmedica.AlarmUtils
 import com.example.appmedica.com.example.appmedica.Consulta
 import com.example.appmedica.com.example.appmedica.Utilidades
+import com.example.appmedica.utils.ColorSpinnerAdapter
 import com.example.appmedica.utils.FirebaseHelper
 import com.example.appmedica.utils.KeyboardUtils
 import com.google.firebase.Timestamp
@@ -27,8 +32,12 @@ import java.util.Calendar
 
 class EditarConsulta: AppCompatActivity()  {
 
+    private lateinit var spinnercolor: Spinner
+    private lateinit var selectedcolor: String
+
     private lateinit var firebaseHelper: FirebaseHelper
     private lateinit var fechaTimestamp: Timestamp
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,12 +74,18 @@ class EditarConsulta: AppCompatActivity()  {
         val doc = intent.getStringExtra("doctor")
         val contacto = intent.getStringExtra("cont_doc")
         val id = intent.getStringExtra("id")
+        selectedcolor = intent.getStringExtra("selectedcolor") ?: "#FF4858"
         val campo1 = findViewById<EditText>(R.id.CIdenti)
         val editTextTime = findViewById<EditText>(R.id.CHoraConsul)
         val editTextFecha = findViewById<EditText>(R.id.CFechaConsul)
         val campo4 = findViewById<EditText>(R.id.CClinica)
         val campo5 = findViewById<EditText>(R.id.CDoc)
         val campo6 = findViewById<EditText>(R.id.CNumDoc)
+
+        spinnercolor = findViewById(R.id.color_spinner)
+        //Asignacion de opciones y listeners
+        inicializaSpinners()
+
         campo1.setText(consulta)
         editTextFecha.setText(fecha)
         editTextTime.setText(hora)
@@ -155,6 +170,7 @@ class EditarConsulta: AppCompatActivity()  {
             "time" to hora,
             "clinic" to clinica,
             "doctor" to nomdoc,
+            "selectedcolor" to selectedcolor,
             "contactdoc" to teldoc
         )
         firebaseHelper.actualizarCita(
@@ -199,6 +215,36 @@ class EditarConsulta: AppCompatActivity()  {
         val editTextFecha = findViewById<EditText>(R.id.CFechaConsul)
         // Formato de fecha: YYYY-MM-DD
         editTextFecha.setText("$year-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}")
+    }
+
+    private fun inicializaSpinners() {
+        // Obtiene el array de colores desde strings.xml
+        val colors = resources.getStringArray(R.array.color_items)
+        // Configura el adaptador personalizado
+        val adapter = ColorSpinnerAdapter(this, colors.toList())
+        spinnercolor.adapter = adapter
+
+        //seleccionado el color original
+        val defaultIndex = colors.indexOf(selectedcolor)
+        spinnercolor.setSelection(defaultIndex)
+
+        //Spinner color
+        spinnercolor.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedcolor = parent?.getItemAtPosition(position).toString()
+                view?.setBackgroundColor(Color.parseColor(selectedcolor))
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                selectedcolor = parent?.getItemAtPosition(0).toString()
+            }
+
+        }
     }
 
     private fun showTimePickerDialog() {

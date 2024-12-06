@@ -12,9 +12,12 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ScrollView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -24,6 +27,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.appmedica.com.example.appmedica.AlarmUtils
 import com.example.appmedica.com.example.appmedica.Consulta
 import com.example.appmedica.com.example.appmedica.Utilidades
+import com.example.appmedica.utils.ColorSpinnerAdapter
 import com.example.appmedica.utils.FirebaseHelper
 import com.example.appmedica.utils.KeyboardUtils
 import com.google.firebase.Timestamp
@@ -40,8 +44,12 @@ class Consultas : AppCompatActivity() {
         return activeNetwork.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
+    private lateinit var spinnercolor: Spinner
+    private lateinit var selectedcolor: String
+
     private lateinit var firebaseHelper: FirebaseHelper
     private lateinit var fechaTimestamp: Timestamp
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +76,11 @@ class Consultas : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        spinnercolor = findViewById(R.id.color_spinner)
+        selectedcolor = ""
+        //Asignacion de opciones y listeners
+        inicializaSpinners()
 
         val textViews = listOf<TextView>(
             findViewById(R.id.lblident),
@@ -118,6 +131,32 @@ class Consultas : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun inicializaSpinners() {
+        // Obtiene el array de colores desde strings.xml
+        val colors = resources.getStringArray(R.array.color_items)
+        // Configura el adaptador personalizado
+        val adapter = ColorSpinnerAdapter(this, colors.toList())
+        spinnercolor.adapter = adapter
+
+        //Spinner color
+        spinnercolor.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedcolor = parent?.getItemAtPosition(position).toString()
+                view?.setBackgroundColor(Color.parseColor(selectedcolor))
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                selectedcolor = parent?.getItemAtPosition(0).toString()
+            }
+
+        }
     }
 
     private fun showDatePickerDialog() {
@@ -175,6 +214,7 @@ class Consultas : AppCompatActivity() {
             "clinic" to clinica,
             "doctor" to nomdoc,
             "contactdoc" to teldoc,
+            "selectedcolor" to selectedcolor,
             "estado" to "pendiente"
         )
         firebaseHelper.agregarCita(

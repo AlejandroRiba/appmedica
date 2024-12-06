@@ -3,6 +3,7 @@ package com.example.appmedica
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -85,6 +86,12 @@ class ListaConsultas : AppCompatActivity() {
                     for ((cita, documentId) in citas) {
                         try {
                             val registroView = layoutInflater.inflate(R.layout.item_registro, container, false)
+                            try {
+                                registroView.setBackgroundColor(Color.parseColor(cita.selectedcolor))
+                            } catch (e: IllegalArgumentException) {
+                                // Si el color no es válido, usa un color por defecto
+                                registroView.setBackgroundColor(Color.parseColor("#FFFFFF")) // Blanco por defecto
+                            }
                             val textViewNombre = registroView.findViewById<TextView>(R.id.textViewNombre)
                             val textViewFecha = registroView.findViewById<TextView>(R.id.textViewFecha)
                             val textViewHora = registroView.findViewById<TextView>(R.id.textViewHora)
@@ -113,6 +120,7 @@ class ListaConsultas : AppCompatActivity() {
                                     putExtra("clinica", cita.clinic)
                                     putExtra("doctor", cita.doctor)
                                     putExtra("cont_doc", cita.contactdoc)
+                                    putExtra("selectedcolor", cita.selectedcolor.toString())
                                 }
                                 finish()
                                 startActivity(intent)
@@ -175,6 +183,7 @@ class ListaConsultas : AppCompatActivity() {
                 putExtra("doctor", cita.doctor)
                 putExtra("cont_doc", cita.contactdoc)
                 putExtra("id", idcons)
+                putExtra("selectedcolor", cita.selectedcolor)
             }
             finish() //finalizamos la lista de consultas
             startActivity(intent)
