@@ -20,7 +20,6 @@ import com.google.gson.Gson
 import java.util.Calendar
 
 object AlarmUtils {
-    @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("ScheduleExactAlarm")
     fun scheduleNotification( context: Context, calendar: Calendar, notificationCont: Pair<Pair<String, String>, String>?, requestCode: Int, idcons: String, clinica: String, hora: String, fecha: String) {
         val intent = Intent(context, AlarmNotification::class.java).apply {
@@ -50,34 +49,31 @@ object AlarmUtils {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                if (!alarmManager.canScheduleExactAlarms()) {
-                    // Redirige al usuario a la configuración para habilitarlo
-                    val intent: Intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
-                    context.startActivity(intent)
-                    Log.d("AlarmUtils", "scheduleNotification: ")
-                }
+            if (!alarmManager.canScheduleExactAlarms()) {
+                // Redirige al usuario a la configuración para habilitarlo
+                val intent: Intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                context.startActivity(intent)
+                Log.d("AlarmUtils", "scheduleNotification: ")
             }
+        }
 
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-            Log.d("AlarmUtils", "Recordatorio ${notificationCont?.second} $idcons creado")
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+        Log.d("AlarmUtils", "Recordatorio ${notificationCont?.second} $idcons creado")
 
-            // Guardar el recordatorio
-            val reminder = Reminder(
-                requestCode = requestCode,
-                idcons = idcons,
-                clinica = clinica,
-                fecha = fecha,
-                hora = hora,
-                calendarTime = calendar.timeInMillis,
-                notificationTitle = notificationCont?.first?.first,
-                notificationText = notificationCont?.first?.second,
-                actualReminder = notificationCont?.second
-            )
-            Log.d("REMINDER_CODE",requestCode.toString())
-            saveReminder(context, reminder) // Aquí guardamos el recordatorio
-
-
-
+        // Guardar el recordatorio
+        val reminder = Reminder(
+            requestCode = requestCode,
+            idcons = idcons,
+            clinica = clinica,
+            fecha = fecha,
+            hora = hora,
+            calendarTime = calendar.timeInMillis,
+            notificationTitle = notificationCont?.first?.first,
+            notificationText = notificationCont?.first?.second,
+            actualReminder = notificationCont?.second
+        )
+        Log.d("REMINDER_CODE",requestCode.toString())
+        saveReminder(context, reminder) // Aquí guardamos el recordatorio
 
     }
 
