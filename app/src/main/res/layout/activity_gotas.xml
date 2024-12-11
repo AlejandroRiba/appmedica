@@ -1,60 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/colorPrimary"
-    android:id="@+id/main"
-    android:gravity="center_horizontal"
-    tools:context=".GotasActivity">
-
-    <TextView
-        android:id="@+id/titulo1"
+    <?xml version="1.0" encoding="utf-8"?>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="Nuevo tratamiento:\nGotas"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="@dimen/tit"
-        android:textStyle="bold"/>
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="@color/colorPrimary">
 
-    <EditText
-        android:id="@+id/nombre_medicamento"
-        android:layout_width="370dp"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:inputType="text"
-        android:hint="Nombre del Medicamento"
-        android:layout_marginBottom="24dp"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollform"
+            android:scrollbars="none">
 
-    <Spinner
-        android:id="@+id/frecuencia"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="24dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:id="@+id/main"
+                android:gravity="center_horizontal">
 
-    <EditText
-        android:id="@+id/dosis"
-        android:layout_width="370dp"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:inputType="text"
-        android:hint="Dosis"
-        android:layout_marginBottom="24dp"/>
+                <TextView
+                    android:id="@+id/titulo1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="24dp"
+                    android:text="Nuevo tratamiento:\Gotas"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/tit"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
 
-    <Button
-        android:id="@+id/btn_guardar"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:text="Guardar" />
+                <EditText
+                    android:id="@+id/nombremedicamento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:inputType="text"
+                    android:backgroundTint="#536DFE"
+                    android:hint="Nombre del\nMedicamento *"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    tools:ignore="VisualLintTextFieldSize" />
 
-    <Button
-        android:id="@+id/btn_cancelar"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:text="Cancelar" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:text="Dosis de aplicación:"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
 
-</LinearLayout>
+                <EditText
+                    android:id="@+id/cantidad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Especifica la aplicación (gotas)"
+                    android:height="60dp"
+                    android:textSize="30sp"
+                    android:inputType="number"
+                    android:backgroundTint="#536DFE"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:text="Frecuencia de aplicación:"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+
+                <Spinner
+                    android:id="@+id/frecuencia"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+
+                <EditText
+                    android:id="@+id/edtext_other_frecuencia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Especifica la\nfrecuencia (horas)"
+                    android:height="60dp"
+                    android:textSize="30sp"
+                    android:inputType="number"
+                    android:backgroundTint="#536DFE"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:text="Ojo(s) a tratar:"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+
+                <Spinner
+                    android:id="@+id/ojoTratado"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:text="Horario de la primer aplicación:"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+
+                <Spinner
+                    android:id="@+id/primertoma"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+
+                <EditText
+                    android:id="@+id/edtext_other_primertoma"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Especifica el\nhorario"
+                    android:height="60dp"
+                    android:textSize="30sp"
+                    android:inputType="text"
+                    android:backgroundTint="#536DFE"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:clickable="false"
+                    android:focusable="false"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:text="Duración del tratamiento"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+
+                <Spinner
+                    android:id="@+id/duracion"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+
+                <EditText
+                    android:id="@+id/edtext_other_duracion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Especifica la\nduración (días)"
+                    android:height="60dp"
+                    android:textSize="30sp"
+                    android:inputType="number"
+                    android:backgroundTint="#536DFE"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:text="Color:"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+
+                <Spinner
+                    android:id="@+id/color_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+
+                <Button
+                    android:id="@+id/btn_guardar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#40C4FF"
+                    android:textColor="#000000"
+                    android:textSize="30sp"
+                    android:text="Guardar"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="Botón para guardar el tratamiento"
+                    tools:ignore="VisualLintButtonSize" />
+
+                <Button
+                    android:id="@+id/btn_cancelar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:textSize="30sp"
+                    android:text="Cancelar"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="Botón para regresar a la pantalla anterior"
+                    tools:ignore="VisualLintButtonSize" />
+            </LinearLayout>
+        </ScrollView>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
