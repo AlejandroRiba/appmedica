@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <?xml version="1.0" encoding="utf-8"?>
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        tools:context=".GotasActivity"
+    >
 
         <ScrollView
             android:layout_width="match_parent"
@@ -58,11 +59,19 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"/>
 
-                <EditText
+                <Spinner
                     android:id="@+id/cantidad"
                     android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+
+                <EditText
+                    android:id="@+id/edtext_other_cantidad"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Especifica la aplicación (gotas)"
+                    android:hint="Especifica la aplicación (numero de gotas)"
                     android:height="60dp"
                     android:textSize="30sp"
                     android:inputType="number"
@@ -106,12 +115,43 @@
                     android:layout_height="wrap_content"
                     android:textSize="30sp"
                     android:textColor="@color/black"
-                    android:text="Ojo(s) a tratar:"
+                    android:text="Tipo de tratamiento:"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/tipoTratamiento"
+                    >
+
+                    <RadioButton
+                        android:id="@+id/radioButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48sp"
+                        android:text="Ocular"/>
+
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48sp"
+                        android:text="En oídos" />
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:text="Lugar de aplicación(s):"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"/>
 
                 <Spinner
-                    android:id="@+id/ojoTratado"
+                    android:id="@+id/lugarDeTratamiendo"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginBottom="24dp"
