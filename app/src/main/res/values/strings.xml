@@ -161,6 +161,17 @@
         <item>Ambos</item>
     </string-array>
 
+    <!-- Opciones para el formulario de inyectables -->
+    <string-array name="tipos_inyectables">
+        <item>* Seleccione una opción</item>
+        <item>Intramuscular</item>
+        <item>Intravenosa</item>
+        <item>Subcutánea</item>
+        <item>Intradérmica</item>
+    </string-array>
+
+
+
     <string-array name="medida_beb">
         <item>* Seleccione una opción</item>
         <item>Cuchara (5 ml)</item>

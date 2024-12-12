@@ -137,9 +137,13 @@ class GotasActivity : AppCompatActivity() {
         nombre = findViewById<EditText>(R.id.nombremedicamento).text.toString()
         //Obtener el texto del radio button seleccionado
         val selectedRadioButtonId = radioTipoTratamiento.checkedRadioButtonId
+        if (selectedRadioButtonId == -1) {
+            Toast.makeText(this, "Por favor, seleccione un tipo de tratamiento", Toast.LENGTH_SHORT).show()
+            return
+        }
         tipoTratamiento = findViewById<RadioButton>(selectedRadioButtonId).text.toString()
 
-        lugarAplicacion = spinnerlugar.selectedItem.toString()
+        //lugarAplicacion = spinnerlugar.selectedItem.toString()
 
         if (nombre.isEmpty() || cantidad.isEmpty() || frecuencia.isEmpty() || primertoma.isEmpty()|| duracion.isEmpty() || tipoTratamiento.isEmpty() || lugarAplicacion.isEmpty()) {
             Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
@@ -400,6 +404,30 @@ class GotasActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 otherduracion.visibility = View.GONE //Me aseguro de que no se vea
                 duracion = ""
+            }
+
+        }
+
+        //Spinner tipo de tratamiento
+        spinnerlugar.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (val selectedItem = parent?.getItemAtPosition(position).toString()) {
+                    "* Seleccione una opción" -> {
+                        lugarAplicacion = ""
+                    }
+                    else -> {
+                        lugarAplicacion = selectedItem
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                lugarAplicacion = ""
             }
 
         }
