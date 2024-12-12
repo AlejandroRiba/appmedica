@@ -57,7 +57,8 @@ object AlarmUtils {
             }
         }
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+        //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
         Log.d("AlarmUtils", "Recordatorio ${notificationCont?.second} $idcons creado")
 
         // Guardar el recordatorio
