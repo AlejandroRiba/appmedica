@@ -48,6 +48,36 @@ object Utilidades {
         return dateFormat.parse(fecha)
     }
 
+    //Función que convierte un objeto yyyy-mm-dd en calendar
+    fun stringToCalendar(dateStr: String): Calendar {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+        try {
+            // Usar el operador de "desempaquetado seguro" (?)
+            val date = dateFormat.parse(dateStr) ?: return calendar // Si el parseo falla, retorna el calendario vacío
+            calendar.time = date
+        } catch (e: Exception) {
+            e.printStackTrace() // Maneja la excepción si el formato es inválido
+        }
+        return calendar
+    }
+
+    //Sumar las horas según la frecuencia
+    fun addHoursToDate(dateStr: String, hoursToAdd: Int): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+        try {
+            // Parsear la fecha y verificar si es null
+            val date = dateFormat.parse(dateStr) ?: return "" // Si no se puede parsear, retornar cadena vacía
+            calendar.time = date
+            calendar.add(Calendar.HOUR_OF_DAY, hoursToAdd) // Sumar las horas
+        } catch (e: Exception) {
+            e.printStackTrace() // Maneja la excepción si el formato es inválido
+        }
+        return dateFormat.format(calendar.time) // Retorna la nueva fecha como String
+    }
+
+
     // Función para convertir una hora en formato HH:mm a un objeto Date
     fun convertirHora(hora: String): String {
         val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
@@ -242,5 +272,30 @@ object Utilidades {
         return matchResult?.groups?.get(1)?.value // Extrae el número si coincide
     }
 
+    fun genMensajeMed(tipo: String, dosis: String, nombre: String): String{
+        return when(tipo){
+            "capsula" -> {
+                "Es hora! Recuerda tomar $dosis de $nombre !!!"
+            }
+
+            "tableta" -> {
+                "Es hora! Recuerda tomar $dosis de $nombre !!!"
+            }
+
+            "bebible" -> {
+                "Es hora! Recuerda beber $dosis de $nombre !!!"
+            }
+
+            "gotas" -> {
+                "Es hora! Recuerda colocarte $dosis de $nombre !!!"
+            }
+
+            "inyectable" -> {
+                "Es hora! Recuerda inyectarte $dosis de $nombre !!!"
+            }
+
+            else -> "Recuerda tomar tu mendicamento!!!!"
+        }
+    }
 
 }
