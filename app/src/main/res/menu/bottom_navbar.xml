@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/citasMenu"
+        android:title="@string/consultas_agendadas"
+        android:icon="@drawable/calendarvector"/>
+
+    <item
+        android:id="@+id/medicinasMenu"
+        android:title="@string/tituloMedicinas"
+        android:icon="@drawable/medicinas"/>
+
+    <item
+        android:id="@+id/perfilMenu"
+        android:title="@string/ver_perfil"
+        android:icon="@drawable/cuenta"/>
+
+</menu>
