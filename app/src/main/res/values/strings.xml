@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MediCare Assist</string>
+    <string name="anadeCitas">Añadadir Citas Médicas</string>
     <string name="bienvenido_a_mi_app">Buenos días, Alejandro!</string>
     <string name="capsulas">capsulas</string>
     <string name="tabletas">tabletas</string>
@@ -88,7 +89,7 @@
     <string name="nombre_del_dr">Nombre del Dr:</string>
     <string name="contacto_del_dr">Contacto del Dr:</string>
     <string name="btnajustes">btnajustes</string>
-    <string name="consultas_agendadas">Consultas Agendadas</string>
+    <string name="consultas_agendadas">Citas Médicas</string>
     <string name="consultatt">Consulta</string>
     <string name="agendar_nnueva_consulta">Agendar\nNueva consulta</string>
     <string name="volver_al_inicio">Volver al inicio</string>
@@ -118,6 +119,7 @@
     <string name="cargando_consultas">cargando consultas</string>
     <string name="ok">Ok</string>
     <string name="actualizar">Actualizar</string>
+    <string name="tituloMedicinas">Medicamentos</string>
     <!-- Opciones para el formulario de capsulas -->
     <string-array name="dosis">
         <item>* Seleccione una opción</item>
@@ -199,13 +201,13 @@
     </string-array>
     <!-- Colores para la tarjeta de recordatorio -->
     <string-array name="color_items">
-        <item>#FF4858</item> <!-- La primer opción es el default -->
-        <item>#1B7F79</item>
-        <item>#00CCC0</item>
-        <item>#72F2EB</item>
-        <item>#747F7F</item>
-        <item>#1AED3D</item>
-        <item>#F5D182</item>
-        <item>#EF49FF</item>
+        <item>#E5B6D7</item> <!-- La primer opción es el default.  Rosa, Naranja*, Amarillo*, Verde*, Azul*, Morado, Cyan*, Café -->
+        <item>#FFDCA2</item>
+        <item>#F7EFC1</item>
+        <item>#A5C7A4</item>
+        <item>#C2EAF2</item>
+        <item>#C28FCC</item>
+        <item>#C1C7E0</item>
+        <item>#B1907F</item>
     </string-array>
 </resources>

@@ -1,38 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:orientation="vertical"
-    android:id="@+id/main"
-    android:padding="16dp"
     android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context=".ListaConsultas">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginBottom="15dp"
-        android:scrollbars="none">
+        android:layout_weight="1">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:scrollbars="none"
+        android:layout_marginHorizontal="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/titulo1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/alexandria_semibold"
                 android:text="@string/consultas_agendadas"
                 android:textAlignment="center"
                 android:textColor="@color/texto"
                 android:textSize="@dimen/tit"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/container_layout"
@@ -42,51 +47,81 @@
                 android:orientation="vertical"
                 android:layout_margin="8dp"
                 android:padding="16dp">
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:background="@android:color/transparent"/>
-
-                <ImageView
-                    android:id="@+id/imageViewLoading"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:src="@drawable/cargando"
-                    android:contentDescription="@string/cargando_consultas"/>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:background="@android:color/transparent"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btn_nuevaconsul"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="26dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:backgroundTint="#40C4FF"
-        android:text="@string/agendar_nnueva_consulta"
-        android:textColor="#000000"
-        android:textSize="30sp"
-        tools:ignore="TextSizeCheck,VisualLintButtonSize" />
+<!--    <Button-->
+<!--        android:id="@+id/btn_regresar"-->
+<!--        android:layout_width="347dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:layout_marginBottom="30dp"-->
+<!--        android:backgroundTint="#BFBBBB"-->
+<!--        android:text="@string/volver_al_inicio"-->
+<!--        android:textColor="#000000"-->
+<!--        android:textSize="30sp"-->
+<!--        tools:ignore="TextSizeCheck,VisualLintButtonSize" />-->
 
-    <Button
-        android:id="@+id/btn_regresar"
-        android:layout_width="match_parent"
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAnadeCitas"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:contentDescription="@string/anadeCitas"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:backgroundTint="#BFBBBB"
-        android:text="@string/volver_al_inicio"
-        android:textColor="#000000"
-        android:textSize="30sp"
-        tools:ignore="TextSizeCheck,VisualLintButtonSize" />
+        app:backgroundTint="@color/brandColor"
+        app:rippleColor="@color/texto"
+        app:srcCompat="@drawable/add"
+        app:maxImageSize="35dp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomNavbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
+
+        <ImageButton
+            android:id="@+id/navCitas"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/brandColor"
+            android:contentDescription="@string/consultas_agendadas"
+            android:src="@drawable/calendarvector"
+            android:scaleType="fitCenter"
+            android:paddingVertical="14dp"
+            app:tint="@color/colorPrimary"/>
+
+        <ImageButton
+            android:id="@+id/navMedicinas"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/tituloMedicinas"
+            android:src="@drawable/medicinas"
+            app:tint="@color/brandColor"/>
+
+        <ImageButton
+            android:id="@+id/navPerfil"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/ver_perfil"
+            android:src="@drawable/cuenta"
+            app:tint="@color/brandColor"/>
+
+    </LinearLayout>
 </LinearLayout>

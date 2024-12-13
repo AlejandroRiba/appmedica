@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -11,6 +13,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.GridLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -18,6 +21,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -46,17 +50,28 @@ class ListaConsultas : AppCompatActivity() {
 
         fetchDataFromFirestore()
 
-        val btn: Button = findViewById(R.id.btn_regresar)
-        btn.setOnClickListener{
-            finish()
-        }
-        val btn2 : Button = findViewById(R.id.btn_nuevaconsul)
-        btn2.setOnClickListener {
+//        val btn: Button = findViewById(R.id.btn_regresar)
+//        btn.setOnClickListener{
+//            finish()
+//        }
+
+        val anadirCitas: View = findViewById(R.id.fabAnadeCitas)
+        anadirCitas.setOnClickListener {
             val intent = Intent(this, Consultas::class.java)
-            finish()//Finaliza la lista de consultas actual
             startActivity(intent)
         }
 
+        val navMedicinas = findViewById<ImageButton>(R.id.navMedicinas)
+        navMedicinas.setOnClickListener{
+            val intent = Intent(this, MedicamentosActivity::class.java)
+            startActivity(intent)
+        }
+
+        val navPerfil = findViewById<ImageButton>(R.id.navPerfil)
+        navPerfil.setOnClickListener{
+            val intent = Intent(this, PerfilActivity::class.java)
+            startActivity(intent)
+        }
     }
     @Suppress("SameParameterValue")
     private fun convertirStringADP(valor: String): Int {
@@ -72,46 +87,38 @@ class ListaConsultas : AppCompatActivity() {
     }
     @SuppressLint("InflateParams", "SetTextI18n")
     private fun fetchDataFromFirestore() {
-        val progressBar = findViewById<ImageView>(R.id.imageViewLoading)
-        progressBar.visibility = View.VISIBLE
-        progressBar.layoutParams.width = convertirStringADP("100dp")
-        progressBar.layoutParams.height = convertirStringADP("100dp")
         firebaseHelper.obtenerCitas()
             .addOnSuccessListener { citas ->
                 // Aquí tienes la lista de citas
                 if (citas.isNotEmpty()) {
-                    progressBar.visibility = View.INVISIBLE
                     container.removeAllViews() // Limpia el contenedor antes de agregar nuevas vistas
 
                     for ((cita, documentId) in citas) {
                         try {
                             val registroView = layoutInflater.inflate(R.layout.item_registro, container, false)
+                            val regViewContainer = registroView.findViewById<LinearLayout>(R.id.contenedorConsulta)
+                            val regViewBG = regViewContainer.background
                             try {
-                                registroView.setBackgroundColor(Color.parseColor(cita.selectedcolor))
+                                regViewBG.setTint(Color.parseColor(cita.selectedcolor))
                             } catch (e: IllegalArgumentException) {
                                 // Si el color no es válido, usa un color por defecto
-                                registroView.setBackgroundColor(Color.parseColor("#FFFFFF")) // Blanco por defecto
+                                regViewBG.setTint(Color.parseColor("#FFFFFF")) // Blanco por defecto
                             }
                             val textViewNombre = registroView.findViewById<TextView>(R.id.textViewNombre)
                             val textViewFecha = registroView.findViewById<TextView>(R.id.textViewFecha)
                             val textViewHora = registroView.findViewById<TextView>(R.id.textViewHora)
-                            val textViewClinica = registroView.findViewById<TextView>(R.id.textViewClinica)
-                            val textViewDoctor = registroView.findViewById<TextView>(R.id.textViewDoctor)
-                            val textViewContacto = registroView.findViewById<TextView>(R.id.textViewContacto)
 
                             textViewNombre.text = "${cita.idcons}"
-                            textViewFecha.text = createColoredText("Fecha", cita.date!!)
-                            textViewHora.text = createColoredText("Hora", cita.time!!)
-                            textViewClinica.text = createColoredText("Clínica", cita.clinic!!)
-                            textViewDoctor.text = createColoredText("Doctor", cita.doctor!!)
-                            textViewContacto.text = createColoredText("Contacto", cita.contactdoc!!)
+                            textViewFecha.text = "${cita.date}"
+                            textViewHora.text = "${cita.time}"
 
                             container.addView(registroView)
-                            val btnAjustes = registroView.findViewById<ImageButton>(R.id.btnOptions)
+                            val btnAjustes = registroView.findViewById<ImageView>(R.id.btnOptions)
                             btnAjustes.setOnClickListener {
                                 showDialog(documentId, cita)
                             }
-                            val mostrarCon = registroView.findViewById<LinearLayout>(R.id.consulta)
+
+                            val mostrarCon = registroView.findViewById<GridLayout>(R.id.consulta)
                             mostrarCon.setOnClickListener {
                                 val intent = Intent(this, MostrarConsulta::class.java).apply {
                                     putExtra("id", cita.idcons)

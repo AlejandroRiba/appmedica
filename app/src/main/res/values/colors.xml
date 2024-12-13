@@ -8,4 +8,6 @@
     <color name="azulPrincipal">#05476D</color>
     <color name="botonesOp">#77A2FF</color>
     <color name="texto">#1F2D3A</color>
+    <color name="textoNegro">#101010</color>
+    <color name="brandColor">#B5FFDA</color>
 </resources>
