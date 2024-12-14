@@ -42,13 +42,10 @@ class GotasActivity : AppCompatActivity() {
     private lateinit var otherprimertoma: EditText
     private lateinit var otherduracion: EditText
 
-    private lateinit var radioTipoTratamiento: RadioGroup
-
     private lateinit var nombre: String
     private lateinit var frecuencia: String
     private lateinit var duracion: String
     private lateinit var cantidad: String
-    private lateinit var tipoTratamiento: String
     private lateinit var lugarAplicacion: String
     private lateinit var primertoma: String
     private lateinit var selectedcolor: String
@@ -115,7 +112,6 @@ class GotasActivity : AppCompatActivity() {
         cantidad = ""
         primertoma = ""
         selectedcolor = ""
-        tipoTratamiento = ""
         lugarAplicacion = ""
 
 
@@ -138,15 +134,6 @@ class GotasActivity : AppCompatActivity() {
     private fun sendFeedback() {
         // Verificar que los campos no estén vacíos
         nombre = findViewById<EditText>(R.id.nombremedicamento).text.toString()
-        /*//Obtener el texto del radio button seleccionado
-        val selectedRadioButtonId = radioTipoTratamiento.checkedRadioButtonId
-        if (selectedRadioButtonId == -1) {
-            Toast.makeText(this, "Por favor, seleccione un tipo de tratamiento", Toast.LENGTH_SHORT).show()
-            return
-        }
-        tipoTratamiento = findViewById<RadioButton>(selectedRadioButtonId).text.toString()
-
-        //lugarAplicacion = spinnerlugar.selectedItem.toString()*/
 
         if (nombre.isEmpty() || cantidad.isEmpty() || frecuencia.isEmpty() || primertoma.isEmpty()|| duracion.isEmpty() || lugarAplicacion.isEmpty()) {
             Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()

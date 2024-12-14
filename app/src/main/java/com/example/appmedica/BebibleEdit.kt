@@ -59,7 +59,7 @@ class BebibleEdit : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.bebible_edit)
+        setContentView(R.layout.activity_bebible)
 
         // Detectar toques en la pantalla para ocultar el teclado
         val layout = findViewById<ScrollView>(R.id.scrollform)  // Cambia a tu layout principal
@@ -227,7 +227,7 @@ class BebibleEdit : AppCompatActivity() {
                         startActivity(intent) //iniciamos la lista de consultas
                     } else {
                         // No se pudo crear la cita
-                        Toast.makeText(this, "No se pudo actualizar la cita.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "No se pudo actualizar el registro.", Toast.LENGTH_SHORT).show()
                         finish()//regresa al activity anterior
                     }
                 }.addOnFailureListener{
@@ -246,6 +246,7 @@ class BebibleEdit : AppCompatActivity() {
         val tituloNotificacion = "TOMA DE JARABE (${medication.nombre}) PENDIENTE!"
         val mensajeNotificacion = Utilidades.genMensajeMed("bebible", medication.dosis, medication.nombre)
         val calendar = Utilidades.stringToCalendar(medication.primertoma)
+        AlarmUtils.deleteMedReminder(this, requestCodeBase)
         AlarmUtils.scheduleNotificationMedic(this, calendar, tituloNotificacion, mensajeNotificacion, requestCodeBase, medication.frecuencia, medication.duracion, medication.tipo)
     }
 

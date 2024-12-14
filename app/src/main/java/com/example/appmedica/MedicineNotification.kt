@@ -34,7 +34,7 @@ class MedicineNotification : BroadcastReceiver() {
     }
 
     private fun showNotification(context: Context, title: String, text: String) {
-        val intent = Intent(context, MainActivity::class.java).apply {
+        val intent = Intent(context, ListaMedicamentos::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 

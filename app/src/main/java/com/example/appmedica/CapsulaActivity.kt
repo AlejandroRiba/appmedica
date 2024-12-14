@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appmedica.com.example.appmedica.AlarmUtils
-import com.example.appmedica.com.example.appmedica.Consulta
 import com.example.appmedica.com.example.appmedica.Utilidades
 import com.example.appmedica.com.example.appmedica.utils.MedicationRepository
 import com.example.appmedica.utils.ColorSpinnerAdapter
@@ -30,10 +29,10 @@ import com.example.appmedica.utils.Medicine
 class CapsulaActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
 
-    private lateinit var spinner: Spinner
-    private lateinit var spinner2: Spinner
-    private lateinit var spinner3: Spinner
-    private lateinit var spinner4: Spinner
+    private lateinit var spinnerfrecuencia: Spinner
+    private lateinit var spinnerduracion: Spinner
+    private lateinit var spinnercantidad: Spinner
+    private lateinit var spinnerprimertoma: Spinner
     private lateinit var spinnercolor: Spinner
 
     private lateinit var othercantidad: EditText
@@ -76,13 +75,13 @@ class CapsulaActivity : AppCompatActivity() {
         medRepo = MedicationRepository(this)
 
         // Obtener referencia al Spinner frecuencia
-        spinner = findViewById(R.id.frecuencia)
+        spinnerfrecuencia = findViewById(R.id.frecuencia)
         // Obtener referencia al Spinner duración
-        spinner2 = findViewById(R.id.duracion)
+        spinnerduracion = findViewById(R.id.duracion)
         // Obtener referencia al Spinner cantidad/dosis
-        spinner3 = findViewById(R.id.cantidad)
+        spinnercantidad = findViewById(R.id.cantidad)
         // Obtener referencia al Spinner primertoma
-        spinner4 = findViewById(R.id.primertoma)
+        spinnerprimertoma = findViewById(R.id.primertoma)
         //Obtener referencia al Spinner de colores
         spinnercolor = findViewById(R.id.color_spinner)
 
@@ -269,7 +268,7 @@ class CapsulaActivity : AppCompatActivity() {
             // Especificar el layout que se utilizará cuando las opciones aparezcan desplegadas
             adapter.setDropDownViewResource(R.layout.spinner_sangres)
             // Aplicar el adaptador al Spinner
-            spinner.adapter = adapter
+            spinnerfrecuencia.adapter = adapter
         }
         // Crear un ArrayAdapter usando el string-array y un layout predeterminado para el spinner 2
         ArrayAdapter.createFromResource(
@@ -278,7 +277,7 @@ class CapsulaActivity : AppCompatActivity() {
             R.layout.spinner_sangres
         ).also { adapter ->
             adapter.setDropDownViewResource(R.layout.spinner_sangres)
-            spinner2.adapter = adapter
+            spinnerduracion.adapter = adapter
         }
         // Crear un ArrayAdapter usando el string-array y un layout predeterminado para el spinner 3
         ArrayAdapter.createFromResource(
@@ -287,7 +286,7 @@ class CapsulaActivity : AppCompatActivity() {
             R.layout.spinner_sangres
         ).also { adapter ->
             adapter.setDropDownViewResource(R.layout.spinner_sangres)
-            spinner3.adapter = adapter
+            spinnercantidad.adapter = adapter
         }
         // Crear un ArrayAdapter usando el string-array y un layout predeterminado para el spinner 4 primer toma
         ArrayAdapter.createFromResource(
@@ -296,7 +295,7 @@ class CapsulaActivity : AppCompatActivity() {
             R.layout.spinner_sangres
         ).also { adapter ->
             adapter.setDropDownViewResource(R.layout.spinner_sangres)
-            spinner4.adapter = adapter
+            spinnerprimertoma.adapter = adapter
         }
         // Obtiene el array de colores desde strings.xml
         val colors = resources.getStringArray(R.array.color_items)
@@ -306,7 +305,7 @@ class CapsulaActivity : AppCompatActivity() {
 
         //Crear los listeners para detectar cuando la opción es "otro"
         //Spinner cantidad
-        spinner3.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinnercantidad.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -335,7 +334,7 @@ class CapsulaActivity : AppCompatActivity() {
 
         }
         //Spinner frecuencia
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinnerfrecuencia.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -365,7 +364,7 @@ class CapsulaActivity : AppCompatActivity() {
         }
         //Spinner primer toma
         otherprimertoma.setOnClickListener { showTimePickerDialog(otherprimertoma) }
-        spinner4.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinnerprimertoma.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -394,7 +393,7 @@ class CapsulaActivity : AppCompatActivity() {
 
         }
         //Spinner duracion
-        spinner2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinnerduracion.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,

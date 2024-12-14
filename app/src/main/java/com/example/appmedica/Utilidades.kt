@@ -280,31 +280,31 @@ object Utilidades {
         return when(tipo){
             "capsula" -> {
                 "Es hora! Recuerda tomar $dosis de $nombre !!!\n" +
-                        " Entra para ver más detalles."
+                        "Entra para ver más detalles."
             }
 
             "tableta" -> {
                 "Es hora! Recuerda tomar $dosis de $nombre !!!\n" +
-                        " Entra para ver más detalles."
+                        "Entra para ver más detalles."
             }
 
             "bebible" -> {
                 "Es hora! Recuerda beber $dosis de $nombre !!!\n" +
-                        " Entra para ver más detalles."
+                        "Entra para ver más detalles."
             }
 
             "gotas" -> {
                 "Es hora! Recuerda colocarte $dosis de $nombre !!!\n" +
-                        " Entra para ver más detalles."
+                        "Entra para ver más detalles."
             }
 
             "inyectable" -> {
                 "Es hora! Recuerda inyectarte $dosis de $nombre !!!\n" +
-                        " Entra para ver más detalles."
+                        "Entra para ver más detalles."
             }
 
             else -> "Recuerda tomar tu mendicamento!!!!\n" +
-                    " Entra para ver más detalles."
+                    "Entra para ver más detalles."
         }
     }
 

@@ -135,15 +135,15 @@ class ListaMedicamentos : AppCompatActivity() {
                                 startActivity(intent)
                             }
                         } catch (e: Exception) {
-                            Toast.makeText(this, "Error al procesar la cita.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Error al procesar el registro.", Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
-                    Toast.makeText(this, "No se encontraron consultas.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "No se encontraron medicamentos.", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Error al obtener consultas.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error al obtener medicamentos.", Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -158,7 +158,6 @@ class ListaMedicamentos : AppCompatActivity() {
         builder.setView(view)
 
         val btnCancel = view.findViewById<Button>(R.id.btn_cancel)
-        val btnAsistido = view.findViewById<Button>(R.id.btn_asistido)
         val btnDelete = view.findViewById<Button>(R.id.btn_delete)
         val btnEditar = view.findViewById<Button>(R.id.btn_editar)
 
@@ -190,8 +189,24 @@ class ListaMedicamentos : AppCompatActivity() {
     private fun abrirActividad(tipo: String, medId: String, medicamento: Medicine, dialog: AlertDialog) {
         Log.d("AbrirActividad", "Tipo recibido: $tipo")
         val intent = when (tipo) {
-            TIPO_CAPSULA -> Intent(this, CapsulaEdit::class.java)
-            TIPO_TABLETA -> Intent(this, TabletaEdit::class.java)
+            TIPO_CAPSULA -> Intent(this, CapsulaEdit::class.java).apply {
+                putExtra("id", medId)
+                putExtra("nombre", medicamento.nombre)
+                putExtra("frecuencia", medicamento.frecuencia)
+                putExtra("duracion", medicamento.duracion)
+                putExtra("cantidad", medicamento.dosis)
+                putExtra("selectedcolor", medicamento.color)
+                putExtra("primertoma", medicamento.primertoma)
+            }
+            TIPO_TABLETA -> Intent(this, TabletaEdit::class.java).apply {
+                putExtra("id", medId)
+                putExtra("nombre", medicamento.nombre)
+                putExtra("frecuencia", medicamento.frecuencia)
+                putExtra("duracion", medicamento.duracion)
+                putExtra("cantidad", medicamento.dosis)
+                putExtra("selectedcolor", medicamento.color)
+                putExtra("primertoma", medicamento.primertoma)
+            }
             TIPO_BEBIBLE -> Intent(this, BebibleEdit::class.java).apply {
                 putExtra("id", medId)
                 putExtra("nombre", medicamento.nombre)
@@ -202,8 +217,26 @@ class ListaMedicamentos : AppCompatActivity() {
                 putExtra("primertoma", medicamento.primertoma)
                 putExtra("medida", medicamento.medida)
             }
-            TIPO_GOTAS -> Intent(this, GotasEdit::class.java)
-            TIPO_INYECTABLE -> Intent(this, InyectableEdit::class.java)
+            TIPO_GOTAS -> Intent(this, GotasEdit::class.java).apply {
+                putExtra("id", medId)
+                putExtra("nombre", medicamento.nombre)
+                putExtra("frecuencia", medicamento.frecuencia)
+                putExtra("duracion", medicamento.duracion)
+                putExtra("cantidad", medicamento.dosis)
+                putExtra("selectedcolor", medicamento.color)
+                putExtra("primertoma", medicamento.primertoma)
+                putExtra("lugarApl", medicamento.zonaAplicacion)
+            }
+            TIPO_INYECTABLE -> Intent(this, InyectableEdit::class.java).apply {
+                putExtra("id", medId)
+                putExtra("nombre", medicamento.nombre)
+                putExtra("frecuencia", medicamento.frecuencia)
+                putExtra("duracion", medicamento.duracion)
+                putExtra("cantidad", medicamento.dosis)
+                putExtra("selectedcolor", medicamento.color)
+                putExtra("primertoma", medicamento.primertoma)
+                putExtra("lugarApl", medicamento.zonaAplicacion)
+            }
             else -> {
                 Log.e("AbrirActividad", "Tipo no reconocido: $tipo")
                 null

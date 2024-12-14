@@ -251,5 +251,13 @@
         <item>#C28FCC</item>
         <item>#C1C7E0</item>
         <item>#B1907F</item>
+        <item>#F27A6E</item> <!-- Coral Intenso -->
+        <item>#FFA64C</item> <!-- Naranja Brillante -->
+        <item>#FBE25E</item> <!-- Amarillo Dorado -->
+        <item>#80B918</item> <!-- Verde Vibrante -->
+        <item>#6FE7DC</item> <!-- Azul Profundo -->
+        <item>#ED80F6</item> <!-- Morado Intenso -->
+        <item>#00CED1</item> <!-- Turquesa Brillante -->
+        <item>#9B6643</item> <!-- Café Oscuro -->
     </string-array>
 </resources>
