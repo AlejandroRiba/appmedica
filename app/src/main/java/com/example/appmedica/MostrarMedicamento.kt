@@ -66,7 +66,7 @@ class MostrarMedicamento : AppCompatActivity() {
 
         val btn: Button = findViewById(R.id.back2)
         btn.setOnClickListener {
-            val intent = Intent(this, ListaConsultas::class.java) //para recargar lista de consultas
+            val intent = Intent(this, ListaMedicamentos::class.java) //para recargar lista de consultas
             finish()
             startActivity(intent)
         }
