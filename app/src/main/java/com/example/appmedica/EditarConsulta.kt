@@ -74,7 +74,7 @@ class EditarConsulta: AppCompatActivity()  {
         val doc = intent.getStringExtra("doctor")
         val contacto = intent.getStringExtra("cont_doc")
         val id = intent.getStringExtra("id")
-        selectedcolor = intent.getStringExtra("selectedcolor") ?: "#FF4858"
+        selectedcolor = intent.getStringExtra("selectedcolor") ?: "#E5B6D7"
         val campo1 = findViewById<EditText>(R.id.CIdenti)
         val editTextTime = findViewById<EditText>(R.id.CHoraConsul)
         val editTextFecha = findViewById<EditText>(R.id.CFechaConsul)

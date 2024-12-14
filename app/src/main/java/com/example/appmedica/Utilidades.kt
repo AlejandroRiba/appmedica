@@ -5,6 +5,8 @@ import android.util.Log
 import com.example.appmedica.DatabaseHandler
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 
 object Utilidades {
 
@@ -305,5 +307,75 @@ object Utilidades {
                     " Entra para ver más detalles."
         }
     }
+
+
+    fun calcularDiferenciaDias(fecha1: String, fecha2: String): Int {
+        // Especificar el formato y el Locale (por ejemplo, Locale.US para fechas en inglés)
+        val formato = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
+
+        return try {
+            // Parsear las fechas en Date
+            val date1 = formato.parse(fecha1)
+            val date2 = formato.parse(fecha2)
+
+            // Calcular la diferencia en milliseconds
+            val diferenciaMilisegundos = abs(date2.time - date1.time)
+
+            // Convertir la diferencia a días
+            TimeUnit.MILLISECONDS.toDays(diferenciaMilisegundos).toInt()
+        } catch (e: Exception) {
+            // Manejar errores si el formato de las fechas es incorrecto
+            e.printStackTrace()
+            0
+        }
+    }
+
+    fun buscarHora(fechaCompleta: String, context: Context): String {
+        // Variables con horas
+        val databaseHandler = DatabaseHandler(context)
+        val usuario = databaseHandler.consultaDatos()
+        val hora1 = usuario.h1
+        val hora2 = usuario.h2
+        val hora3 = usuario.h3
+        val hora4 = usuario.h4
+        val hora5 = usuario.h5
+
+        // Formato para extraer solo la hora de la fecha completa
+        val formatoEntrada = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
+        val formatoHora = SimpleDateFormat("HH:mm", Locale.US)
+
+        return try {
+            // Convertir la fecha completa a un objeto Date
+            val fecha = formatoEntrada.parse(fechaCompleta)
+
+            // Extraer la hora en formato HH:mm
+            val horaExtraida = formatoHora.format(fecha)
+            Log.i("MedEdit", "Hora extraida: $horaExtraida")
+
+            // Comparar con las variables usando un when
+            when (horaExtraida) {
+                hora1 -> "Al despertar"
+                hora2 -> "Antes de dormir"
+                hora3 -> "Con el desayuno"
+                hora4 -> "Con la comida"
+                hora5 -> "Con la cena"
+                else -> horaExtraida
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            "Otro (ingrese)" // En caso de error en el formato de entrada
+        }
+    }
+
+
+    fun extraerNumeros(cadena: String): Int {
+        // Usar una expresión regular para encontrar números en la cadena
+        val regex = Regex("\\d+")
+        val resultado = regex.find(cadena)
+
+        // Devolver los números como entero, o 0 si no hay coincidencias
+        return resultado?.value?.toInt() ?: 0
+    }
+
 
 }

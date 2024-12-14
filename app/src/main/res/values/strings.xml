@@ -144,11 +144,11 @@
     <!-- Opciones para el formulario de jarabes -->
     <string-array name="dosis_beb">
         <item>* Seleccione una opción</item>
-        <item>5 ml</item>
-        <item>10 ml</item>
-        <item>15 ml</item>
-        <item>20 ml</item>
-        <item>Otro (ingrese)</item>
+        <item>5 ml</item> //1
+        <item>10 ml</item> //2
+        <item>15 ml</item> //3
+        <item>20 ml</item> //4
+        <item>Otro (ingrese)</item> //5
     </string-array>
     <!-- Opciones para el formulario de inyecciones -->
     <string-array name="dosis_iny">
@@ -199,35 +199,35 @@
     <!-- Opciones para el formulario general de medicamentos -->
     <string-array name="frecuencia">
         <item>* Seleccione una opción</item>
-        <item>Cada 8 hrs</item>
-        <item>Cada 12 hrs</item>
-        <item>Cada 24 hrs</item>
-        <item>Con cada comida</item>
-        <item>Con el desayuno</item>
-        <item>Con la comida</item>
-        <item>Con la cena</item>
-        <item>Al despertar</item>
-        <item>Antes de dormir</item>
-        <item>Otro (ingrese)</item>
+        <item>Cada 8 hrs</item> //1
+        <item>Cada 12 hrs</item> //2
+        <item>Cada 24 hrs</item> //3
+        <item>Con cada comida</item> //4
+        <item>Con el desayuno</item> //5
+        <item>Con la comida</item> //6
+        <item>Con la cena</item> //7
+        <item>Al despertar</item> //8
+        <item>Antes de dormir</item> //9
+        <item>Otro (ingrese)</item> //10
     </string-array>
     <string-array name="primertoma">
         <item>* Seleccione una opción</item>
-        <item>Al despertar</item>
-        <item>Antes de dormir</item>
-        <item>Con el desayuno</item>
-        <item>Con la comida</item>
-        <item>Con la cena</item>
-        <item>Ahora mismo</item>
-        <item>Otro (ingrese)</item>
+        <item>Al despertar</item> //1
+        <item>Antes de dormir</item> //2
+        <item>Con el desayuno</item> //3
+        <item>Con la comida</item>//4
+        <item>Con la cena</item> //5
+        <item>Ahora mismo</item> //6
+        <item>Otro (ingrese)</item> //7
     </string-array>
     <string-array name="duracion">
-        <item>* Seleccione una opción</item>
-        <item>3 días</item>
-        <item>7 días</item>
-        <item>14 días</item>
-        <item>30 días</item>
-        <item>Tratamiento continuo</item>
-        <item>Otro (ingrese)</item>
+        <item>* Seleccione una opción</item> //0
+        <item>3 días</item> //1
+        <item>7 días</item> //2
+        <item>14 días</item> //3
+        <item>30 días</item> //4
+        <item>Tratamiento continuo</item> //5
+        <item>Otro (ingrese)</item> //6
     </string-array>
     <!-- Opciones para el spinner de las sangres -->
     <string-array name="sangres">

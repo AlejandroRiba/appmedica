@@ -115,37 +115,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="30sp"
                     android:textColor="@color/black"
-                    android:text="Tipo de tratamiento:"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"/>
-
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/tipoTratamiento"
-                    >
-
-                    <RadioButton
-                        android:id="@+id/radioButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="48sp"
-                        android:text="Ocular"/>
-
-                    <RadioButton
-                        android:id="@+id/radioButton2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="48sp"
-                        android:text="En oídos" />
-                </RadioGroup>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="30sp"
-                    android:textColor="@color/black"
                     android:text="Lugar de aplicación(s):"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"/>

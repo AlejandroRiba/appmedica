@@ -94,9 +94,6 @@ class GotasActivity : AppCompatActivity() {
         //Obtener referencia al Spinner de lugar de administración
         spinnerlugar = findViewById(R.id.lugarDeTratamiendo)
 
-        //Obtener referencia al RadioGroup de tipo de tratamiento
-        radioTipoTratamiento = findViewById(R.id.tipoTratamiento)
-
         //Referencia al campo other de cantidad
         othercantidad = findViewById(R.id.edtext_other_cantidad)
         othercantidad.visibility = View.GONE

@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.SetOptions
 
 class MedicationRepository(private val context: Context){
     private val preferenceManager: PreferenceManager = PreferenceManager(context)
@@ -127,6 +128,37 @@ class MedicationRepository(private val context: Context){
             .addOnFailureListener { e ->
                 Toast.makeText(context, "Error al eliminar el medicamento: ${e.message}", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    // Método para actualizar un medicamento
+    fun updateMedicamento( //-- UPDATE
+        identificador: String,
+        nuevosDatos: Medicine
+    ): Task<Medicine?> {
+        val taskCompletionSource = TaskCompletionSource<Medicine?>()
+        val documentReference = db.collection("usuarios")
+            .document(userId!!)
+            .collection("medicamentos")
+            .document(identificador)
+
+        documentReference.set(nuevosDatos, SetOptions.merge())
+            .addOnSuccessListener {
+                documentReference.get()
+                    .addOnSuccessListener { documentSnapshot ->
+                        if(documentSnapshot.exists()){
+                            val medicamento = documentSnapshot.toObject(Medicine::class.java)
+                            taskCompletionSource.setResult(medicamento)
+                        }else{
+                            taskCompletionSource.setResult(null)
+                        }
+                    }
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Error al guardar!", Toast.LENGTH_SHORT).show()
+                taskCompletionSource.setResult(null) // Indica fallo
+            }
+
+        return taskCompletionSource.task
     }
 
 }

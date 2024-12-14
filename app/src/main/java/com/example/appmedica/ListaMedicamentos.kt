@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -29,6 +30,11 @@ class ListaMedicamentos : AppCompatActivity() {
 
     private lateinit var container: LinearLayout
     private lateinit var medRepo: MedicationRepository
+    val TIPO_CAPSULA = "capsula"
+    val TIPO_TABLETA = "tableta"
+    val TIPO_BEBIBLE = "bebible"
+    val TIPO_GOTAS = "gotas"
+    val TIPO_INYECTABLE = "inyectable"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -162,9 +168,6 @@ class ListaMedicamentos : AppCompatActivity() {
             dialog.dismiss()
         }
 
-        btnAsistido.setOnClickListener {
-           dialog.dismiss()
-        }
 
         btnDelete.setOnClickListener {
             AlarmUtils.deleteMedReminder(this, requestCode)
@@ -176,11 +179,45 @@ class ListaMedicamentos : AppCompatActivity() {
         }
 
         btnEditar.setOnClickListener {
-            dialog.dismiss()
-
+            Log.d("AbrirActividad", medicamento.toString())
+            abrirActividad(medicamento.tipo, medId, medicamento, dialog)
         }
 
         dialog.show()
+    }
+
+    // Función auxiliar para abrir actividades
+    private fun abrirActividad(tipo: String, medId: String, medicamento: Medicine, dialog: AlertDialog) {
+        Log.d("AbrirActividad", "Tipo recibido: $tipo")
+        val intent = when (tipo) {
+            TIPO_CAPSULA -> Intent(this, CapsulaEdit::class.java)
+            TIPO_TABLETA -> Intent(this, TabletaEdit::class.java)
+            TIPO_BEBIBLE -> Intent(this, BebibleEdit::class.java).apply {
+                putExtra("id", medId)
+                putExtra("nombre", medicamento.nombre)
+                putExtra("frecuencia", medicamento.frecuencia)
+                putExtra("duracion", medicamento.duracion)
+                putExtra("cantidad", medicamento.dosis)
+                putExtra("selectedcolor", medicamento.color)
+                putExtra("primertoma", medicamento.primertoma)
+                putExtra("medida", medicamento.medida)
+            }
+            TIPO_GOTAS -> Intent(this, GotasEdit::class.java)
+            TIPO_INYECTABLE -> Intent(this, InyectableEdit::class.java)
+            else -> {
+                Log.e("AbrirActividad", "Tipo no reconocido: $tipo")
+                null
+            }
+        }
+
+        if (intent != null) {
+            dialog.dismiss()
+            Log.d("AbrirActividad", "Iniciando actividad para tipo: $tipo")
+            startActivity(intent)
+        } else {
+            dialog.dismiss()
+            Log.e("AbrirActividad", "No se pudo iniciar actividad. Tipo desconocido.")
+        }
     }
 
 }

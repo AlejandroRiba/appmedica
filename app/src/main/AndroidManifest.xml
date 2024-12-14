@@ -6,7 +6,8 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"
+    <uses-permission
+        android:name="android.permission.SCHEDULE_EXACT_ALARM"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
 
@@ -21,6 +22,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppMedica"
         tools:targetApi="31">
+        <activity
+            android:name=".InyectableEdit"
+            android:exported="false" />
+        <activity
+            android:name=".BebibleEdit"
+            android:exported="false" />
+        <activity
+            android:name=".GotasEdit"
+            android:exported="false" />
+        <activity
+            android:name=".TabletaEdit"
+            android:exported="false" />
+        <activity
+            android:name=".CapsulaEdit"
+            android:exported="false" />
         <activity
             android:name=".ListaMedicamentos"
             android:exported="false" />

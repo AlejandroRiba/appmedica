@@ -25,8 +25,10 @@ import com.example.appmedica.utils.ColorSpinnerAdapter
 import com.example.appmedica.utils.FirebaseHelper
 import com.example.appmedica.utils.KeyboardUtils
 import com.example.appmedica.utils.Medicine
+import java.text.SimpleDateFormat
+import java.util.Locale
 
-class BebibleActivity : AppCompatActivity() {
+class BebibleEdit : AppCompatActivity() {
 
     private lateinit var spinnercantidad: Spinner
     private lateinit var spinnerfrecuencia: Spinner
@@ -40,6 +42,7 @@ class BebibleActivity : AppCompatActivity() {
     private lateinit var othermedida: EditText
     private lateinit var otherprimertoma: EditText
     private lateinit var otherduracion: EditText
+    private lateinit var nombreEdtext: EditText
 
     private lateinit var nombre: String
     private lateinit var frecuencia: String
@@ -48,6 +51,7 @@ class BebibleActivity : AppCompatActivity() {
     private lateinit var primertoma: String
     private lateinit var selectedcolor: String
     private lateinit var medidaadmin: String
+    private lateinit var id: String
 
     private lateinit var db : FirebaseHelper
     private lateinit var medRepo : MedicationRepository
@@ -55,8 +59,7 @@ class BebibleActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_bebible)
+        setContentView(R.layout.bebible_edit)
 
         // Detectar toques en la pantalla para ocultar el teclado
         val layout = findViewById<ScrollView>(R.id.scrollform)  // Cambia a tu layout principal
@@ -89,6 +92,9 @@ class BebibleActivity : AppCompatActivity() {
         //Obtener referencia al Spinner de medidad de administración
         spinnermedida = findViewById(R.id.medida)
 
+        //Referencia la campo nombre
+        nombreEdtext = findViewById(R.id.nombremedicamento)
+
         //Referencia al campo other de cantidad
         othercantidad = findViewById(R.id.edtext_other_cantidad)
         othercantidad.visibility = View.GONE
@@ -106,14 +112,16 @@ class BebibleActivity : AppCompatActivity() {
         othermedida.visibility = View.GONE
 
         //CONJUNTO DE DATOS PARA EL SENDFEEDBACK
-        nombre = ""
-        frecuencia = ""
-        duracion = ""
-        cantidad = ""
-        primertoma = ""
-        selectedcolor = ""
-        medidaadmin = ""
+        id = intent.getStringExtra("id") ?: ""
+        nombre = intent.getStringExtra("nombre") ?: ""
+        frecuencia = intent.getStringExtra("frecuencia") ?: "* Seleccione una opción"
+        duracion = intent.getStringExtra("duracion") ?: "* Seleccione una opción"
+        cantidad = intent.getStringExtra("cantidad") ?: "* Seleccione una opción"
+        primertoma = intent.getStringExtra("primertoma") ?: "* Seleccione una opción"
+        selectedcolor = intent.getStringExtra("selectedcolor") ?: "#E5B6D7"
+        medidaadmin = intent.getStringExtra("medida") ?: "* Seleccione una opción"
 
+        nombreEdtext.setText(nombre)
 
         //Asignacion de opciones y listeners
         inicializaSpinners()
@@ -127,11 +135,10 @@ class BebibleActivity : AppCompatActivity() {
 
         //Obtener referencia al botón de guardar
         val guardar: Button = findViewById(R.id.btn_guardar)
-        guardar.setOnClickListener { sendFeedback() }
-
+        guardar.setOnClickListener { sendFeedback(id) }
     }
 
-    private fun sendFeedback() {
+    private fun sendFeedback(id: String){
         // Verificar que los campos no estén vacíos
         nombre = findViewById<EditText>(R.id.nombremedicamento).text.toString()
         if (nombre.isEmpty() || cantidad.isEmpty() || frecuencia.isEmpty() || primertoma.isEmpty()|| duracion.isEmpty() || medidaadmin.isEmpty()) {
@@ -205,57 +212,32 @@ class BebibleActivity : AppCompatActivity() {
                 )
 
                 Log.d("MedActivity", medicineData.toString())
-
-                medRepo.addMedication(
-                    medicineData = medicineData
+                medRepo.updateMedicamento(
+                    id,
+                    medicineData
                 ).addOnSuccessListener { result ->
-                    val (exito, medId) = result // Descomponemos el Pair
-                    if (exito) {
-                        // El registro se creó correctamente
-                        if (medId != null) {
-                            fetchLastDocument(medId)
-                        } // Llama a fetchLastDocument()
+                    if (result != null) {
+                        // El medicamento se actualizo correctamente
+                        val requestCode = Utilidades.generateUniqueRequestCode(id)
+                        AlarmUtils.deleteMedReminder(this, requestCode)
+                        recordatorios(result, id) //Se actualizan los recordatorios
+                        val intent = Intent(this, ListaMedicamentos::class.java) //para recargar lista de consultas
+                        finish()//finalizamos la edición
+                        Toast.makeText(this, "Medicamento actualizada con éxito!!.", Toast.LENGTH_SHORT).show()
+                        startActivity(intent) //iniciamos la lista de consultas
                     } else {
-                        // No se pudo crear
-                        Toast.makeText(this, "No se pudo registrar el medicamento.", Toast.LENGTH_SHORT).show()
+                        // No se pudo crear la cita
+                        Toast.makeText(this, "No se pudo actualizar la cita.", Toast.LENGTH_SHORT).show()
                         finish()//regresa al activity anterior
                     }
-                }.addOnFailureListener {
+                }.addOnFailureListener{
                     // Manejo de cualquier otro error
-                    Toast.makeText(this, "Ocurrió un error al intentar crear el registro.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Ocurrió un error al intentar actualizar el registro.", Toast.LENGTH_SHORT).show()
                     finish()//regresa al activity anterior
                 }
 
             }
 
-        }
-
-    }
-
-
-    private fun fetchLastDocument(medId: String) {
-        medRepo.getMedication(medId).addOnSuccessListener { medication ->
-            if (medication != null) {
-                val intent = Intent(this, MostrarMedicamento::class.java).apply {
-                    putExtra("nombre", medication.nombre)
-                    putExtra("frecuencia", medication.frecuencia)
-                    putExtra("primertoma", medication.primertoma)
-                    putExtra("duracion", medication.duracion)
-                    putExtra("color", medication.color)
-                    putExtra("dosis", medication.dosis)
-                    putExtra("tipo", "Bebible")
-                    putExtra("medidaAdmin", medication.medida)
-                }
-                recordatorios(medication, medId)
-                finish() // Cierra la actividad actual
-                startActivity(intent)
-            } else {
-                // Manejo del caso en que consulta es null
-                Toast.makeText(this, "No se encontró el medicamento.", Toast.LENGTH_SHORT).show()
-            }
-        }.addOnFailureListener { e ->
-            // Manejo de errores en la lectura de la cita
-            Toast.makeText(this, "Error al cargar el registro..", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -266,8 +248,6 @@ class BebibleActivity : AppCompatActivity() {
         val calendar = Utilidades.stringToCalendar(medication.primertoma)
         AlarmUtils.scheduleNotificationMedic(this, calendar, tituloNotificacion, mensajeNotificacion, requestCodeBase, medication.frecuencia, medication.duracion, medication.tipo)
     }
-
-
 
     private fun showTimePickerDialog(editText: EditText) {
         val timePicker = TimePickerFragment { onTimeSelected(it, editText) }
@@ -290,6 +270,21 @@ class BebibleActivity : AppCompatActivity() {
             // Aplicar el adaptador al Spinner
             spinnerfrecuencia.adapter = adapter
         }
+        //valor por default capturado del extra
+        val itemsFrecuencia = resources.getStringArray(R.array.frecuencia)
+        val indexFrecuencia = itemsFrecuencia.indexOf(frecuencia)
+        if (indexFrecuencia != -1) {
+            spinnerfrecuencia.setSelection(indexFrecuencia) // Seleccionar el índice encontrado
+        }else{
+            Log.i("MedEdit", frecuencia)
+            when(frecuencia){
+                "8" -> { spinnerfrecuencia.setSelection(1) }
+                "12" -> { spinnerfrecuencia.setSelection(2) }
+                "24" -> { spinnerfrecuencia.setSelection(3) }
+                else -> { spinnerfrecuencia.setSelection(10)
+                            otherfrecuencia.setText(frecuencia)}
+            }
+        }
         // Crear un ArrayAdapter usando el string-array y un layout predeterminado para el spinner 2
         ArrayAdapter.createFromResource(
             this,
@@ -298,6 +293,24 @@ class BebibleActivity : AppCompatActivity() {
         ).also { adapter ->
             adapter.setDropDownViewResource(R.layout.spinner_sangres)
             spinnerduracion.adapter = adapter
+        }
+        //valor por default capturado del extra
+        val itemsDuracion = resources.getStringArray(R.array.duracion)
+        val indexDuracion = itemsDuracion.indexOf(duracion)
+        if (indexDuracion != -1) {
+            spinnerduracion.setSelection(indexDuracion) // Seleccionar el índice encontrado "Tratamiento continuo" si es el caso
+        }else{
+            val diasaumentados = Utilidades.calcularDiferenciaDias(primertoma, duracion)
+            Log.i("MedEdit", "Dias aumentados: $diasaumentados")
+            when(diasaumentados){
+                3 -> { spinnerduracion.setSelection(1) }
+                7 -> { spinnerduracion.setSelection(2) }
+                14  -> { spinnerduracion.setSelection(3) }
+                30 -> { spinnerduracion.setSelection(4) }
+                else -> { spinnerduracion.setSelection(6)
+                        otherduracion.setText("$diasaumentados")
+                    }
+            }
         }
         // Crear un ArrayAdapter usando el string-array y un layout predeterminado para el spinner 3
         ArrayAdapter.createFromResource(
@@ -308,6 +321,17 @@ class BebibleActivity : AppCompatActivity() {
             adapter.setDropDownViewResource(R.layout.spinner_sangres)
             spinnercantidad.adapter = adapter
         }
+        //valor por default capturado del extra
+        val itemsDosis = resources.getStringArray(R.array.dosis_beb)
+        val indexDosis = itemsDosis.indexOf(cantidad)
+        if (indexDosis != -1) {
+            spinnercantidad.setSelection(indexDosis)
+        }else{
+            val dosisPersonalizada = Utilidades.extraerNumeros(cantidad)
+            Log.i("MedEdit", "Dosis personalizada: $dosisPersonalizada")
+            spinnercantidad.setSelection(5) //opción other
+            othercantidad.setText("$dosisPersonalizada")
+        }
         // Crear un ArrayAdapter usando el string-array y un layout predeterminado para el spinner 4 primer toma
         ArrayAdapter.createFromResource(
             this,
@@ -316,6 +340,17 @@ class BebibleActivity : AppCompatActivity() {
         ).also { adapter ->
             adapter.setDropDownViewResource(R.layout.spinner_sangres)
             spinnerprimertoma.adapter = adapter
+        }
+        //valor por default capturado del extra
+        val itemsPrimtoma = resources.getStringArray(R.array.primertoma)
+        val primerhoraEstimada = Utilidades.buscarHora(primertoma, this)
+        Log.i("MedEdit", "Hora extraida: $primerhoraEstimada")
+        val indexPrimtoma = itemsPrimtoma.indexOf(primerhoraEstimada)
+        if (indexPrimtoma != -1) {
+            spinnerprimertoma.setSelection(indexPrimtoma) // Seleccionar el índice encontrado
+        }else{
+            spinnerprimertoma.setSelection(7) //Otro
+            otherprimertoma.setText(primerhoraEstimada)
         }
         // Crear un ArrayAdapter usando el string-array y un layout predeterminado para el spinner 3
         ArrayAdapter.createFromResource(
@@ -326,13 +361,25 @@ class BebibleActivity : AppCompatActivity() {
             adapter.setDropDownViewResource(R.layout.spinner_sangres)
             spinnermedida.adapter = adapter
         }
+        //valor por default capturado del extra
+        val itemsMedida = resources.getStringArray(R.array.medida_beb)
+        val indexMedida = itemsMedida.indexOf(medidaadmin)
+        Log.i("MedEdit", "Medida: $medidaadmin")
+        if (indexMedida != -1) {
+            spinnermedida.setSelection(indexMedida) // Seleccionar el índice encontrado
+        }else{
+            spinnermedida.setSelection(4) //Otro
+            othermedida.setText(medidaadmin)
+        }
         // Crear un ArrayAdapter para los colores
         // Obtiene el array de colores desde strings.xml
         val colors = resources.getStringArray(R.array.color_items)
         // Configura el adaptador personalizado
         val adapter = ColorSpinnerAdapter(this, colors.toList())
         spinnercolor.adapter = adapter
-
+        //seleccionado el color original
+        val defaultIndexcolor = colors.indexOf(selectedcolor)
+        spinnercolor.setSelection(defaultIndexcolor)
 
         //Crear los listeners para detectar cuando la opción es "otro"
         //Spinner cantidad
