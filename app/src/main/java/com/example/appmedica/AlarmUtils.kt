@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
+import com.example.appmedica.DatabaseHandler
 import com.example.appmedica.MedicineNotification
 import com.example.appmedica.utils.MedReminder
 import com.example.appmedica.utils.Reminder
@@ -108,13 +109,23 @@ object AlarmUtils {
             // Calcular la diferencia en milisegundos
             val diffInMillis = nowTime - calendarTime
 
-            // Definir los 3 minutos en milisegundos (5 minutos * 60 segundos * 1000 milisegundos)
+            // Definir los 3 minutos en milisegundos (3 minutos * 60 segundos * 1000 milisegundos)
             val threeMinutesInMillis = 3 * 60 * 1000
 
             if (calendar.before(now)) {
                 if (diffInMillis > threeMinutesInMillis) {
                     // Si la fecha ya pasó hace más de 3 minutos, simplemente no hace nada
                     Log.d("AlarmUtils", "La fecha ya pasó hace más de 5 minutos. Se debería programar el siguiente")
+                    programNextMedicNotification(
+                        context = context,
+                        title = titleNotification,
+                        text = textNotification,
+                        frecuencia = frecuencia,
+                        duracion = duracion,
+                        tipo = tipo,
+                        requestCodeBase = requestCode,
+                        calendar
+                    )
                     return
                 } else {
                     // Si la fecha está en el rango de los últimos 3 minutos, notificar
@@ -172,6 +183,112 @@ object AlarmUtils {
             return
         }
 
+    }
+
+
+    fun programNextMedicNotification(
+        context: Context,
+        title: String,
+        text: String,
+        frecuencia: String,
+        duracion: String,
+        tipo: String,
+        requestCodeBase: Int,
+        calendar: Calendar
+    ) {
+        val databaseHandler = DatabaseHandler(context)
+        val usuario = databaseHandler.consultaDatos()
+        //val calendar = Calendar.getInstance()
+        val now = Calendar.getInstance()
+        when {
+            // Si la frecuencia es un número
+            frecuencia.toIntOrNull() != null -> {
+                val horas = frecuencia.toInt()
+                calendar.add(Calendar.HOUR_OF_DAY, horas) // Sumamos las horas a la hora actual
+            }
+
+            // Si la frecuencia es "con cada comida"
+            frecuencia == "Con cada comida" -> {
+                val comidas = listOf(usuario.h3, usuario.h4, usuario.h5) // Horas de desayuno, comida y cena
+                for (comida in comidas) {
+                    val proximaHora = Utilidades.convertirHora(comida!!)
+                    val proximaHoraCalendar = Utilidades.stringToCalendar(proximaHora)
+                    if (proximaHoraCalendar.after(now)) {
+                        calendar.time = proximaHoraCalendar.time
+                    }
+                }
+                // Si ya pasaron todas las comidas del día, tomar el desayuno del día siguiente
+                val proximaHora = Utilidades.convertirHora(usuario.h3!!)
+                val proximaHoraCalendar = Utilidades.stringToCalendar(proximaHora)
+                proximaHoraCalendar.add(Calendar.DAY_OF_YEAR, 1)
+                calendar.time = proximaHoraCalendar.time
+            }
+
+            // Si la frecuencia es "con el desayuno"
+            frecuencia == "Con el desayuno" -> {
+                val desayunoS = Utilidades.convertirHora(usuario.h3!!)
+                val desayuno = Utilidades.stringToCalendar(desayunoS)
+                if (desayuno.after(now)) {
+                    calendar.time = desayuno.time
+                } else {
+                    desayuno.add(Calendar.DAY_OF_YEAR, 1) // Tomar el desayuno del día siguiente
+                    calendar.time = desayuno.time
+                }
+            }
+
+            // Si la frecuencia es "con la comida"
+            frecuencia == "Con la comida" -> {
+                val comidaS = Utilidades.convertirHora(usuario.h4!!)
+                val comida = Utilidades.stringToCalendar(comidaS)
+                if (comida.after(now)) {
+                    calendar.time = comida.time
+                } else {
+                    comida.add(Calendar.DAY_OF_YEAR, 1) // Tomar la comida del día siguiente
+                    calendar.time = comida.time
+                }
+            }
+
+            // Si la frecuencia es "con la cena"
+            frecuencia == "Con la cena" -> {
+                val cenaS = Utilidades.convertirHora(usuario.h5!!)
+                val cena = Utilidades.stringToCalendar(cenaS)
+                if (cena.after(now)) {
+                    calendar.time = cena.time
+                } else {
+                    cena.add(Calendar.DAY_OF_YEAR, 1) // Tomar la cena del día siguiente
+                    calendar.time = cena.time
+                }
+            }
+
+            // Si la frecuencia es "al despertar"
+            frecuencia == "Al despertar" -> {
+                val despertarS = Utilidades.convertirHora(usuario.h4!!) // Suponemos que h4 es la hora de despertar
+                val despertar = Utilidades.stringToCalendar(despertarS)
+                if (despertar.after(now)) {
+                    calendar.time = despertar.time
+                } else {
+                    despertar.add(Calendar.DAY_OF_YEAR, 1) // Tomar el despertar del día siguiente
+                    calendar.time = despertar.time
+                }
+            }
+
+            // Si la frecuencia es "antes de dormir"
+            frecuencia == "Antes de dormir" -> {
+                val dormirS = Utilidades.convertirHora(usuario.h5!!) // Suponemos que h5 es la hora antes de dormir
+                val dormir = Utilidades.stringToCalendar(dormirS)
+                if (dormir.after(now)) {
+                    calendar.time = dormir.time
+                } else {
+                    dormir.add(Calendar.DAY_OF_YEAR, 1) // Tomar antes de dormir del día siguiente
+                    calendar.time = dormir.time
+                }
+            }
+
+            // Caso por defecto
+            else -> throw IllegalArgumentException("Frecuencia no válida: $frecuencia")
+        }
+        Log.i("MedicineNotification", "Nuevo recordatorio $title programado $calendar")
+        scheduleNotificationMedic(context, calendar, title, text, requestCodeBase, frecuencia, duracion, tipo)
     }
 
 

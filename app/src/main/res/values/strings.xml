@@ -122,7 +122,7 @@
     <string name="tituloMedicinas">Medicamentos</string>
     <string name="medicamento_registrado">Medicamento registrado</string>
     <string name="anade_medicamento">Añadir medicamento</string>
-    <string name="medicamentos_registrados">Medicamentos Registrados</string>
+    <string name="medicamentos_registrados">Medicamentos</string>
     <!-- Opciones para el formulario de capsulas -->
     <string-array name="dosis">
         <item>* Seleccione una opción</item>
@@ -144,6 +144,16 @@
     <!-- Opciones para el formulario de jarabes -->
     <string-array name="dosis_beb">
         <item>* Seleccione una opción</item>
+        <item>5 ml</item>
+        <item>10 ml</item>
+        <item>15 ml</item>
+        <item>20 ml</item>
+        <item>Otro (ingrese)</item>
+    </string-array>
+    <!-- Opciones para el formulario de inyecciones -->
+    <string-array name="dosis_iny">
+        <item>* Seleccione una opción</item>
+        <item>2 ml</item>
         <item>5 ml</item>
         <item>10 ml</item>
         <item>15 ml</item>

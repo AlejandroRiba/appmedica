@@ -1,6 +1,7 @@
 package com.example.appmedica
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -17,13 +18,17 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.appmedica.com.example.appmedica.AlarmUtils
 import com.example.appmedica.com.example.appmedica.Utilidades
+import com.example.appmedica.com.example.appmedica.utils.MedicationRepository
 import com.example.appmedica.utils.ColorSpinnerAdapter
 import com.example.appmedica.utils.FirebaseHelper
 import com.example.appmedica.utils.KeyboardUtils
+import com.example.appmedica.utils.Medicine
 
 class InyectableActivity : AppCompatActivity() {
 
+    private lateinit var spinnercantidad: Spinner
     private lateinit var spinnerfrecuencia: Spinner
     private lateinit var spinnerprimertoma: Spinner
     private lateinit var spinnerduracion: Spinner
@@ -45,6 +50,7 @@ class InyectableActivity : AppCompatActivity() {
     private lateinit var selectedcolor: String
 
     private lateinit var db : FirebaseHelper
+    private lateinit var medRepo : MedicationRepository
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +74,10 @@ class InyectableActivity : AppCompatActivity() {
         }
 
         db = FirebaseHelper(this)
+        medRepo = MedicationRepository(this)
 
+        // Obtener referencia al Spinner cantidad/dosis
+        spinnercantidad = findViewById(R.id.cantidad)
         // Obtener referencia al Spinner frecuencia
         spinnerfrecuencia = findViewById(R.id.frecuencia)
         // Obtener referencia al Spinner duración
@@ -81,10 +90,9 @@ class InyectableActivity : AppCompatActivity() {
         spinnerTipoInyeccion = findViewById(R.id.tipoInyeccion)
 
 
-
         //Referencia al campo other de cantidad
         othercantidad = findViewById(R.id.edtext_other_cantidad)
-
+        othercantidad.visibility = View.GONE
         //Referencia al campo other de frecuencia
         otherfrecuencia = findViewById(R.id.edtext_other_frecuencia)
         otherfrecuencia.visibility = View.GONE
@@ -125,14 +133,6 @@ class InyectableActivity : AppCompatActivity() {
     private fun sendFeedback() {
         // Verificar que los campos no estén vacíos
         nombre = findViewById<EditText>(R.id.nombremedicamento).text.toString()
-        //Verificar que el campo de cantidad no esté vacío
-        if(othercantidad.text.toString().isEmpty()){
-            Toast.makeText(this, "Por favor, ingresa la dosis.", Toast.LENGTH_SHORT).show()
-        }else{
-            dosis = othercantidad.text.toString()
-            dosis += " ml"
-        }
-
         if (nombre.isEmpty() || dosis.isEmpty() || frecuencia.isEmpty() || primertoma.isEmpty()|| duracion.isEmpty() || tipoInyeccion.isEmpty() ) {
             Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
             return
@@ -140,8 +140,11 @@ class InyectableActivity : AppCompatActivity() {
 
         //Si los campos no están vacios
         //variable cantidad
-        val cantidadReal: String = dosis
-
+        var cantidadReal: String = dosis
+        if(dosis == "other"){
+            cantidadReal = othercantidad.text.toString().trim() //para eliminar ceros, convertir a entero y luego a string
+            cantidadReal = cantidadReal.toInt().toString() + " ml"
+        }
 
         //Extraemos las horas de la frecuencia
         var frecuenciaReal: String? = frecuencia
@@ -183,24 +186,77 @@ class InyectableActivity : AppCompatActivity() {
                     duracionReal = Utilidades.agregarDias(primertomaReal, duracionReal.toInt())
                 }
 
-                val medicineData = mapOf(
-                    "nombre" to nombre,
-                    "tipo" to "inyectable",
-                    "cantidad" to cantidadReal,
-                    "frecuencia" to frecuenciaReal,
-                    "primertoma" to primertomaReal,
-                    "duracion" to duracionReal,
-                    "selectedcolor" to selectedcolor,
-                    "tipoInyeccion" to tipoInyeccion
-
+                val medicineData = Medicine(
+                    nombre = nombre,
+                    tipo = "inyectable",
+                    dosis = cantidadReal,
+                    frecuencia = frecuenciaReal!!,
+                    primertoma = primertomaReal,
+                    duracion = duracionReal!!,
+                    color =  selectedcolor,
+                    zonaAplicacion = tipoInyeccion,
                 )
 
                 Log.d("MedInyectableActivity", medicineData.toString())
+
+                medRepo.addMedication(
+                    medicineData = medicineData
+                ).addOnSuccessListener { result ->
+                    val (exito, medId) = result // Descomponemos el Pair
+                    if (exito) {
+                        // El registro se creó correctamente
+                        if (medId != null) {
+                            fetchLastDocument(medId)
+                        } // Llama a fetchLastDocument()
+                    } else {
+                        // No se pudo crear
+                        Toast.makeText(this, "No se pudo registrar el medicamento.", Toast.LENGTH_SHORT).show()
+                        finish()//regresa al activity anterior
+                    }
+                }.addOnFailureListener {
+                    // Manejo de cualquier otro error
+                    Toast.makeText(this, "Ocurrió un error al intentar crear el registro.", Toast.LENGTH_SHORT).show()
+                    finish()//regresa al activity anterior
+                }
 
             }
 
         }
 
+    }
+
+    private fun fetchLastDocument(medId: String) {
+        medRepo.getMedication(medId).addOnSuccessListener { medication ->
+            if (medication != null) {
+                val intent = Intent(this, MostrarMedicamento::class.java).apply {
+                    putExtra("nombre", medication.nombre)
+                    putExtra("frecuencia", medication.frecuencia)
+                    putExtra("primertoma", medication.primertoma)
+                    putExtra("duracion", medication.duracion)
+                    putExtra("color", medication.color)
+                    putExtra("dosis", medication.dosis)
+                    putExtra("tipo", "Inyectable")
+                    putExtra("zonaApl", medication.zonaAplicacion)
+                }
+                recordatorios(medication, medId)
+                finish() // Cierra la actividad actual
+                startActivity(intent)
+            } else {
+                // Manejo del caso en que consulta es null
+                Toast.makeText(this, "No se encontró el medicamento.", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener { e ->
+            // Manejo de errores en la lectura de la cita
+            Toast.makeText(this, "Error al cargar el registro..", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun recordatorios(medication: Medicine, medId: String) {
+        val requestCodeBase = Utilidades.generateUniqueRequestCode(medId)
+        val tituloNotificacion = "INYECCIÓN DE (${medication.nombre}) PENDIENTE!"
+        val mensajeNotificacion = Utilidades.genMensajeMed("inyectable", medication.dosis, medication.nombre)
+        val calendar = Utilidades.stringToCalendar(medication.primertoma)
+        AlarmUtils.scheduleNotificationMedic(this, calendar, tituloNotificacion, mensajeNotificacion, requestCodeBase, medication.frecuencia, medication.duracion, medication.tipo)
     }
 
 
@@ -234,7 +290,15 @@ class InyectableActivity : AppCompatActivity() {
             adapter.setDropDownViewResource(R.layout.spinner_sangres)
             spinnerduracion.adapter = adapter
         }
-
+        // Crear un ArrayAdapter usando el string-array y un layout predeterminado para el spinner 3
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.dosis_iny,
+            R.layout.spinner_sangres
+        ).also { adapter ->
+            adapter.setDropDownViewResource(R.layout.spinner_sangres)
+            spinnercantidad.adapter = adapter
+        }
         // Crear un ArrayAdapter usando el string-array y un layout predeterminado para el spinner 4 primer toma
         ArrayAdapter.createFromResource(
             this,
@@ -264,7 +328,35 @@ class InyectableActivity : AppCompatActivity() {
 
 
         //Crear los listeners para detectar cuando la opción es "otro"
+        //Spinner cantidad
+        spinnercantidad.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (val selectedItem = parent?.getItemAtPosition(position).toString()) {
+                    "Otro (ingrese)" -> {
+                        othercantidad.visibility = View.VISIBLE
+                        dosis = "other"
+                    }
+                    "* Seleccione una opción" -> {
+                        dosis = ""
+                    }
+                    else -> {
+                        othercantidad.visibility = View.GONE
+                        dosis = selectedItem
+                    }
+                }
+            }
 
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                othercantidad.visibility = View.GONE //Me aseguro de que no se vea
+                dosis = ""
+            }
+
+        }
         //Spinner frecuencia
         spinnerfrecuencia.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(

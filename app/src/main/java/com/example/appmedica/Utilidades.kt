@@ -1,6 +1,8 @@
 package com.example.appmedica.com.example.appmedica
 
+import android.content.Context
 import android.util.Log
+import com.example.appmedica.DatabaseHandler
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -93,7 +93,17 @@ class FirebaseHelper(private val context: Context) {
     }
 
     fun eliminarSubcolecciones(docRef: DocumentReference) {
-        docRef.collection("citas").get() // Cambia "subcoleccion1" por el nombre de tu subcolección
+        docRef.collection("citas").get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    document.reference.delete() // Elimina cada documento en la subcolección
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("FirebaseHelper", "Error al eliminar documentos en subcolección", e)
+            }
+
+        docRef.collection("medicamentos").get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     document.reference.delete() // Elimina cada documento en la subcolección

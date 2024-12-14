@@ -59,6 +59,14 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"/>
 
+            <Spinner
+                android:id="@+id/cantidad"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
             <EditText
                 android:id="@+id/edtext_other_cantidad"
                 android:layout_width="match_parent"
