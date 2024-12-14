@@ -18,10 +18,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.appmedica.com.example.appmedica.AlarmUtils
 import com.example.appmedica.com.example.appmedica.Utilidades
+import com.example.appmedica.com.example.appmedica.utils.MedicationRepository
 import com.example.appmedica.utils.ColorSpinnerAdapter
 import com.example.appmedica.utils.FirebaseHelper
 import com.example.appmedica.utils.KeyboardUtils
+import com.example.appmedica.utils.Medicine
 
 class TabletaActivity : AppCompatActivity() {
 
@@ -44,6 +47,7 @@ class TabletaActivity : AppCompatActivity() {
     private lateinit var selectedcolor: String
 
     private lateinit var db : FirebaseHelper
+    private lateinit var medRepo : MedicationRepository
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +71,7 @@ class TabletaActivity : AppCompatActivity() {
         }
 
         db = FirebaseHelper(this)
+        medRepo = MedicationRepository(this)
 
         // Obtener referencia al Spinner frecuencia
         spinner = findViewById(R.id.frecuencia)
@@ -172,22 +177,76 @@ class TabletaActivity : AppCompatActivity() {
                     duracionReal = Utilidades.agregarDias(primertomaReal, duracionReal.toInt())
                 }
 
-                val medicineData = mapOf(
-                    "nombre" to nombre,
-                    "tipo" to "tableta",
-                    "cantidad" to cantidadReal,
-                    "frecuencia" to frecuenciaReal,
-                    "primertoma" to primertomaReal,
-                    "duracion" to duracionReal,
-                    "color" to selectedcolor
+                val medicineData = Medicine(
+                    nombre =  nombre,
+                    tipo = "tableta",
+                    dosis =  cantidadReal,
+                    frecuencia = frecuenciaReal!!,
+                    primertoma =  primertomaReal,
+                    duracion = duracionReal!!,
+                    color = selectedcolor
                 )
 
                 Log.d("MedActivity", medicineData.toString())
+
+                medRepo.addMedication(
+                    medicineData = medicineData
+                ).addOnSuccessListener { result ->
+                    val (exito, medId) = result // Descomponemos el Pair
+                    if (exito) {
+                        // El registro se creó correctamente
+                        if (medId != null) {
+                            fetchLastDocument(medId)
+                        } // Llama a fetchLastDocument()
+                    } else {
+                        // No se pudo crear
+                        Toast.makeText(this, "No se pudo registrar el medicamento.", Toast.LENGTH_SHORT).show()
+                        finish()//regresa al activity anterior
+                    }
+                }.addOnFailureListener {
+                    // Manejo de cualquier otro error
+                    Toast.makeText(this, "Ocurrió un error al intentar crear el registro.", Toast.LENGTH_SHORT).show()
+                    finish()//regresa al activity anterior
+                }
 
             }
 
         }
 
+    }
+
+
+    private fun fetchLastDocument(medId: String) {
+        medRepo.getMedication(medId).addOnSuccessListener { medication ->
+            if (medication != null) {
+                val intent = Intent(this, MostrarMedicamento::class.java).apply {
+                    putExtra("nombre", medication.nombre)
+                    putExtra("frecuencia", medication.frecuencia)
+                    putExtra("primertoma", medication.primertoma)
+                    putExtra("duracion", medication.duracion)
+                    putExtra("color", medication.color)
+                    putExtra("dosis", medication.dosis)
+                    putExtra("tipo", "Tableta")
+                }
+                recordatorios(medication, medId)
+                finish() // Cierra la actividad actual
+                startActivity(intent)
+            } else {
+                // Manejo del caso en que consulta es null
+                Toast.makeText(this, "No se encontró el medicamento.", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener { e ->
+            // Manejo de errores en la lectura de la cita
+            Toast.makeText(this, "Error al cargar el registro..", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun recordatorios(medication: Medicine, medId: String) {
+        val requestCodeBase = Utilidades.generateUniqueRequestCode(medId)
+        val tituloNotificacion = "TOMA DE TABLETA (${medication.nombre}) PENDIENTE!"
+        val mensajeNotificacion = Utilidades.genMensajeMed("tableta", medication.dosis, medication.nombre)
+        val calendar = Utilidades.stringToCalendar(medication.primertoma)
+        AlarmUtils.scheduleNotificationMedic(this, calendar, tituloNotificacion, mensajeNotificacion, requestCodeBase, medication.frecuencia, medication.duracion, medication.tipo)
     }
 
 

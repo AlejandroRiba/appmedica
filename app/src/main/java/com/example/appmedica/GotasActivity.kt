@@ -1,6 +1,7 @@
 package com.example.appmedica
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -19,10 +20,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.appmedica.com.example.appmedica.AlarmUtils
 import com.example.appmedica.com.example.appmedica.Utilidades
+import com.example.appmedica.com.example.appmedica.utils.MedicationRepository
 import com.example.appmedica.utils.ColorSpinnerAdapter
 import com.example.appmedica.utils.FirebaseHelper
 import com.example.appmedica.utils.KeyboardUtils
+import com.example.appmedica.utils.Medicine
 
 class GotasActivity : AppCompatActivity() {
 
@@ -50,6 +54,7 @@ class GotasActivity : AppCompatActivity() {
     private lateinit var selectedcolor: String
 
     private lateinit var db : FirebaseHelper
+    private lateinit var medRepo : MedicationRepository
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +78,7 @@ class GotasActivity : AppCompatActivity() {
         }
 
         db = FirebaseHelper(this)
+        medRepo = MedicationRepository(this)
 
         // Obtener referencia al Spinner frecuencia
         spinnerfrecuencia = findViewById(R.id.frecuencia)
@@ -135,7 +141,7 @@ class GotasActivity : AppCompatActivity() {
     private fun sendFeedback() {
         // Verificar que los campos no estén vacíos
         nombre = findViewById<EditText>(R.id.nombremedicamento).text.toString()
-        //Obtener el texto del radio button seleccionado
+        /*//Obtener el texto del radio button seleccionado
         val selectedRadioButtonId = radioTipoTratamiento.checkedRadioButtonId
         if (selectedRadioButtonId == -1) {
             Toast.makeText(this, "Por favor, seleccione un tipo de tratamiento", Toast.LENGTH_SHORT).show()
@@ -143,9 +149,9 @@ class GotasActivity : AppCompatActivity() {
         }
         tipoTratamiento = findViewById<RadioButton>(selectedRadioButtonId).text.toString()
 
-        //lugarAplicacion = spinnerlugar.selectedItem.toString()
+        //lugarAplicacion = spinnerlugar.selectedItem.toString()*/
 
-        if (nombre.isEmpty() || cantidad.isEmpty() || frecuencia.isEmpty() || primertoma.isEmpty()|| duracion.isEmpty() || tipoTratamiento.isEmpty() || lugarAplicacion.isEmpty()) {
+        if (nombre.isEmpty() || cantidad.isEmpty() || frecuencia.isEmpty() || primertoma.isEmpty()|| duracion.isEmpty() || lugarAplicacion.isEmpty()) {
             Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
             return
         }
@@ -200,25 +206,78 @@ class GotasActivity : AppCompatActivity() {
                     duracionReal = Utilidades.agregarDias(primertomaReal, duracionReal.toInt())
                 }
 
-                val medicineData = mapOf(
-                    "nombre" to nombre,
-                    "tipo" to "gotas",
-                    "cantidad" to cantidadReal,
-                    "frecuencia" to frecuenciaReal,
-                    "primertoma" to primertomaReal,
-                    "duracion" to duracionReal,
-                    "selectedcolor" to selectedcolor,
-                    "tipoTratamiento" to tipoTratamiento,
-                    "lugarAplicacion" to lugarAplicacion
-
+                val medicineData = Medicine(
+                    nombre = nombre,
+                    tipo =  "gotas",
+                    dosis =  cantidadReal,
+                    frecuencia = frecuenciaReal!!,
+                    primertoma =  primertomaReal,
+                    duracion = duracionReal!!,
+                    color = selectedcolor,
+                    zonaAplicacion =  lugarAplicacion
                 )
 
-                Log.d("MedGotasActivity", medicineData.toString())
+                Log.d("MedActivity", medicineData.toString())
+
+                medRepo.addMedication(
+                    medicineData = medicineData
+                ).addOnSuccessListener { result ->
+                    val (exito, medId) = result // Descomponemos el Pair
+                    if (exito) {
+                        // El registro se creó correctamente
+                        if (medId != null) {
+                            fetchLastDocument(medId)
+                        } // Llama a fetchLastDocument()
+                    } else {
+                        // No se pudo crear
+                        Toast.makeText(this, "No se pudo registrar el medicamento.", Toast.LENGTH_SHORT).show()
+                        finish()//regresa al activity anterior
+                    }
+                }.addOnFailureListener {
+                    // Manejo de cualquier otro error
+                    Toast.makeText(this, "Ocurrió un error al intentar crear el registro.", Toast.LENGTH_SHORT).show()
+                    finish()//regresa al activity anterior
+                }
+
 
             }
 
         }
 
+    }
+
+    private fun fetchLastDocument(medId: String) {
+        medRepo.getMedication(medId).addOnSuccessListener { medication ->
+            if (medication != null) {
+                val intent = Intent(this, MostrarMedicamento::class.java).apply {
+                    putExtra("nombre", medication.nombre)
+                    putExtra("frecuencia", medication.frecuencia)
+                    putExtra("primertoma", medication.primertoma)
+                    putExtra("duracion", medication.duracion)
+                    putExtra("color", medication.color)
+                    putExtra("dosis", medication.dosis)
+                    putExtra("tipo", "Gotas")
+                    putExtra("zonaApl", medication.zonaAplicacion)
+                }
+                recordatorios(medication, medId)
+                finish() // Cierra la actividad actual
+                startActivity(intent)
+            } else {
+                // Manejo del caso en que consulta es null
+                Toast.makeText(this, "No se encontró el medicamento.", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener { e ->
+            // Manejo de errores en la lectura de la cita
+            Toast.makeText(this, "Error al cargar el registro..", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun recordatorios(medication: Medicine, medId: String) {
+        val requestCodeBase = Utilidades.generateUniqueRequestCode(medId)
+        val tituloNotificacion = "COLOCACIÓN DE GOTAS (${medication.nombre}) PENDIENTE!"
+        val mensajeNotificacion = Utilidades.genMensajeMed("gotas", medication.dosis, medication.nombre)
+        val calendar = Utilidades.stringToCalendar(medication.primertoma)
+        AlarmUtils.scheduleNotificationMedic(this, calendar, tituloNotificacion, mensajeNotificacion, requestCodeBase, medication.frecuencia, medication.duracion, medication.tipo)
     }
 
 

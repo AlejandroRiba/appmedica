@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
 
     <application
@@ -21,6 +22,12 @@
         android:theme="@style/Theme.AppMedica"
         tools:targetApi="31">
         <activity
+            android:name=".ListaMedicamentos"
+            android:exported="false" />
+        <activity
+            android:name=".MostrarMedicamento"
+            android:exported="false" />
+        <activity
             android:name=".PerfilActivity"
             android:exported="false"
             android:label="@string/title_activity_perfil"
@@ -29,12 +36,11 @@
         <receiver
             android:name=".com.example.appmedica.AlarmNotification"
             android:enabled="true" />
-
-        <receiver android:name=".MedicineNotification"
-            android:enabled="true"/>
-
         <receiver
-            android:name="com.example.appmedica.BootReceiver"
+            android:name=".MedicineNotification"
+            android:enabled="true" />
+        <receiver
+            android:name=".BootReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.example.appmedica.com.example.appmedica.AlarmNotification
+import com.example.appmedica.com.example.appmedica.AlarmUtils.getMedReminders
 import com.example.appmedica.com.example.appmedica.AlarmUtils.getReminders
 import java.util.Calendar
 
@@ -16,6 +17,7 @@ class BootReceiver : BroadcastReceiver() {
         if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
             // Aquí reprograma tus alarmas
             val reminders = getReminders(context)
+            val medreminders = getMedReminders(context)
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             for (reminder in reminders) {
                 val nuevoIntento = Intent(context, AlarmNotification::class.java).apply {
@@ -52,6 +54,42 @@ class BootReceiver : BroadcastReceiver() {
                         AlarmManager.RTC_WAKEUP,
                         calendar.timeInMillis,
                         pendingIntent
+                    )
+                }
+            }
+
+            for(medreminder in medreminders){
+                val nuevointentoMed = Intent(context, MedicineNotification::class.java).apply {
+                    putExtra("notification_title", medreminder.title)
+                    putExtra("notification_text", medreminder.text)
+                    putExtra("tipo", medreminder.tipo)
+                    putExtra("frecuencia", medreminder.frecuencia)
+                    putExtra("duracion", medreminder.duracion)
+                    putExtra("requestCode", medreminder.requestCode)
+                }
+                val pendingIntentMed = PendingIntent.getBroadcast(
+                    context,
+                    medreminder.requestCode,
+                    nuevointentoMed,
+                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                )
+
+                // Solo reprograma alarmas cuyo tiempo no haya pasado
+                if (medreminder.sigalarma.timeInMillis > System.currentTimeMillis()) {
+                    alarmManager.setExact(
+                        AlarmManager.RTC_WAKEUP,
+                        medreminder.sigalarma.timeInMillis,
+                        pendingIntentMed
+                    )
+                }else{
+                    // Calcular el tiempo 1 minuto después del reinicio
+                    val calendar = Calendar.getInstance().apply {
+                        add(Calendar.MILLISECOND, 3000) // Sumamos 1 minuto al tiempo actual
+                    }
+                    alarmManager.setExact(
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.timeInMillis,
+                        pendingIntentMed
                     )
                 }
             }

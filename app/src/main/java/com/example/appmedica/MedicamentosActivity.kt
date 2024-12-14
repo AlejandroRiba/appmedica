@@ -21,8 +21,7 @@ class MedicamentosActivity : AppCompatActivity() {
         }
         val btn: ImageButton = findViewById(R.id.back1)
         btn.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            finish()
         }
         //Referencia al botón de capsula
         val btn1: ImageButton = findViewById(R.id.imageButton)

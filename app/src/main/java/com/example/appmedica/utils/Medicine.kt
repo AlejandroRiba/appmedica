@@ -9,5 +9,5 @@ data class Medicine (
     val duracion: String = "",
     val color: String = "",
     val zonaAplicacion: String = "",
-    val tipoTratamiento: String = ""
+    val medida: String = ""
 )

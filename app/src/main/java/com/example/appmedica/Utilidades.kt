@@ -275,26 +275,32 @@ object Utilidades {
     fun genMensajeMed(tipo: String, dosis: String, nombre: String): String{
         return when(tipo){
             "capsula" -> {
-                "Es hora! Recuerda tomar $dosis de $nombre !!!"
+                "Es hora! Recuerda tomar $dosis de $nombre !!!\n" +
+                        " Entra para ver más detalles."
             }
 
             "tableta" -> {
-                "Es hora! Recuerda tomar $dosis de $nombre !!!"
+                "Es hora! Recuerda tomar $dosis de $nombre !!!\n" +
+                        " Entra para ver más detalles."
             }
 
             "bebible" -> {
-                "Es hora! Recuerda beber $dosis de $nombre !!!"
+                "Es hora! Recuerda beber $dosis de $nombre !!!\n" +
+                        " Entra para ver más detalles."
             }
 
             "gotas" -> {
-                "Es hora! Recuerda colocarte $dosis de $nombre !!!"
+                "Es hora! Recuerda colocarte $dosis de $nombre !!!\n" +
+                        " Entra para ver más detalles."
             }
 
             "inyectable" -> {
-                "Es hora! Recuerda inyectarte $dosis de $nombre !!!"
+                "Es hora! Recuerda inyectarte $dosis de $nombre !!!\n" +
+                        " Entra para ver más detalles."
             }
 
-            else -> "Recuerda tomar tu mendicamento!!!!"
+            else -> "Recuerda tomar tu mendicamento!!!!\n" +
+                    " Entra para ver más detalles."
         }
     }
 

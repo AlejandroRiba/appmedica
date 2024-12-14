@@ -120,6 +120,9 @@
     <string name="ok">Ok</string>
     <string name="actualizar">Actualizar</string>
     <string name="tituloMedicinas">Medicamentos</string>
+    <string name="medicamento_registrado">Medicamento registrado</string>
+    <string name="anade_medicamento">Añadir medicamento</string>
+    <string name="medicamentos_registrados">Medicamentos Registrados</string>
     <!-- Opciones para el formulario de capsulas -->
     <string-array name="dosis">
         <item>* Seleccione una opción</item>
@@ -158,9 +161,12 @@
 
     <string-array name="lugar_admin_gotas">
         <item>* Seleccione una opción</item>
-        <item>Izquierdo</item>
-        <item>Derecho</item>
-        <item>Ambos</item>
+        <item>Oído izquierdo</item>
+        <item>Oído derecho</item>
+        <item>Ambos oídos</item>
+        <item>Ojo izquierdo</item>
+        <item>Ojo derecho</item>
+        <item>Ambos ojos</item>
     </string-array>
 
     <!-- Opciones para el formulario de inyectables -->
@@ -171,7 +177,6 @@
         <item>Subcutánea</item>
         <item>Intradérmica</item>
     </string-array>
-
 
 
     <string-array name="medida_beb">

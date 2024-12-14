@@ -51,6 +51,7 @@ class Ajustes : AppCompatActivity() {
                     databaseHandler.eliminarTodosLosUsuarios()
                     firebaseHelper.eliminarUsuario()
                     AlarmUtils.cancelAllAlarms(this) //cancela los recordatorios
+                    AlarmUtils.cancelAllMedAlarms(this)
                     val filename = "imagen_perfil.png"
                     deleteImageFromInternalStorage(this, filename) //eliminar foto de perfil
                     val intent = Intent(this, MainActivity::class.java)

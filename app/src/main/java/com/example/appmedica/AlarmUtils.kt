@@ -151,7 +151,7 @@ object AlarmUtils {
 
                 //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-                Log.d("AlarmUtils", "Recordatorio $textNotification creado")
+                Log.d("AlarmUtils", "Recordatorio $titleNotification $textNotification creado")
             }
 
             // Guardar el recordatorio
@@ -161,7 +161,8 @@ object AlarmUtils {
                 text = textNotification,
                 tipo = tipo,
                 frecuencia = frecuencia,
-                duracion = duracion
+                duracion = duracion,
+                sigalarma = calendar,
             )
             Log.d("REMINDER_CODE",requestCode.toString())
             saveMedReminder(context, reminder) // Aquí guardamos el recordatorio
@@ -222,9 +223,29 @@ object AlarmUtils {
         val sharedPreferences = context.getSharedPreferences("ReminderPrefs", Context.MODE_PRIVATE)
         val gson = Gson()
         val json = sharedPreferences.getString("medreminders", null)
-        val type = object : TypeToken<List<Reminder>>() {}.type
+        val type = object : TypeToken<List<MedReminder>>() {}.type
 
         return gson.fromJson(json, type) ?: emptyList()
+    }
+
+    //Función que obtiene la siguiente toma
+    fun getMedReminderByRequestCode(context: Context, requestCode: Int): String {
+        val reminders = getMedReminders(context)
+        val reminder = reminders.find { it.requestCode == requestCode }
+
+        return if (reminder != null) {
+            Log.i("AlarmUtils", "Encontró el reminder solicitado")
+            val nextAlarm = reminder.sigalarma
+            val year = nextAlarm.get(Calendar.YEAR)
+            val month = nextAlarm.get(Calendar.MONTH) + 1 // Meses empiezan en 0
+            val day = nextAlarm.get(Calendar.DAY_OF_MONTH)
+            val hour = nextAlarm.get(Calendar.HOUR_OF_DAY)
+            val minute = nextAlarm.get(Calendar.MINUTE)
+
+            "Siguiente toma:\n%04d-%02d-%02d %02d:%02d".format(year, month, day, hour, minute)
+        } else {
+            "Sin información"
+        }
     }
 
     //Función para eliminar un recordatorio de cita
@@ -240,7 +261,7 @@ object AlarmUtils {
     //Función para eliminar un recordatorio de medicamento
     fun deleteMedReminder(context: Context, requestCode: Int) {
         // Cancelar la alarma
-        cancelAlarm(context, requestCode)
+        cancelMedAlarm(context, requestCode)
         Log.d("CANCEL ALARM", requestCode.toString())
 
         // Eliminar el recordatorio de SharedPreferences
@@ -331,7 +352,7 @@ object AlarmUtils {
         val gson = Gson()
 
         // Obtener la lista actual de recordatorios
-        val remindersList = getReminders(context).toMutableList()
+        val remindersList = getMedReminders(context).toMutableList()
 
         // Filtrar los recordatorios eliminando el que coincida con el requestCode
         val updatedList = remindersList.filter { it.requestCode != requestCode }

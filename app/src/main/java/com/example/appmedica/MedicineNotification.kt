@@ -11,7 +11,6 @@ import com.example.appmedica.com.example.appmedica.AlarmNotification
 import com.example.appmedica.com.example.appmedica.AlarmUtils
 import com.example.appmedica.com.example.appmedica.MyApp
 import com.example.appmedica.com.example.appmedica.Utilidades
-import com.google.firebase.firestore.util.Util
 import java.util.Calendar
 
 class MedicineNotification : BroadcastReceiver() {
@@ -27,7 +26,7 @@ class MedicineNotification : BroadcastReceiver() {
         val requestCodeBase = intent?.getIntExtra("requestCode", 0)
         if (requestCodeBase != null) {
             Log.d("REMINDER_REQUESTCODE", requestCodeBase.toString())
-            AlarmUtils.deleteReminder(context, requestCodeBase)
+            AlarmUtils.deleteMedReminder(context, requestCodeBase)
             programNextNotification(context, title, text, frecuencia, duracion, tipo, requestCodeBase)
         }
         showNotification(context, title, text)
@@ -54,7 +53,7 @@ class MedicineNotification : BroadcastReceiver() {
             }
 
             // Si la frecuencia es "con cada comida"
-            frecuencia == "con cada comida" -> {
+            frecuencia == "Con cada comida" -> {
                 val comidas = listOf(usuario.h3, usuario.h4, usuario.h5) // Horas de desayuno, comida y cena
                 for (comida in comidas) {
                     val proximaHora = Utilidades.convertirHora(comida!!)
@@ -133,6 +132,7 @@ class MedicineNotification : BroadcastReceiver() {
             // Caso por defecto
             else -> throw IllegalArgumentException("Frecuencia no válida: $frecuencia")
         }
+        Log.i("MedicineNotification", "Nuevo recordatorio $title programado $calendar")
         AlarmUtils.scheduleNotificationMedic(context, calendar, title, text, requestCodeBase, frecuencia, duracion, tipo)
     }
 

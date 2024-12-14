@@ -180,7 +180,7 @@ class CapsulaActivity : AppCompatActivity() {
 
                 val medicineData = Medicine(
                     nombre = nombre,
-                    tipo = "capsula",
+                    tipo = "capsula", //para evitar problemas el tipo va sin acento en el registro
                     dosis = cantidadReal,
                     frecuencia = frecuenciaReal!!,
                     primertoma = primertomaReal,
@@ -219,13 +219,14 @@ class CapsulaActivity : AppCompatActivity() {
     private fun fetchLastDocument(medId: String) {
         medRepo.getMedication(medId).addOnSuccessListener { medication ->
             if (medication != null) {
-                val intent = Intent(this, MostrarConsulta::class.java).apply {
-                    putExtra("id", medication.nombre)
-                    putExtra("fecha", medication.frecuencia)
-                    putExtra("hora", medication.primertoma)
-                    putExtra("clinica", medication.duracion)
-                    putExtra("doctor", medication.color)
-                    putExtra("cont_doc", medication.dosis)
+                val intent = Intent(this, MostrarMedicamento::class.java).apply {
+                    putExtra("nombre", medication.nombre)
+                    putExtra("frecuencia", medication.frecuencia)
+                    putExtra("primertoma", medication.primertoma)
+                    putExtra("duracion", medication.duracion)
+                    putExtra("color", medication.color)
+                    putExtra("dosis", medication.dosis)
+                    putExtra("tipo", "Cápsula")
                 }
                 recordatorios(medication, medId)
                 finish() // Cierra la actividad actual
@@ -242,7 +243,7 @@ class CapsulaActivity : AppCompatActivity() {
 
     private fun recordatorios(medication: Medicine, medId: String) {
         val requestCodeBase = Utilidades.generateUniqueRequestCode(medId)
-        val tituloNotificacion = "TOMA DE CÁPSULA PENDIENTE!"
+        val tituloNotificacion = "TOMA DE CÁPSULA (${medication.nombre}) PENDIENTE!"
         val mensajeNotificacion = Utilidades.genMensajeMed("capsula", medication.dosis, medication.nombre)
         val calendar = Utilidades.stringToCalendar(medication.primertoma)
         AlarmUtils.scheduleNotificationMedic(this, calendar, tituloNotificacion, mensajeNotificacion, requestCodeBase, medication.frecuencia, medication.duracion, medication.tipo)

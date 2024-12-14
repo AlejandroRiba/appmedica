@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/contenedorConsulta"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -34,7 +35,7 @@
             android:layout_columnSpan="2"
             android:fontFamily="@font/poppins"
             android:text="@string/fecha"
-            android:textAlignment="viewEnd"
+            android:textAlignment="viewStart"
             android:textColor="@color/textoNegro"
             android:textSize="11sp"
             android:textStyle="bold" />
@@ -44,6 +45,7 @@
             android:layout_gravity="end"
             android:fontFamily="@font/poppins"
             android:text="@string/hora"
+            android:textAlignment="viewEnd"
             android:textColor="@color/textoNegro"
             android:textSize="11sp"
             android:textStyle="bold" />
@@ -59,6 +61,6 @@
         android:layout_width="35dp"
         android:layout_height="30dp"
         android:src="@drawable/caret_right"
-        android:tint="@color/textoNegro" />
+        app:tint="@color/textoNegro" />
 
 </LinearLayout>

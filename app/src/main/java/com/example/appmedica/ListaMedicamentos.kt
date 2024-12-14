@@ -4,12 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -21,28 +16,31 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appmedica.com.example.appmedica.AlarmUtils
 import com.example.appmedica.com.example.appmedica.Consulta
 import com.example.appmedica.com.example.appmedica.Utilidades
+import com.example.appmedica.com.example.appmedica.utils.MedicationRepository
 import com.example.appmedica.utils.FirebaseHelper
+import com.example.appmedica.utils.Medicine
 
-class ListaConsultas : AppCompatActivity() {
+class ListaMedicamentos : AppCompatActivity() {
+
     private lateinit var container: LinearLayout
-    private lateinit var firebaseHelper: FirebaseHelper
+    private lateinit var medRepo: MedicationRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_lista_consultas)
-        firebaseHelper = FirebaseHelper(this)
+        setContentView(R.layout.activity_lista_medicamentos)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        medRepo = MedicationRepository(this)
 
         container = findViewById(R.id.container_layout)
 
@@ -50,20 +48,15 @@ class ListaConsultas : AppCompatActivity() {
 
         fetchDataFromFirestore()
 
-//        val btn: Button = findViewById(R.id.btn_regresar)
-//        btn.setOnClickListener{
-//            finish()
-//        }
-
-        val anadirCitas: View = findViewById(R.id.fabAnadeCitas)
-        anadirCitas.setOnClickListener {
-            val intent = Intent(this, Consultas::class.java)
+        val anadirMedicamento: View = findViewById(R.id.fabAnadeMedicamento)
+        anadirMedicamento.setOnClickListener {
+            val intent = Intent(this, MedicamentosActivity::class.java)
             startActivity(intent)
         }
 
-        val navMedicinas = findViewById<ImageButton>(R.id.navMedicinas)
-        navMedicinas.setOnClickListener{
-            val intent = Intent(this, ListaMedicamentos::class.java)
+        val navCitas = findViewById<ImageButton>(R.id.navCitas)
+        navCitas.setOnClickListener{
+            val intent = Intent(this, ListaConsultas::class.java)
             startActivity(intent)
         }
 
@@ -72,62 +65,65 @@ class ListaConsultas : AppCompatActivity() {
             val intent = Intent(this, PerfilActivity::class.java)
             startActivity(intent)
         }
-    }
-    @Suppress("SameParameterValue")
-    private fun convertirStringADP(valor: String): Int {
-        val dpRegex = Regex(pattern = "([0-9]+)dp")
-        val matchResult = dpRegex.find(valor)
-        val dpValue = matchResult?.groups?.get(1)?.value?.toIntOrNull() ?: 0
-        return dpToPx(dpValue)
+
     }
 
-    private fun dpToPx(dp: Int): Int {
-        val density = resources.displayMetrics.density
-        return (dp * density).toInt()
-    }
     @SuppressLint("InflateParams", "SetTextI18n")
     private fun fetchDataFromFirestore() {
-        firebaseHelper.obtenerCitas()
-            .addOnSuccessListener { citas ->
-                // Aquí tienes la lista de citas
-                if (citas.isNotEmpty()) {
+        medRepo.obtenerMedicamentos()
+            .addOnSuccessListener { medicamentos ->
+                // Aquí tienes la lista de medicamentos
+                if (medicamentos.isNotEmpty()) {
                     container.removeAllViews() // Limpia el contenedor antes de agregar nuevas vistas
 
-                    for ((cita, documentId) in citas) {
+                    for ((medicamento, documentId) in medicamentos) {
                         try {
                             val registroView = layoutInflater.inflate(R.layout.item_registro, container, false)
                             val regViewContainer = registroView.findViewById<LinearLayout>(R.id.contenedorConsulta)
                             val regViewBG = regViewContainer.background
                             try {
-                                regViewBG.setTint(Color.parseColor(cita.selectedcolor))
+                                regViewBG.setTint(Color.parseColor(medicamento.color))
                             } catch (e: IllegalArgumentException) {
                                 // Si el color no es válido, usa un color por defecto
                                 regViewBG.setTint(Color.parseColor("#FFFFFF")) // Blanco por defecto
                             }
                             val textViewNombre = registroView.findViewById<TextView>(R.id.textViewNombre)
-                            val textViewFecha = registroView.findViewById<TextView>(R.id.textViewFecha)
-                            val textViewHora = registroView.findViewById<TextView>(R.id.textViewHora)
+                            val textViewsigToma= registroView.findViewById<TextView>(R.id.textViewFecha)
+                            val textViewDosis = registroView.findViewById<TextView>(R.id.textViewHora)
+                            val requestCode = Utilidades.generateUniqueRequestCode(documentId)
+                            textViewNombre.text = medicamento.nombre
+                            val sigToma = AlarmUtils.getMedReminderByRequestCode(this, requestCode)
 
-                            textViewNombre.text = "${cita.idcons}"
-                            textViewFecha.text = "${cita.date}"
-                            textViewHora.text = "${cita.time}"
+                            textViewsigToma.text = sigToma
+
+                            textViewDosis.text = "${medicamento.dosis} por toma."
 
                             container.addView(registroView)
                             val btnAjustes = registroView.findViewById<ImageView>(R.id.btnOptions)
                             btnAjustes.setOnClickListener {
-                                showDialog(documentId, cita)
+                                showDialog(documentId, medicamento, requestCode)
                             }
 
                             val mostrarCon = registroView.findViewById<GridLayout>(R.id.consulta)
                             mostrarCon.setOnClickListener {
-                                val intent = Intent(this, MostrarConsulta::class.java).apply {
-                                    putExtra("id", cita.idcons)
-                                    putExtra("fecha", cita.date)
-                                    putExtra("hora", cita.time)
-                                    putExtra("clinica", cita.clinic)
-                                    putExtra("doctor", cita.doctor)
-                                    putExtra("cont_doc", cita.contactdoc)
-                                    putExtra("selectedcolor", cita.selectedcolor.toString())
+                                val intent = Intent(this, MostrarMedicamento::class.java).apply {
+                                    putExtra("nombre", medicamento.nombre)
+                                    putExtra("frecuencia", medicamento.frecuencia)
+                                    putExtra("primertoma", medicamento.primertoma)
+                                    putExtra("duracion", medicamento.duracion)
+                                    putExtra("color", medicamento.color)
+                                    putExtra("dosis", medicamento.dosis)
+                                    putExtra("zonaApl", medicamento.zonaAplicacion)
+                                    putExtra("medida", medicamento.medida)
+                                    when(medicamento.tipo){
+                                        "capsula" -> {putExtra("tipo", "Cápsula")}
+                                        "tableta" -> {putExtra("tipo", "Tableta")}
+                                        "bebible" -> {putExtra("tipo", "Bebible")}
+                                        "gotas" -> {putExtra("tipo", "Gotas")}
+                                        "inyectable" -> {putExtra("tipo", "Inyectable")}
+                                        else -> {putExtra("tipo", "")}
+                                    }
+
                                 }
                                 finish()
                                 startActivity(intent)
@@ -145,7 +141,11 @@ class ListaConsultas : AppCompatActivity() {
             }
     }
 
-    private fun showDialog(idcons: String, cita: Consulta) {
+    fun esNumero(input: String): Boolean {
+        return input.all { it.isDigit() }
+    }
+
+    private fun showDialog(medId: String, medicamento: Medicine, requestCode: Int) {
         val builder = AlertDialog.Builder(this)
         val inflater = LayoutInflater.from(this)
         val view = inflater.inflate(R.layout.dialog_ajustes_consulta, null)
@@ -163,41 +163,24 @@ class ListaConsultas : AppCompatActivity() {
         }
 
         btnAsistido.setOnClickListener {
-            firebaseHelper.marcarAsistido(idcons)
-            dialog.dismiss()
-            val intent = Intent(this, ListaConsultas::class.java)
-            finish()//finalizamos la lista de consultas
-            startActivity(intent) //la volvemos a abrir para que se actualice
+           dialog.dismiss()
         }
 
-        val requestCode = Utilidades.generateUniqueRequestCode(idcons)
         btnDelete.setOnClickListener {
-            AlarmUtils.deleteReminder(this, requestCode)
-            firebaseHelper.eliminarCita(idcons, this)
+            AlarmUtils.deleteMedReminder(this, requestCode)
+            medRepo.eliminarMedicamento(medId, this)
             dialog.dismiss()
-            val intent = Intent(this, ListaConsultas::class.java) //para recargar lista de consultas
+            val intent = Intent(this, ListaMedicamentos::class.java) //para recargar lista de consultas
             finish()//finalizamos la lista de consultas
             startActivity(intent) //la volvemos a abrir para que se actualice
         }
 
         btnEditar.setOnClickListener {
             dialog.dismiss()
-            val intent = Intent(this, EditarConsulta::class.java).apply {
-                putExtra("motivo", cita.idcons)
-                putExtra("fecha", cita.date)
-                putExtra("hora", cita.time)
-                putExtra("clinica", cita.clinic)
-                putExtra("doctor", cita.doctor)
-                putExtra("cont_doc", cita.contactdoc)
-                putExtra("id", idcons)
-                putExtra("selectedcolor", cita.selectedcolor)
-            }
-            finish() //finalizamos la lista de consultas
-            startActivity(intent)
+
         }
 
         dialog.show()
     }
-
 
 }

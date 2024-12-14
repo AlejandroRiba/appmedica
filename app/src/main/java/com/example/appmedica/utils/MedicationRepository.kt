@@ -9,6 +9,7 @@ import com.example.appmedica.utils.PreferenceManager
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class MedicationRepository(private val context: Context){
     private val preferenceManager: PreferenceManager = PreferenceManager(context)
@@ -61,6 +62,71 @@ class MedicationRepository(private val context: Context){
             }
 
         return taskCompletionSource.task
+    }
+
+    fun obtenerMedicamentos(): Task<List<Pair<Medicine, String>>> { //medicamentos ordenados por la duración
+        val taskCompletionSource = TaskCompletionSource<List<Pair<Medicine, String>>>()
+        val consulta = db.collection("usuarios")
+            .document(userId!!)
+            .collection("medicamentos")
+            .orderBy("duracion", Query.Direction.ASCENDING)
+
+        consulta.get()
+            .addOnSuccessListener { result ->
+                val medicamentos = mutableListOf<Pair<Medicine, String>>()
+                for (document in result) {
+                    val nombre = document.getString("nombre") ?: ""
+                    val dosis = document.getString("dosis") ?: ""
+                    val frecuencia = document.getString("frecuencia") ?: ""
+                    val duracion = document.getString("duracion") ?: ""
+                    val primertoma = document.getString("primertoma") ?: ""
+                    val tipo = document.getString("tipo") ?: ""
+                    val medida = document.getString("medida") ?: ""
+                    val zonaApl = document.getString("zonaAplicacion") ?: ""
+                    val color = document.getString("color") ?: ""
+
+                    // Obtén el ID del documento
+                    val documentId = document.id
+
+                    // Crea el objeto Medicine y añádelo a la lista
+                    val medicamento = Medicine(
+                        nombre,
+                        tipo,
+                        dosis,
+                        frecuencia,
+                        primertoma,
+                        duracion,
+                        color,
+                        zonaApl,
+                        medida
+                    )
+                    // Añade el par a la lista
+                    medicamentos.add(Pair(medicamento, documentId))
+                }
+                taskCompletionSource.setResult(medicamentos) // Devuelve la lista de citas
+            }
+            .addOnFailureListener {
+                taskCompletionSource.setException(it) // Devuelve la excepción
+            }
+
+        return taskCompletionSource.task
+    }
+
+    fun eliminarMedicamento(medId: String, context: Context) { // -- DELETE
+        // Referencia al documento del medicamento
+        val documentReference = db.collection("usuarios")
+            .document(userId!!)
+            .collection("medicamentos")
+            .document(medId)
+
+        // Eliminar el medicamento
+        documentReference.delete()
+            .addOnSuccessListener {
+                Toast.makeText(context, "Medicamento eliminado con éxito!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(context, "Error al eliminar el medicamento: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 
 }
