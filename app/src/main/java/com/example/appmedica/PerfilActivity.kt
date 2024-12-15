@@ -25,6 +25,7 @@ import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -34,7 +35,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
-class PerfilActivity : ComponentActivity() {
+class PerfilActivity : AppCompatActivity() {
 
     private val pickMedia =  registerForActivityResult(ActivityResultContracts.PickVisualMedia()){ uri ->
         if(uri!=null){
@@ -54,6 +55,7 @@ class PerfilActivity : ComponentActivity() {
 
     private lateinit var foto: ImageView
     private val filename = "imagen_perfil.png"
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil)

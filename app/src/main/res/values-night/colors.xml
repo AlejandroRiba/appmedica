@@ -7,4 +7,5 @@
     <color name="colorPrimary">#1C1C1D</color>
     <color name="texto">#F4F4F4</color>
     <color name="textoNegro">#101010</color>
+    <color name="brandColor">#B5FFDA</color>
 </resources>
