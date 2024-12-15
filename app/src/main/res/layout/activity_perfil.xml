@@ -1,48 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main"
-    android:background="@drawable/background1"
-    android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context=".PerfilActivity">
-
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
+        android:id="@+id/scrollform"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="UselessParent"
-        android:layout_marginRight="14dp"
-        android:layout_marginLeft="14dp">
-
-        <RelativeLayout
-            android:layout_marginTop="32dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="32dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/bienvenida"
+            android:layout_height="match_parent">
+            <ImageButton
+                android:id="@+id/config"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mi_perfil"
-                android:textColor="#CAD0D6"
-                android:textAlignment="center"
-                android:textSize="@dimen/tit"
-                android:textStyle="bold" />
-        </RelativeLayout>
+                android:backgroundTint="#00ffffff"
+                android:contentDescription="@string/botonregresar"
+                android:src="@drawable/settings"
+                android:scaleType="fitCenter"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="16dp"
+                app:tint="@color/brandColor"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            <ImageButton
+                android:id="@+id/editarDatos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00ffffff"
+                android:contentDescription="@string/editar_consulta"
+                android:src="@drawable/edit_icon"
+                android:scaleType="fitCenter"
+                app:tint="@color/brandColor"
+                android:layout_gravity="end"
+                android:layout_marginTop="26dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="16dp"/>
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="200dp"
@@ -50,108 +52,417 @@
                 android:src="@drawable/desconocido"
                 android:contentDescription="@string/foto_de_perfil_de_usuario"
                 android:id="@+id/fotodeusuario"
-                app:strokeColor="@color/black"
-                app:strokeWidth="4dp"
                 android:scaleType="centerCrop"
-                android:padding="2dp"
                 android:layout_gravity="center"
-                app:shapeAppearanceOverlay="@style/circleImageView"/>
+                android:layout_marginTop="20dp"
+                app:shapeAppearanceOverlay="@style/circleImageView"
+                app:strokeColor="@null"
+                app:layout_constraintTop_toBottomOf="@id/config"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textViewNombreTitle"
+                android:text="@string/nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintTop_toBottomOf="@id/fotodeusuario"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/textViewNombreTitle"/>
             <TextView
                 android:id="@+id/textViewNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:text="@string/nombre"
-                android:textColor="#CAD0D6"
-                android:textSize="32sp"
+                android:textColor="@color/texto"
+                android:textSize="15sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="20dp"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewNombreTitle" />
+
+            <TextView
+                android:id="@+id/textViewEdadTitle"
+                android:text="@string/edad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintTop_toBottomOf="@id/textViewNombre"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/textViewEdadTitle"/>
             <TextView
                 android:id="@+id/textViewEdad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:text="@string/edad"
-                android:textColor="#CAD0D6"
-                android:textSize="32sp"
+                android:textColor="@color/texto"
+                android:textSize="15sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="20dp"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewEdadTitle" />
+            <TextView
+                android:id="@+id/textViewSangreTitle"
+                app:layout_constraintTop_toBottomOf="@id/textViewEdad"
+                android:text="@string/sangre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/textViewSangreTitle"/>
             <TextView
                 android:id="@+id/textViewSangre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:text="@string/sangre"
-                android:textColor="#CAD0D6"
-                android:textSize="32sp"
+                android:textColor="@color/texto"
+                android:textSize="15sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="20dp"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewSangreTitle" />
+
+
+
+            <TextView
+                android:id="@+id/textViewContactoTitle"
+                app:layout_constraintTop_toBottomOf="@id/textViewSangre"
+                android:text="@string/contacto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/textViewContactoTitle"/>
             <TextView
                 android:id="@+id/textViewContacto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:text="@string/contacto1"
-                android:textColor="#CAD0D6"
-                android:textSize="32sp"
+                android:textColor="@color/texto"
+                android:textSize="15sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="20dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewContactoTitle" />
 
-            <Button
-                android:id="@+id/editarDatos"
-                android:layout_width="140dp"
-                android:layout_height="80dp"
-                android:text="@string/editar"
-                android:fontFamily="arial"
-                android:textAlignment="textEnd"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
+            <TextView
+                android:id="@+id/horarioTitle"
+                app:layout_constraintTop_toBottomOf="@id/textViewContacto"
+                android:text="@string/horarios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:drawableStart="@drawable/edit_icon"
-                android:contentDescription="@string/actualizar_ndatos"
-                android:layout_margin="20dp"
-                tools:ignore="RtlSymmetry"
-                android:textAllCaps="false"/>
+                android:layout_marginBottom="20dp"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/horarioTitle"/>
+            <LinearLayout
+                android:id="@+id/horarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/horarioTitle"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/horarioTitle"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="12dp">
+                        <TextView
+                            android:id="@+id/horaDespertarTitle"
+                            app:layout_constraintTop_toBottomOf="@id/textViewContacto"
+                            android:text="@string/txthora1"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/alexandria"
+                            android:textColor="@color/brandColor"
+                            android:textSize="15sp"/>
+                        <TextView
+                            android:id="@+id/horaDespertar"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:gravity="end"
+                            android:paddingEnd="8dp"
+                            android:text="@string/txthora1"
+                            android:textColor="@color/texto"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/textViewSangreTitle" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/horarioTitle"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:layout_marginHorizontal="16dp">
+                    <TextView
+                        android:id="@+id/horaDormirTitle"
+                        app:layout_constraintTop_toBottomOf="@id/textViewContacto"
+                        android:text="@string/txthora2"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/alexandria"
+                        android:textColor="@color/brandColor"
+                        android:textSize="15sp"/>
+                    <TextView
+                        android:id="@+id/horaDormir"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="end"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/txthora2"
+                        android:textColor="@color/texto"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewSangreTitle" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/horarioTitle"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:layout_marginHorizontal="16dp">
+                    <TextView
+                        android:id="@+id/horaDesayunoTitle"
+                        app:layout_constraintTop_toBottomOf="@id/textViewContacto"
+                        android:text="@string/txthora3"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/alexandria"
+                        android:textColor="@color/brandColor"
+                        android:textSize="15sp"/>
+                    <TextView
+                        android:id="@+id/horaDesayuno"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="end"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/txthora3"
+                        android:textColor="@color/texto"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewSangreTitle" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/horarioTitle"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:layout_marginHorizontal="16dp">
+                    <TextView
+                        android:id="@+id/horaComidaTitle"
+                        app:layout_constraintTop_toBottomOf="@id/textViewContacto"
+                        android:text="@string/txthora4"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/alexandria"
+                        android:textColor="@color/brandColor"
+                        android:textSize="15sp"/>
+                    <TextView
+                        android:id="@+id/horaComida"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="end"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/txthora4"
+                        android:textColor="@color/texto"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewSangreTitle" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/horarioTitle"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:layout_marginHorizontal="16dp">
+                    <TextView
+                        android:id="@+id/horaCenaTitle"
+                        app:layout_constraintTop_toBottomOf="@id/textViewContacto"
+                        android:text="@string/txthora5"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/alexandria"
+                        android:textColor="@color/brandColor"
+                        android:textSize="15sp"/>
+                    <TextView
+                        android:id="@+id/horaCena"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="end"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/txthora5"
+                        android:textColor="@color/texto"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewSangreTitle" />
+                </LinearLayout>
+            </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    app:layout_constraintTop_toBottomOf="@id/horarios"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
-            <Button
-                android:id="@+id/editarFoto"
-                android:layout_width="140dp"
-                android:layout_height="80dp"
-                android:layout_margin="20dp"
-                android:contentDescription="@string/actualizar_ndatos"
-                android:drawableStart="@drawable/edit_photo"
-                android:fontFamily=""
-                android:paddingEnd="20dp"
-                android:textStyle="bold"
-                android:paddingStart="20dp"
-                android:text="@string/editar2"
-                android:textAlignment="textEnd"
-                android:textAllCaps="false"/>
 
-        </LinearLayout>
+    <!-- NAVBAR -->
+    <LinearLayout
+        android:id="@+id/bottomNavbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
-            android:id="@+id/btn_regresar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/regresar"
-            android:textColor="#000000"
-            android:textSize="26sp"
-            tools:ignore="VisualLintButtonSize"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"/>
+        <ImageButton
+            android:id="@+id/navCitas"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/consultas_agendadas"
+            android:src="@drawable/calendarvector"
+            android:scaleType="fitCenter"
+            android:paddingVertical="14dp"
+            app:tint="@color/brandColor"/>
+
+        <ImageButton
+            android:id="@+id/navMedicinas"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/tituloMedicinas"
+            android:src="@drawable/medicinas"
+            app:tint="@color/brandColor"/>
+
+        <ImageButton
+            android:id="@+id/navPerfil"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:backgroundTint="@color/brandColor"
+            android:contentDescription="@string/ver_perfil"
+            android:src="@drawable/cuenta"
+            app:tint="@color/colorPrimary"/>
 
     </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,8 +16,11 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.result.PickVisualMediaRequest
@@ -26,6 +29,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appmedica.R.id.main
+import com.example.appmedica.utils.KeyboardUtils
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -48,12 +52,27 @@ class PerfilActivity : ComponentActivity() {
         }
     }
 
-    private lateinit var imagePeril: Button
     private lateinit var foto: ImageView
     private val filename = "imagen_perfil.png"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil)
+
+        // Referencia al ScrollView
+        val scrollView =
+            findViewById<ScrollView>(R.id.scrollform) // Asegúrate de tener un ID para el ScrollView
+        scrollView.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                // Oculta el teclado al tocar cualquier parte del ScrollView
+                val view = currentFocus
+                if (view != null) {
+                    KeyboardUtils.hideKeyboard(this, view)
+                    view.clearFocus() // Opcional: quitar el foco del EditText
+                }
+            }
+            false // Retornar false para permitir que otros eventos se manejen
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -68,15 +87,15 @@ class PerfilActivity : ComponentActivity() {
             foto.setImageBitmap(it)
         }
 
-        imagePeril = findViewById(R.id.editarFoto)
-        imagePeril.setOnClickListener{
-            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-        }
+//        imagePeril = findViewById(R.id.editarFoto)
+//        imagePeril.setOnClickListener{
+//            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+//        }
 
         cargarDatosUsuario() //hacemos la consulta a la base y los insertamos
 
         //Referencia al botón de editar datoa
-        val editBtn = findViewById<Button>(R.id.editarDatos)
+        val editBtn = findViewById<ImageButton>(R.id.editarDatos)
         editBtn.setOnClickListener {
             showDialog {
                 val intent = Intent(this, EditarDatos::class.java)
@@ -84,12 +103,24 @@ class PerfilActivity : ComponentActivity() {
                 //finish() //para que no se guarde la activity con los datos viejos
             }
         }
-        //Referencia al botón de regresar
-        val btnback = findViewById<Button>(R.id.btn_regresar)
-        btnback.setOnClickListener {
-            finish() //cierra la actividad actual y regresa a la anterior
+
+        val configBtn = findViewById<ImageButton>(R.id.config)
+        configBtn.setOnClickListener {
+            val intent = Intent(this, Ajustes::class.java)
+            startActivity(intent)
         }
 
+        val navCitas = findViewById<ImageButton>(R.id.navCitas)
+        navCitas.setOnClickListener{
+            val intent = Intent(this, ListaConsultas::class.java)
+            startActivity(intent)
+        }
+
+        val navMedicinas = findViewById<ImageButton>(R.id.navMedicinas)
+        navMedicinas.setOnClickListener{
+            val intent = Intent(this, ListaMedicamentos::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {
@@ -106,12 +137,22 @@ class PerfilActivity : ComponentActivity() {
         val edadText = findViewById<TextView>(R.id.textViewEdad)
         val sangreText = findViewById<TextView>(R.id.textViewSangre)
         val contactoText = findViewById<TextView>(R.id.textViewContacto)
+        val despertar = findViewById<TextView>(R.id.horaDespertar)
+        val dormir = findViewById<TextView>(R.id.horaDormir)
+        val desayuno = findViewById<TextView>(R.id.horaDesayuno)
+        val comida = findViewById<TextView>(R.id.horaComida)
+        val cena = findViewById<TextView>(R.id.horaCena)
 
         // Asignar los textos con colores diferentes
-        nombre.text = createColoredText("Nombre", usuario.name.toString())
-        edadText.text = createColoredText("Edad", usuario.age.toString())
-        sangreText.text = createColoredText("Sangre", usuario.blood.toString())
-        contactoText.text = createColoredText("Contacto", usuario.contact.toString())
+        nombre.text = usuario.name.toString()
+        edadText.text = usuario.age.toString()
+        sangreText.text = usuario.blood.toString()
+        contactoText.text = usuario.contact.toString()
+        despertar.text = usuario.h1.toString()
+        dormir.text = usuario.h2.toString()
+        desayuno.text = usuario.h3.toString()
+        comida.text = usuario.h4.toString()
+        cena.text = usuario.h5.toString()
     }
 
     // Función para crear un texto con dos partes de colores diferentes

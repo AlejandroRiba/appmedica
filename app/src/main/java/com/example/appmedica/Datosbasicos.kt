@@ -169,7 +169,7 @@ class Datosbasicos : AppCompatActivity() {
         )
         firebaseHelper.agregarUsuario(usuarioData)
         Toast.makeText(this, "Registro con exito!!", Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, ListaConsultas::class.java)
         startActivity(intent)
         finish() //cerramos Datosbasicos
     }

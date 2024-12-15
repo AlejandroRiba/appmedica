@@ -44,6 +44,14 @@ class ListaConsultas : AppCompatActivity() {
             insets
         }
 
+        val databaseHandler = DatabaseHandler(applicationContext)
+        val client = databaseHandler.consultaAdulto()
+        if (client == "Usuario") {
+            val intent = Intent(this, Datosbasicos::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         container = findViewById(R.id.container_layout)
 
         // Consultar los registros y mostrarlos
@@ -109,14 +117,10 @@ class ListaConsultas : AppCompatActivity() {
                             val textViewHora = registroView.findViewById<TextView>(R.id.textViewHora)
 
                             textViewNombre.text = "${cita.idcons}"
-                            textViewFecha.text = "${cita.date}"
+                            textViewFecha.text = dateFormatting("${cita.date}")
                             textViewHora.text = "${cita.time}"
 
                             container.addView(registroView)
-                            val btnAjustes = registroView.findViewById<ImageView>(R.id.btnOptions)
-                            btnAjustes.setOnClickListener {
-                                showDialog(documentId, cita)
-                            }
 
                             val mostrarCon = registroView.findViewById<GridLayout>(R.id.consulta)
                             mostrarCon.setOnClickListener {
@@ -127,6 +131,7 @@ class ListaConsultas : AppCompatActivity() {
                                     putExtra("clinica", cita.clinic)
                                     putExtra("doctor", cita.doctor)
                                     putExtra("cont_doc", cita.contactdoc)
+                                    putExtra("docID", documentId)
                                     putExtra("selectedcolor", cita.selectedcolor.toString())
                                 }
                                 finish()
@@ -199,5 +204,15 @@ class ListaConsultas : AppCompatActivity() {
         dialog.show()
     }
 
+    // Cambia el formato de las fechas
+    fun dateFormatting(date: String): String {
+        var meses = arrayOf("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")
+
+        var anio = date.substring(0, 4)
+        var mes = meses[(date.substring(5, 7).toInt()) - 1]
+        var dia = date.substring(8)
+
+        return "$dia - $mes - $anio"
+    }
 
 }

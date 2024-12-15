@@ -16,6 +16,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ScrollView
 import android.widget.Spinner
 import android.widget.TextView
@@ -110,7 +111,7 @@ class Consultas : AppCompatActivity() {
         }
 
 
-        val btn: Button = findViewById(R.id.btn_regresar)
+        val btn = findViewById<ImageButton>(R.id.btn_regresar)
         btn.setOnClickListener{
             finish() //cierra el activity y pasa al anterior
         }
@@ -121,7 +122,7 @@ class Consultas : AppCompatActivity() {
         val editTextFecha = findViewById<EditText>(R.id.CFechaConsul)
         editTextFecha.setOnClickListener { showDatePickerDialog() }
 
-        val btnSendFeedback = findViewById<Button>(R.id.btn_alta)
+        val btnSendFeedback = findViewById<ImageButton>(R.id.btn_alta)
         btnSendFeedback.setOnClickListener{
             if (isInternetAvailable(this)) {
                 btnSendFeedback.isEnabled = false //deshabilito el botón para evitar sobrellamadas
@@ -129,6 +130,24 @@ class Consultas : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "No hay conexión a Internet", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        val navCitas = findViewById<ImageButton>(R.id.navCitas)
+        navCitas.setOnClickListener{
+            val intent = Intent(this, ListaConsultas::class.java)
+            startActivity(intent)
+        }
+
+        val navMedicinas = findViewById<ImageButton>(R.id.navMedicinas)
+        navMedicinas.setOnClickListener{
+            val intent = Intent(this, ListaMedicamentos::class.java)
+            startActivity(intent)
+        }
+
+        val navPerfil = findViewById<ImageButton>(R.id.navPerfil)
+        navPerfil.setOnClickListener{
+            val intent = Intent(this, PerfilActivity::class.java)
+            startActivity(intent)
         }
 
     }

@@ -1,238 +1,435 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="@color/colorPrimary"
-    tools:context=".InyectableActivity"
-    >
+    android:background="@color/colorPrimary">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/scrollform"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
         android:scrollbars="none">
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:id="@+id/main"
-            android:gravity="center_horizontal">
+            android:layout_height="match_parent">
+            <ImageButton
+                android:id="@+id/btn_cancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00ffffff"
+                android:contentDescription="@string/botonregresar"
+                android:src="@drawable/arrow_back"
+                android:scaleType="fitCenter"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                app:tint="@color/texto"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="16dp"/>
+
+            <ImageButton
+                android:id="@+id/btn_guardar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00ffffff"
+                android:contentDescription="@string/editar_consulta"
+                android:src="@drawable/check"
+                android:scaleType="fitCenter"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                app:tint="@color/brandColor"
+                android:layout_gravity="end"
+                android:layout_marginTop="26dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="16dp"/>
 
             <TextView
                 android:id="@+id/titulo1"
-                android:layout_width="match_parent"
+                android:text="Inyectable"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/btn_cancelar"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="24dp"
-                android:text="Nuevo tratamiento:\Inyectable"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/alexandria_semibold"
                 android:textAlignment="center"
-                android:textColor="#000000"
+                android:textColor="@color/texto"
                 android:textSize="@dimen/tit"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/nombremedicamentoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:text="Nombre del medicamento*"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titulo1" />
 
             <EditText
                 android:id="@+id/nombremedicamento"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="30sp"
+                android:layout_height="48dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="@color/editText"
+                android:layout_marginHorizontal="18dp"
+                android:importantForAutofill="no"
+                android:maxLength="30"
+                android:textColor="@color/texto"
                 android:inputType="text"
-                android:backgroundTint="#536DFE"
-                android:hint="Nombre del\nMedicamento *"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nombremedicamentoTitle"
+                android:textSize="15sp"
+                android:hint="Nombre del Medicamento"
+                android:textColorHint="@color/editText"
                 android:layout_marginBottom="24dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 tools:ignore="VisualLintTextFieldSize" />
 
-            <TextView
+            <View
                 android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/nombremedicamentoTitle"/>
+
+            <TextView
+                android:id="@+id/cantidadTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:textColor="@color/black"
-                android:text="Dosis de aplicación:"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:text="Dosis de Aplicación*"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nombremedicamento" />
 
             <Spinner
                 android:id="@+id/cantidad"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="24dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:layout_height="48dp"
+                android:scrollbarSize="100dp"
+                android:paddingStart="16dp"
+                app:layout_constraintTop_toBottomOf="@id/cantidadTitle"
+                android:backgroundTint="@color/texto" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/cantidadTitle"/>
 
             <EditText
                 android:id="@+id/edtext_other_cantidad"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Especifica la dosis (ml)"
-                android:height="60dp"
-                android:textSize="30sp"
-                android:inputType="numberDecimal"
-                android:backgroundTint="#536DFE"
+                android:layout_height="48dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="@color/editText"
+                android:layout_marginHorizontal="18dp"
+                android:importantForAutofill="no"
+                android:maxLength="30"
+                android:textColor="@color/texto"
+                android:inputType="text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cantidad"
+                android:textSize="15sp"
+                android:hint="Especifique la aplicación (num. de gotas)"
+                android:textColorHint="@color/editText"
                 android:layout_marginBottom="24dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                tools:ignore="VisualLintTextFieldSize" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/frecuenciaTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:textColor="@color/black"
-                android:text="Frecuencia de aplicación:"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:text="Frecuencia de aplicación*"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edtext_other_cantidad" />
 
             <Spinner
                 android:id="@+id/frecuencia"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="24dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:layout_height="48dp"
+                android:scrollbarSize="100dp"
+                android:paddingStart="16dp"
+                app:layout_constraintTop_toBottomOf="@id/frecuenciaTitle"
+                android:backgroundTint="@color/texto" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/frecuenciaTitle"/>
 
             <EditText
                 android:id="@+id/edtext_other_frecuencia"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Especifica la\nfrecuencia (horas)"
-                android:height="60dp"
-                android:textSize="30sp"
-                android:inputType="number"
-                android:backgroundTint="#536DFE"
+                android:layout_height="48dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="@color/editText"
+                android:layout_marginHorizontal="18dp"
+                android:importantForAutofill="no"
+                android:maxLength="30"
+                android:textColor="@color/texto"
+                android:inputType="text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/frecuencia"
+                android:textSize="15sp"
+                android:hint="Especifique la frecuencia (horas)"
+                android:textColorHint="@color/editText"
                 android:layout_marginBottom="24dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                tools:ignore="VisualLintTextFieldSize" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/tipoTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:textColor="@color/black"
-                android:text="Zona de aplicación:"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:text="Tipo de Inyección*"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edtext_other_frecuencia" />
 
             <Spinner
                 android:id="@+id/tipoInyeccion"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="24dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:layout_height="48dp"
+                android:scrollbarSize="100dp"
+                android:paddingStart="16dp"
+                app:layout_constraintTop_toBottomOf="@id/tipoTitle"
+                android:backgroundTint="@color/texto" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/tipoTitle"/>
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/horarioTomaTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:textColor="@color/black"
-                android:text="Horario de la primer aplicación:"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:text="Horario de primer aplicación*"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tipoInyeccion" />
 
             <Spinner
                 android:id="@+id/primertoma"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="24dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:layout_height="48dp"
+                android:scrollbarSize="100dp"
+                android:paddingStart="16dp"
+                app:layout_constraintTop_toBottomOf="@id/horarioTomaTitle"
+                android:backgroundTint="@color/texto" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/horarioTomaTitle"/>
 
             <EditText
                 android:id="@+id/edtext_other_primertoma"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Especifica el\nhorario"
-                android:height="60dp"
-                android:textSize="30sp"
+                android:layout_height="48dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="@color/editText"
+                android:layout_marginHorizontal="18dp"
+                android:importantForAutofill="no"
+                android:maxLength="30"
+                android:textColor="@color/texto"
                 android:inputType="text"
-                android:backgroundTint="#536DFE"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/primertoma"
+                android:textSize="15sp"
+                android:hint="Especifique el horario"
+                android:textColorHint="@color/editText"
                 android:layout_marginBottom="24dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:clickable="false"
-                android:focusable="false"/>
+                tools:ignore="VisualLintTextFieldSize" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/duracionTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:textColor="@color/black"
-                android:text="Duración del tratamiento"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:text="Duración del tratamiento*"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edtext_other_primertoma" />
 
             <Spinner
                 android:id="@+id/duracion"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="24dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:layout_height="48dp"
+                android:scrollbarSize="100dp"
+                android:paddingStart="16dp"
+                app:layout_constraintTop_toBottomOf="@id/duracionTitle"
+                android:backgroundTint="@color/texto" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/duracionTitle"/>
 
             <EditText
                 android:id="@+id/edtext_other_duracion"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Especifica la\nduración (días)"
-                android:height="60dp"
-                android:textSize="30sp"
+                android:layout_height="48dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="@color/editText"
+                android:layout_marginHorizontal="18dp"
+                android:importantForAutofill="no"
+                android:textColor="@color/texto"
                 android:inputType="number"
-                android:backgroundTint="#536DFE"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/duracion"
+                android:textSize="15sp"
+                android:hint="Especifique la duración (días)"
+                android:textColorHint="@color/editText"
                 android:layout_marginBottom="24dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                tools:ignore="VisualLintTextFieldSize" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/colorTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:textColor="@color/black"
-                android:text="Color:"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:text="Color de recordatorio"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edtext_other_duracion" />
 
             <Spinner
                 android:id="@+id/color_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginBottom="24dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
-
-            <Button
-                android:id="@+id/btn_guardar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#40C4FF"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                android:text="Guardar"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="10dp"
-                android:contentDescription="Botón para guardar el tratamiento"
-                tools:ignore="VisualLintButtonSize" />
+                app:layout_constraintStart_toStartOf="parent"
+                android:paddingStart="8dp"
+                android:backgroundTint="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/colorTitle"/>
 
-            <Button
-                android:id="@+id/btn_cancelar"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                android:text="Cancelar"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:contentDescription="Botón para regresar a la pantalla anterior"
-                tools:ignore="VisualLintButtonSize" />
-        </LinearLayout>
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/colorTitle"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                app:layout_constraintTop_toBottomOf="@id/color_spinner"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
+    <!-- NAVBAR -->
+    <LinearLayout
+        android:id="@+id/bottomNavbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <ImageButton
+            android:id="@+id/navCitas"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/consultas_agendadas"
+            android:src="@drawable/calendarvector"
+            android:scaleType="fitCenter"
+            android:paddingVertical="14dp"
+            app:tint="@color/brandColor"/>
+
+        <ImageButton
+            android:id="@+id/navMedicinas"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:backgroundTint="@color/brandColor"
+            android:contentDescription="@string/tituloMedicinas"
+            android:src="@drawable/medicinas"
+            app:tint="@color/colorPrimary"/>
+
+        <ImageButton
+            android:id="@+id/navPerfil"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/ver_perfil"
+            android:src="@drawable/cuenta"
+            app:tint="@color/brandColor"/>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

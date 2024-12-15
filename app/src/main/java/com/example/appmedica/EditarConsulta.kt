@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ScrollView
 import android.widget.Spinner
 import android.widget.TextView
@@ -98,7 +99,6 @@ class EditarConsulta: AppCompatActivity()  {
         }
 
         val textViews = listOf<TextView>(
-            findViewById(R.id.lblident),
             findViewById(R.id.lblfecha),
             findViewById(R.id.lblhora),
             findViewById(R.id.lbllugar)
@@ -125,7 +125,7 @@ class EditarConsulta: AppCompatActivity()  {
         }
 
 
-        val btn: Button = findViewById(R.id.btn_regresar)
+        val btn = findViewById<ImageButton>(R.id.btn_regresar)
         btn.setOnClickListener {
             val intent = Intent(this, ListaConsultas::class.java) //para recargar lista de consultas
             finish()//finalizamos la edición
@@ -138,9 +138,31 @@ class EditarConsulta: AppCompatActivity()  {
         //Definimos que al tocar el editText de la fecha se abre el date picker
         editTextFecha.setOnClickListener { showDatePickerDialog() }
 
-        val btnSendFeedback = findViewById<Button>(R.id.btn_alta)
+        val btnSendFeedback = findViewById<ImageButton>(R.id.btn_alta)
         btnSendFeedback.setOnClickListener{
             sendFeedback(id!!)
+        }
+
+
+        val navCitas = findViewById<ImageButton>(R.id.navCitas)
+        navCitas.setOnClickListener{
+            val intent = Intent(this, ListaConsultas::class.java)
+            finish()
+            startActivity(intent)
+        }
+
+        val navMedicinas = findViewById<ImageButton>(R.id.navMedicinas)
+        navMedicinas.setOnClickListener{
+            val intent = Intent(this, ListaMedicamentos::class.java)
+            finish()
+            startActivity(intent)
+        }
+
+        val navPerfil = findViewById<ImageButton>(R.id.navPerfil)
+        navPerfil.setOnClickListener{
+            val intent = Intent(this, PerfilActivity::class.java)
+            finish()
+            startActivity(intent)
         }
     }
 
