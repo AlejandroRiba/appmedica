@@ -105,13 +105,8 @@ class ListaMedicamentos : AppCompatActivity() {
                             textViewDosis.text = "${medicamento.dosis} por toma."
 
                             container.addView(registroView)
-                            val btnAjustes = registroView.findViewById<ImageView>(R.id.btnOptions)
-                            btnAjustes.setOnClickListener {
-                                showDialog(documentId, medicamento, requestCode)
-                            }
 
-                            val mostrarCon = registroView.findViewById<GridLayout>(R.id.consulta)
-                            mostrarCon.setOnClickListener {
+                            regViewContainer.setOnClickListener {
                                 val intent = Intent(this, MostrarMedicamento::class.java).apply {
                                     putExtra("nombre", medicamento.nombre)
                                     putExtra("frecuencia", medicamento.frecuencia)
@@ -121,6 +116,8 @@ class ListaMedicamentos : AppCompatActivity() {
                                     putExtra("dosis", medicamento.dosis)
                                     putExtra("zonaApl", medicamento.zonaAplicacion)
                                     putExtra("medida", medicamento.medida)
+                                    putExtra("docID", documentId)
+                                    putExtra("medicamentoDado", medicamento.toString())
                                     when(medicamento.tipo){
                                         "capsula" -> {putExtra("tipo", "Cápsula")}
                                         "tableta" -> {putExtra("tipo", "Tableta")}

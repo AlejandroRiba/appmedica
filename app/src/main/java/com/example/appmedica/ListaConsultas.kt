@@ -122,8 +122,7 @@ class ListaConsultas : AppCompatActivity() {
 
                             container.addView(registroView)
 
-                            val mostrarCon = registroView.findViewById<GridLayout>(R.id.consulta)
-                            mostrarCon.setOnClickListener {
+                            regViewContainer.setOnClickListener {
                                 val intent = Intent(this, MostrarConsulta::class.java).apply {
                                     putExtra("id", cita.idcons)
                                     putExtra("fecha", cita.date)
