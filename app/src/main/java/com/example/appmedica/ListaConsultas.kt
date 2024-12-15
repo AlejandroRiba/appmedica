@@ -196,7 +196,7 @@ class ListaConsultas : AppCompatActivity() {
                 putExtra("id", idcons)
                 putExtra("selectedcolor", cita.selectedcolor)
             }
-            finish() //finalizamos la lista de consultas
+            //finish() //finalizamos la lista de consultas
             startActivity(intent)
         }
 

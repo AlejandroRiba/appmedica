@@ -80,7 +80,7 @@ class MostrarMedicamento : AppCompatActivity() {
         val datos = arrayOf(nombre, dosis, frecuencia, primertoma, duracion, tipo, zonaApl, medidaAdmin, color)
 
         // Itera sobre todos los TextViews y aplica el formato
-        val textViews = arrayOf(t1, t2, t3, t4, t6, t5, t7, t8)
+        val textViews = arrayOf(t1, t2, t3, t4, t5, t6, t7, t8)
 
         textViews.forEachIndexed { index, textView ->
             val dato = datos[index]

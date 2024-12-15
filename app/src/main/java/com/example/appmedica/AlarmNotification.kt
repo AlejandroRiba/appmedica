@@ -48,7 +48,7 @@ class AlarmNotification:BroadcastReceiver() {
         val notification = NotificationCompat.Builder(context, MyApp.NOTIFICATION_CHANNEL_ID)
             .setContentTitle(title)
             .setStyle(bigTextStyle)
-            .setSmallIcon(R.drawable.notification_logo)
+            .setSmallIcon(R.drawable.calendarvector)
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .setContentIntent(pendingIntent)

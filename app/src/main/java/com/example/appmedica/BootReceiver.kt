@@ -40,7 +40,7 @@ class BootReceiver : BroadcastReceiver() {
 
                 // Solo reprograma alarmas cuyo tiempo no haya pasado
                 if (reminder.calendarTime > System.currentTimeMillis()) {
-                    alarmManager.setExact(
+                    alarmManager.setExactAndAllowWhileIdle(
                         AlarmManager.RTC_WAKEUP,
                         reminder.calendarTime,
                         pendingIntent
@@ -50,7 +50,7 @@ class BootReceiver : BroadcastReceiver() {
                     val calendar = Calendar.getInstance().apply {
                         add(Calendar.MILLISECOND, 3000) // Sumamos 1 minuto al tiempo actual
                     }
-                    alarmManager.setExact(
+                    alarmManager.setAndAllowWhileIdle(
                         AlarmManager.RTC_WAKEUP,
                         calendar.timeInMillis,
                         pendingIntent
@@ -76,7 +76,7 @@ class BootReceiver : BroadcastReceiver() {
 
                 // Solo reprograma alarmas cuyo tiempo no haya pasado
                 if (medreminder.sigalarma.timeInMillis > System.currentTimeMillis()) {
-                    alarmManager.setExact(
+                    alarmManager.setExactAndAllowWhileIdle(
                         AlarmManager.RTC_WAKEUP,
                         medreminder.sigalarma.timeInMillis,
                         pendingIntentMed
@@ -86,7 +86,7 @@ class BootReceiver : BroadcastReceiver() {
                     val calendar = Calendar.getInstance().apply {
                         add(Calendar.MILLISECOND, 3000) // Sumamos 1 minuto al tiempo actual
                     }
-                    alarmManager.setExact(
+                    alarmManager.setExactAndAllowWhileIdle(
                         AlarmManager.RTC_WAKEUP,
                         calendar.timeInMillis,
                         pendingIntentMed

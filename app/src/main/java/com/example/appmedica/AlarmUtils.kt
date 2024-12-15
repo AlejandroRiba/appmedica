@@ -210,18 +210,23 @@ object AlarmUtils {
             // Si la frecuencia es "con cada comida"
             frecuencia == "Con cada comida" -> {
                 val comidas = listOf(usuario.h3, usuario.h4, usuario.h5) // Horas de desayuno, comida y cena
+                var calendarlisto = false
                 for (comida in comidas) {
                     val proximaHora = Utilidades.convertirHora(comida!!)
+                    Log.i("AlarmUtils", "Sig hora de comida $proximaHora")
                     val proximaHoraCalendar = Utilidades.stringToCalendar(proximaHora)
                     if (proximaHoraCalendar.after(now)) {
                         calendar.time = proximaHoraCalendar.time
+                        calendarlisto = true
                     }
                 }
                 // Si ya pasaron todas las comidas del día, tomar el desayuno del día siguiente
-                val proximaHora = Utilidades.convertirHora(usuario.h3!!)
-                val proximaHoraCalendar = Utilidades.stringToCalendar(proximaHora)
-                proximaHoraCalendar.add(Calendar.DAY_OF_YEAR, 1)
-                calendar.time = proximaHoraCalendar.time
+                if(!calendarlisto){
+                    val proximaHora = Utilidades.convertirHora(usuario.h3!!)
+                    val proximaHoraCalendar = Utilidades.stringToCalendar(proximaHora)
+                    proximaHoraCalendar.add(Calendar.DAY_OF_YEAR, 1)
+                    calendar.time = proximaHoraCalendar.time
+                }
             }
 
             // Si la frecuencia es "con el desayuno"

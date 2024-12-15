@@ -47,7 +47,7 @@ class MedicineNotification : BroadcastReceiver() {
         val notification = NotificationCompat.Builder(context, MyApp.NOTIFICATION_CHANNEL_ID2)
             .setContentTitle(title)
             .setStyle(bigTextStyle)
-            .setSmallIcon(R.drawable.notification_logo)
+            .setSmallIcon(R.drawable.medicinas)
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .setContentIntent(pendingIntent)
