@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ScrollView
 import android.widget.Spinner
 import android.widget.Toast
@@ -64,7 +65,7 @@ class TabletaActivity : AppCompatActivity() {
             false
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)){ v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_layout)){ v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -109,16 +110,36 @@ class TabletaActivity : AppCompatActivity() {
         inicializaSpinners()
 
         //Obtener referencia al botón de cancelar
-        val cancelar: Button = findViewById(R.id.btn_cancelar)
+        val cancelar = findViewById<ImageButton>(R.id.btn_cancelar)
         //Definimos la acción del botón (regresamos al menú de medicamentos)
         cancelar.setOnClickListener{
-            finish()//finaliza la activity actual (se puede agregar la lógica para que haga otra cosa cuando actualicemos las pantallas)
+            finish() //finaliza la activity actual (se puede agregar la lógica para que haga otra cosa cuando actualicemos las pantallas)
         }
 
         //Obtener referencia al botón de guardar
-        val guardar: Button = findViewById(R.id.btn_guardar)
+        val guardar = findViewById<ImageButton>(R.id.btn_guardar)
         guardar.setOnClickListener { sendFeedback() }
 
+        val navCitas = findViewById<ImageButton>(R.id.navCitas)
+        navCitas.setOnClickListener{
+            val intent = Intent(this, ListaConsultas::class.java)
+            finish()
+            startActivity(intent)
+        }
+
+        val navMedicinas = findViewById<ImageButton>(R.id.navMedicinas)
+        navMedicinas.setOnClickListener{
+            val intent = Intent(this, ListaMedicamentos::class.java)
+            finish()
+            startActivity(intent)
+        }
+
+        val navPerfil = findViewById<ImageButton>(R.id.navPerfil)
+        navPerfil.setOnClickListener{
+            val intent = Intent(this, PerfilActivity::class.java)
+            finish()
+            startActivity(intent)
+        }
     }
 
     private fun sendFeedback() {

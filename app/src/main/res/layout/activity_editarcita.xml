@@ -10,309 +10,374 @@
     <ScrollView
         android:id="@+id/scrollform"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
         android:scrollbars="none">
-        <LinearLayout
-            android:gravity="center"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="60dp">
-            <TextView
-                android:id="@+id/titulo1"
+            android:layout_height="match_parent">
+            <ImageButton
+                android:id="@+id/btn_regresar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/editar_consulta"
-                android:textAlignment="center"
-                android:textColor="@color/texto"
-                android:textSize="@dimen/tit"
-                android:textStyle="bold"
-                tools:ignore="TextSizeCheck" />
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="70dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="70dp"
-                android:adjustViewBounds="false"
-                android:contentDescription="@string/todo"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:backgroundTint="#00ffffff"
+                android:contentDescription="@string/botonregresar"
+                android:src="@drawable/arrow_back"
+                android:scaleType="fitCenter"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                app:tint="@color/texto"
+                android:layout_marginTop="30dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/titulo1"
-                app:srcCompat="@drawable/calendario"
-                tools:ignore="ImageContrastCheck" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="16dp"/>
 
-            <TextView
-                android:id="@+id/lblident"
+            <ImageButton
+                android:id="@+id/btn_alta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/khula_light"
-                android:gravity="left"
-                android:text="@string/nombre_de_consulta"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                android:textStyle="bold"
+                android:backgroundTint="#00ffffff"
+                android:contentDescription="@string/editar_consulta"
+                android:src="@drawable/check"
+                android:scaleType="fitCenter"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                app:tint="@color/brandColor"
+                android:layout_gravity="end"
+                android:layout_marginTop="26dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="RtlHardcoded" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="16dp"/>
 
             <EditText
                 android:id="@+id/CIdenti"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:backgroundTint="#536DFE"
                 android:hint="@string/para_qu_es_la_consulta"
+                android:backgroundTint="@color/editText"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:maxLength="30"
-                android:textColor="#000000"
-                android:textColorHint="#8D6E63"
-                android:textSize="26sp"
+                android:textColor="@color/editText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.508"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="VisualLintTextFieldSize"/>
+                app:layout_constraintTop_toTopOf="@id/btn_regresar"
+                tools:ignore="VisualLintTextFieldSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/alexandria_semibold"
+                android:text="@string/agendar_nueva_consulta"
+                android:textAlignment="center"
+                android:textSize="@dimen/tit"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/lblfecha"
+                android:text="@string/fecha_de_la_consulta"
+                tools:ignore="RtlHardcoded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/khula_light"
-                android:gravity="left"
-                android:text="@string/fecha_de_la_consulta"
-                android:textColor="#000000"
-                android:textSize="30sp"
+                android:layout_marginTop="9dp"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/alexandria"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:paddingStart="8dp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6"
-                tools:ignore="RtlHardcoded" />
+                app:layout_constraintTop_toBottomOf="@id/CIdenti" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/lblfecha"/>
 
             <EditText
                 android:id="@+id/CFechaConsul"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:backgroundTint="#536DFE"
                 android:hint="@string/seleccione_fecha_de_la_consulta"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="@color/editText"
+                android:layout_marginHorizontal="18dp"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:maxLength="30"
-                android:textColor="#000000"
-                android:textColorHint="#8D6E63"
-                android:textSize="26sp"
+                android:textColor="@color/texto"
+                android:textColorHint="@color/editText"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.508"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lblfecha"
                 tools:ignore="VisualLintTextFieldSize"
                 android:clickable="false"
                 android:focusable="false"/>
 
             <TextView
                 android:id="@+id/lblhora"
+                android:text="@string/hora_de_la_consulta"
+                tools:ignore="RtlHardcoded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/khula_light"
-                android:gravity="left"
-                android:text="@string/hora_de_la_consulta"
-                android:textColor="#000000"
-                android:textSize="30sp"
+                android:layout_marginTop="9dp"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/alexandria"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:paddingStart="8dp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CFechaConsul"
-                tools:ignore="RtlHardcoded" />
+                app:layout_constraintTop_toBottomOf="@id/CFechaConsul" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/lblhora"/>
 
             <EditText
                 android:id="@+id/CHoraConsul"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:backgroundTint="#536DFE"
                 android:hint="@string/ingrese_la_hora_hh_mm"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="@color/editText"
+                android:layout_marginHorizontal="18dp"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:maxLength="30"
-                android:textColor="#000000"
-                android:textColorHint="#8D6E63"
-                android:textSize="26sp"
+                android:textColor="@color/texto"
+                android:textColorHint="@color/editText"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lblhora"
+                app:layout_constraintTop_toBottomOf="@id/lblhora"
                 tools:ignore="VisualLintTextFieldSize"
                 android:clickable="false"
                 android:focusable="false"/>
 
             <TextView
                 android:id="@+id/lbllugar"
+                android:text="@string/cl_nica_de_la_consulta"
+                tools:ignore="RtlHardcoded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/khula_light"
-                android:gravity="left"
-                android:text="@string/cl_nica_de_la_consulta"
-                android:textColor="#000000"
-                android:textSize="30sp"
+                android:layout_marginTop="9dp"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/alexandria"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:paddingStart="8dp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.494"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CHoraConsul"
-                tools:ignore="RtlHardcoded" />
+                app:layout_constraintTop_toBottomOf="@id/CHoraConsul" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/lbllugar"/>
 
 
             <EditText
                 android:id="@+id/CClinica"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:backgroundTint="#536DFE"
                 android:hint="@string/nombre_de_cl_nica_hospital"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="@color/editText"
+                android:layout_marginHorizontal="18dp"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:maxLength="30"
-                android:textColor="#000000"
-                android:textColorHint="#8D6E63"
-                android:textSize="26sp"
+                android:textColor="@color/texto"
+                android:textColorHint="@color/editText"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.487"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbllugar"
-                tools:ignore="VisualLintTextFieldSize" />
+                app:layout_constraintTop_toBottomOf="@id/lbllugar"
+                tools:ignore="VisualLintTextFieldSize"/>
 
             <TextView
                 android:id="@+id/lbldoc"
+                android:text="@string/nombre_del_doctor"
+                tools:ignore="RtlHardcoded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/khula_light"
-                android:gravity="left"
-                android:text="@string/nombre_del_doctor"
-                android:textColor="#000000"
-                android:textSize="30sp"
+                android:layout_marginTop="9dp"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/alexandria"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:paddingStart="8dp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.494"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CClinica"
-                tools:ignore="RtlHardcoded" />
+                app:layout_constraintTop_toBottomOf="@id/CClinica" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/lbldoc"/>
 
 
             <EditText
                 android:id="@+id/CDoc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:backgroundTint="#536DFE"
                 android:hint="@string/ingrese_nombre_opcional"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="@color/editText"
+                android:layout_marginHorizontal="18dp"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:maxLength="30"
-                android:textColor="#000000"
-                android:textColorHint="#8D6E63"
-                android:textSize="26sp"
+                android:textColor="@color/texto"
+                android:textColorHint="@color/editText"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.487"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbldoc"
-                tools:ignore="VisualLintTextFieldSize" />
+                app:layout_constraintTop_toBottomOf="@id/lbldoc"
+                tools:ignore="VisualLintTextFieldSize"/>
 
             <TextView
                 android:id="@+id/lblNumdoc"
+                android:text="@string/contacto_del_doctor"
+                tools:ignore="RtlHardcoded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/khula_light"
-                android:gravity="left"
-                android:text="@string/contacto_del_doctor"
-                android:textColor="#000000"
-                android:textSize="30sp"
+                android:layout_marginTop="9dp"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/alexandria"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:paddingStart="8dp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.494"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CDoc"
-                tools:ignore="RtlHardcoded" />
+                app:layout_constraintTop_toBottomOf="@id/CDoc" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/lblNumdoc"/>
 
 
             <EditText
                 android:id="@+id/CNumDoc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:backgroundTint="#536DFE"
                 android:hint="@string/ingrese_contacto_opcional"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="@color/editText"
+                android:layout_marginHorizontal="18dp"
                 android:importantForAutofill="no"
-                android:inputType="number"
+                android:inputType="phone"
                 android:maxLength="30"
-                android:textColor="#000000"
-                android:textColorHint="#8D6E63"
-                android:textSize="26sp"
+                android:textColor="@color/texto"
+                android:textColorHint="@color/editText"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.487"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lblNumdoc"
-                tools:ignore="VisualLintTextFieldSize" />
+                app:layout_constraintTop_toBottomOf="@id/lblNumdoc"
+                tools:ignore="VisualLintTextFieldSize"/>
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/lblColor"
+                android:text="Color"
+                tools:ignore="RtlHardcoded"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:textColor="@color/black"
-                android:text="Color:"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginTop="9dp"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/alexandria"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:paddingStart="8dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/CNumDoc"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:layout_marginBottom="200dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/lblColor"/>
 
             <Spinner
                 android:id="@+id/color_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginBottom="24dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
-
-            <Button
-                android:id="@+id/btn_alta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="#40C4FF"
-                android:text="@string/actualizar"
-                android:textAllCaps="false"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                tools:ignore="VisualLintButtonSize" />
-            <Button
-                android:id="@+id/btn_regresar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:backgroundTint="#BFBBBB"
-                android:text="@string/volver"
-                android:textAllCaps="false"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                tools:ignore="VisualLintButtonSize" />
+                android:layout_marginEnd="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:paddingStart="8dp"
+                android:backgroundTint="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/lblColor"/>
 
-        </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                app:layout_constraintTop_toBottomOf="@id/color_spinner"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
+    <!-- NAVBAR -->
+    <LinearLayout
+        android:id="@+id/bottomNavbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent">
 
+        <ImageButton
+            android:id="@+id/navCitas"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/brandColor"
+            android:contentDescription="@string/consultas_agendadas"
+            android:src="@drawable/calendarvector"
+            android:scaleType="fitCenter"
+            android:paddingVertical="14dp"
+            app:tint="@color/colorPrimary"/>
+
+        <ImageButton
+            android:id="@+id/navMedicinas"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/tituloMedicinas"
+            android:src="@drawable/medicinas"
+            app:tint="@color/brandColor"/>
+
+        <ImageButton
+            android:id="@+id/navPerfil"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/ver_perfil"
+            android:src="@drawable/cuenta"
+            app:tint="@color/brandColor"/>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

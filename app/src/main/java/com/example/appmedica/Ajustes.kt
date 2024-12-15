@@ -35,14 +35,13 @@ class Ajustes : AppCompatActivity() {
         val usuarioActual = databaseHandler.consultaAdulto()
         val firebaseHelper = FirebaseHelper(this)
         //Referencia al botón de regreso
-        val btn: ImageButton = findViewById(R.id.back1)
+        val btn = findViewById<ImageButton>(R.id.btn_regresar)
         btn.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, PerfilActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        val btnEdit: LinearLayout = findViewById(R.id.row3)
         val btnShowDialog: LinearLayout = findViewById(R.id.row4)
         btnShowDialog.setOnClickListener {
             showDialog("Borrará el registro creado.\n" +
@@ -54,18 +53,32 @@ class Ajustes : AppCompatActivity() {
                     AlarmUtils.cancelAllMedAlarms(this)
                     val filename = "imagen_perfil.png"
                     deleteImageFromInternalStorage(this, filename) //eliminar foto de perfil
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, ListaConsultas::class.java)
                     startActivity(intent)
                     finish() //cerramos la actividad de ajustes para que entre directo al main
                 }
             }
         }
-        btnEdit.setOnClickListener {
-            showDialog("Editará sus datos.\n" +
-                    "¿Está seguro?") {
-                val intent = Intent(this, EditarDatos::class.java)
-                startActivity(intent) //aqui no se cierra porque se espera al finalizar la act EditarDatos
-            }
+
+        val navCitas = findViewById<ImageButton>(R.id.navCitas)
+        navCitas.setOnClickListener{
+            val intent = Intent(this, ListaConsultas::class.java)
+            finish()
+            startActivity(intent)
+        }
+
+        val navMedicinas = findViewById<ImageButton>(R.id.navMedicinas)
+        navMedicinas.setOnClickListener{
+            val intent = Intent(this, ListaMedicamentos::class.java)
+            finish()
+            startActivity(intent)
+        }
+
+        val navPerfil = findViewById<ImageButton>(R.id.navPerfil)
+        navPerfil.setOnClickListener{
+            val intent = Intent(this, PerfilActivity::class.java)
+            finish()
+            startActivity(intent)
         }
 }
     private fun showDialog(message: String, listener: () -> Unit) {

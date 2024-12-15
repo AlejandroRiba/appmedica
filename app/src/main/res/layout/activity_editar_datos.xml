@@ -1,396 +1,516 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/colorPrimary"
-    tools:context=".EditarDatos">
-
+    android:id="@+id/main"
+    android:background="@color/colorPrimary">
     <ScrollView
-        android:id="@+id/scroll_view"
+        android:id="@+id/scrollform"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="15dp"
-        android:paddingBottom="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:scrollbars="none">
-
-        <LinearLayout
-            android:gravity="center"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="60dp">
-            <TextView
-                android:id="@+id/reg"
+            android:layout_height="match_parent">
+            <ImageButton
+                android:id="@+id/cancelOperacion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/actualizaci_n_de_datos"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:paddingBottom="15dp"/>
-            <TextView
-                android:id="@+id/datosbas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/bienregis"
-                android:textColor="#000000"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:paddingBottom="15dp"/>
-            <TextView
-                android:id="@+id/txtnombre"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/khula_light"
-                android:text="@string/txtname"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:gravity="left"
-                tools:ignore="RtlHardcoded" />
+                android:backgroundTint="#00ffffff"
+                android:contentDescription="@string/botonregresar"
+                android:src="@drawable/arrow_back"
+                android:scaleType="fitCenter"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                app:tint="@color/texto"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="16dp"/>
 
+            <ImageButton
+                android:id="@+id/enviardatosEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00ffffff"
+                android:contentDescription="@string/editar_consulta"
+                android:src="@drawable/check"
+                android:scaleType="fitCenter"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                app:tint="@color/brandColor"
+                android:layout_gravity="end"
+                android:layout_marginTop="26dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="16dp"/>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/desconocido"
+                android:contentDescription="@string/foto_de_perfil_de_usuario"
+                android:id="@+id/fotodeusuario"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                app:shapeAppearanceOverlay="@style/circleImageView"
+                app:strokeColor="@null"
+                app:layout_constraintTop_toBottomOf="@id/cancelOperacion"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ImageButton
+                android:id="@+id/editarFoto"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="Editar Foto"
+                app:layout_constraintTop_toTopOf="@id/fotodeusuario"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="140dp"
+                android:layout_marginTop="140dp"
+                android:src="@drawable/edit_icon"
+                app:iconSize="24dp"
+                android:insetLeft="0dp"
+                android:insetBottom="0dp"
+                android:insetRight="0dp"
+                android:insetTop="0dp"
+                android:background="@drawable/card_background"
+                android:backgroundTint="@color/brandColor"
+                app:shapeAppearanceOverlay="@style/circleImageView"/>
+
+            <TextView
+                android:id="@+id/textViewNombreTitle"
+                android:text="@string/nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintTop_toBottomOf="@id/fotodeusuario"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/textViewNombreTitle"/>
             <EditText
                 android:id="@+id/CampoName1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#536DFE"
                 android:hint="@string/feedbackname"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="@color/editText"
+                android:layout_marginHorizontal="18dp"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:maxLength="30"
-                android:textColor="#000000"
-                android:textColorHint="#8D6E63"
-                android:textSize="30sp"
-                tools:ignore="VisualLintTextFieldSize" />
-            <TextView
-                android:id="@+id/txedad"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/khula_light"
-                android:text="@string/txtedad"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:gravity="left"
-                android:paddingTop="30dp"
-                tools:ignore="RtlHardcoded" />
+                android:textColor="@color/texto"
+                android:textColorHint="@color/editText"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewNombreTitle"
+                tools:ignore="VisualLintTextFieldSize"/>
 
+            <TextView
+                android:id="@+id/textViewEdadTitle"
+                android:text="@string/edad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintTop_toBottomOf="@id/CampoName1"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/textViewEdadTitle"/>
             <EditText
                 android:id="@+id/CampoEdad1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#536DFE"
                 android:hint="@string/feedbackedad"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="@color/editText"
+                android:layout_marginHorizontal="18dp"
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="2"
-                android:textColor="#000000"
-                android:textColorHint="#8D6E63"
-                android:textSize="30sp"
+                android:textColor="@color/texto"
+                android:textColorHint="@color/editText"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewEdadTitle"
                 tools:ignore="VisualLintTextFieldSize" />
             <TextView
-                android:id="@+id/txtiposangre"
-                android:layout_width="fill_parent"
+                android:id="@+id/textViewSangreTitle"
+                app:layout_constraintTop_toBottomOf="@id/CampoEdad1"
+                android:text="@string/sangre"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/khula_light"
-                android:text="@string/txtsangre"
-                android:textColor="#000000"
-                android:textSize="30sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:gravity="left"
-                android:paddingTop="30dp"
-                tools:ignore="RtlHardcoded" />
+                android:layout_marginBottom="20dp"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/textViewSangreTitle"/>
             <Spinner
                 android:id="@+id/tipo_sangre"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:layout_height="48dp"
                 android:scrollbarSize="100dp"
-                android:layout_marginBottom="24dp"/>
+                android:paddingStart="16dp"
+                app:layout_constraintTop_toBottomOf="@id/textViewSangreTitle"
+                android:backgroundTint="@color/texto" />
 
             <TextView
-                android:id="@+id/txcontacto"
-                android:layout_width="fill_parent"
+                android:id="@+id/textViewContactoTitle"
+                app:layout_constraintTop_toBottomOf="@id/tipo_sangre"
+                android:text="@string/contacto1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/khula_light"
-                android:text="@string/contacto"
-                android:textColor="#000000"
-                android:textSize="30sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:gravity="left"
-                android:paddingTop="16dp"
-                tools:ignore="RtlHardcoded" />
-
+                android:layout_marginBottom="20dp"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/textViewContactoTitle"/>
             <EditText
                 android:id="@+id/CampoContacto1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#536DFE"
                 android:hint="@string/auxiliarcont"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="@color/editText"
+                android:layout_marginHorizontal="18dp"
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="10"
-                android:textColor="#000000"
-                android:textColorHint="#8D6E63"
-                android:textSize="30sp"
-                tools:ignore="VisualLintTextFieldSize" />
+                android:textColor="@color/texto"
+                android:textColorHint="@color/editText"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewContactoTitle"
+                tools:ignore="VisualLintTextFieldSize"/>
+
             <TextView
-                android:id="@+id/datoshorario"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/horarioTitle"
+                app:layout_constraintTop_toBottomOf="@id/CampoContacto1"
                 android:text="@string/horarios"
-                android:textColor="#000000"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:paddingTop="30dp"/>
-            <TextView
-                android:id="@+id/horariosug"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sugerencia"
-                android:textColor="#000000"
-                android:textAlignment="center"
-                android:textSize="30sp"
-                android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/labelhora1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/khula_light"
-                android:text="@string/txthora1"
-                android:textColor="#000000"
-                android:textSize="30sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/alexandria"
+                android:paddingStart="8dp"
+                android:textColor="@color/brandColor"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:paddingTop="30dp"/>
+                android:layout_marginBottom="20dp"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@color/brandColor"
+                android:layout_marginTop="2sp"
+                app:layout_constraintTop_toBottomOf="@id/horarioTitle"/>
             <LinearLayout
+                android:id="@+id/horarios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:gravity="center">
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/amanecer"
-                    android:layout_marginEnd="12dp"
-                    android:contentDescription="@string/sol"
-                    android:importantForAccessibility="no" />
-
-                <EditText
-                    android:id="@+id/CampoHo1"
-                    android:layout_width="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/horarioTitle"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#536DFE"
-                    android:hint="@string/ingrese_la_hora_hh_mm"
-                    android:textAlignment="center"
-                    android:importantForAutofill="no"
-                    android:inputType="number"
-                    android:maxLength="5"
-                    android:textColor="#000000"
-                    android:textColorHint="#8D6E63"
-                    android:textSize="30sp"
-                    tools:ignore="VisualLintTextFieldSize,TouchTargetSizeCheck"
-                    android:clickable="false"
-                    android:focusable="false"/>
-            </LinearLayout>
-            <TextView
-                android:id="@+id/labelhora2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/khula_light"
-                android:text="@string/txthora2"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:paddingTop="30dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginEnd="12dp"
-                    android:contentDescription="@string/sol"
-                    android:importantForAccessibility="no"
-                    android:src="@drawable/dormir"
-                    tools:ignore="ImageContrastCheck" />
-
-                <EditText
-                    android:id="@+id/CampoHo2"
-                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/horarioTitle"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="12dp">
+                    <TextView
+                        android:id="@+id/horaDespertarTitle"
+                        app:layout_constraintTop_toBottomOf="@id/textViewContacto"
+                        android:text="@string/txthora1"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/alexandria"
+                        android:textColor="@color/brandColor"
+                        android:textSize="15sp"/>
+                    <EditText
+                        android:id="@+id/CampoHo1"
+                        android:hint="@string/ingrese_la_hora_hh_mm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="48dp"
+                        android:backgroundTint="@color/editText"
+                        android:layout_marginHorizontal="8dp"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="5"
+                        android:textAlignment="center"
+                        android:textColor="@color/texto"
+                        android:textColorHint="@color/editText"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/lblhora"
+                        tools:ignore="VisualLintTextFieldSize"
+                        android:clickable="false"
+                        android:focusable="false"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#536DFE"
-                    android:textAlignment="center"
-                    android:hint="@string/ingrese_la_hora_hh_mm"
-                    android:importantForAutofill="no"
-                    android:inputType="number"
-                    android:maxLength="5"
-                    android:textColor="#000000"
-                    android:textColorHint="#8D6E63"
-                    android:textSize="30sp"
-                    tools:ignore="VisualLintTextFieldSize"
-                    android:clickable="false"
-                    android:focusable="false"/>
-            </LinearLayout>
-            <TextView
-                android:id="@+id/labelhora3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/khula_light"
-                android:text="@string/txthora3"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:paddingTop="30dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:gravity="center">
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/desayuno"
-                    android:layout_marginEnd="12dp"
-                    android:contentDescription="@string/sol"
-                    android:importantForAccessibility="no" />
-
-                <EditText
-                    android:id="@+id/CampoHo3"
-                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/horarioTitle"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:layout_marginHorizontal="16dp">
+                    <TextView
+                        android:id="@+id/horaDormirTitle"
+                        app:layout_constraintTop_toBottomOf="@id/textViewContacto"
+                        android:text="@string/txthora2"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/alexandria"
+                        android:textColor="@color/brandColor"
+                        android:textSize="15sp"/>
+                    <EditText
+                        android:id="@+id/CampoHo2"
+                        android:hint="@string/ingrese_la_hora_hh_mm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="48dp"
+                        android:backgroundTint="@color/editText"
+                        android:layout_marginHorizontal="8dp"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="5"
+                        android:textAlignment="center"
+                        android:textColor="@color/texto"
+                        android:textColorHint="@color/editText"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/lblhora"
+                        tools:ignore="VisualLintTextFieldSize"
+                        android:clickable="false"
+                        android:focusable="false"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#536DFE"
-                    android:hint="@string/ingrese_la_hora_hh_mm"
-                    android:textAlignment="center"
-                    android:importantForAutofill="no"
-                    android:inputType="number"
-                    android:maxLength="5"
-                    android:textColor="#000000"
-                    android:textColorHint="#8D6E63"
-                    android:textSize="30sp"
-                    tools:ignore="VisualLintTextFieldSize"
-                    android:clickable="false"
-                    android:focusable="false"/>
-            </LinearLayout>
-            <TextView
-                android:id="@+id/labelhora4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/khula_light"
-                android:text="@string/txthora4"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:paddingTop="30dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:gravity="center">
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/comida"
-                    android:layout_marginEnd="12dp"
-                    android:contentDescription="@string/sol"
-                    android:importantForAccessibility="no" />
-
-                <EditText
-                    android:id="@+id/CampoHo4"
-                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/horarioTitle"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:layout_marginHorizontal="16dp">
+                    <TextView
+                        android:id="@+id/horaDesayunoTitle"
+                        app:layout_constraintTop_toBottomOf="@id/textViewContacto"
+                        android:text="@string/txthora3"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/alexandria"
+                        android:textColor="@color/brandColor"
+                        android:textSize="15sp"/>
+                    <EditText
+                        android:id="@+id/CampoHo3"
+                        android:hint="@string/ingrese_la_hora_hh_mm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="48dp"
+                        android:backgroundTint="@color/editText"
+                        android:layout_marginHorizontal="8dp"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="5"
+                        android:textAlignment="center"
+                        android:textColor="@color/texto"
+                        android:textColorHint="@color/editText"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/lblhora"
+                        tools:ignore="VisualLintTextFieldSize"
+                        android:clickable="false"
+                        android:focusable="false"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#536DFE"
-                    android:hint="@string/ingrese_la_hora_hh_mm"
-                    android:textAlignment="center"
-                    android:importantForAutofill="no"
-                    android:inputType="number"
-                    android:maxLength="5"
-                    android:textColor="#000000"
-                    android:textColorHint="#8D6E63"
-                    android:textSize="30sp"
-                    tools:ignore="VisualLintTextFieldSize"
-                    android:clickable="false"
-                    android:focusable="false"/>
-            </LinearLayout>
-            <TextView
-                android:id="@+id/labelhora5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/khula_light"
-                android:text="@string/txthora5"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:paddingTop="30dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:paddingBottom="30dp"
-                android:gravity="center">
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/cena"
-                    android:layout_marginEnd="12dp"
-                    android:contentDescription="@string/sol"
-                    android:importantForAccessibility="no" />
-
-                <EditText
-                    android:id="@+id/CampoHo5"
-                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/horarioTitle"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:layout_marginHorizontal="16dp">
+                    <TextView
+                        android:id="@+id/horaComidaTitle"
+                        app:layout_constraintTop_toBottomOf="@id/textViewContacto"
+                        android:text="@string/txthora4"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/alexandria"
+                        android:textColor="@color/brandColor"
+                        android:textSize="15sp"/>
+                    <EditText
+                        android:id="@+id/CampoHo4"
+                        android:hint="@string/ingrese_la_hora_hh_mm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="48dp"
+                        android:backgroundTint="@color/editText"
+                        android:layout_marginHorizontal="8dp"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="5"
+                        android:textAlignment="center"
+                        android:textColor="@color/texto"
+                        android:textColorHint="@color/editText"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/lblhora"
+                        tools:ignore="VisualLintTextFieldSize"
+                        android:clickable="false"
+                        android:focusable="false"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#536DFE"
-                    android:hint="@string/ingrese_la_hora_hh_mm"
-                    android:textAlignment="center"
-                    android:importantForAutofill="no"
-                    android:inputType="number"
-                    android:maxLength="5"
-                    android:textColor="#000000"
-                    android:textColorHint="#8D6E63"
-                    android:textSize="30sp"
-                    tools:ignore="VisualLintTextFieldSize"
-                    android:clickable="false"
-                    android:focusable="false"/>
+                    app:layout_constraintTop_toBottomOf="@id/horarioTitle"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:layout_marginHorizontal="16dp">
+                    <TextView
+                        android:id="@+id/horaCenaTitle"
+                        app:layout_constraintTop_toBottomOf="@id/textViewContacto"
+                        android:text="@string/txthora5"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/alexandria"
+                        android:textColor="@color/brandColor"
+                        android:textSize="15sp"/>
+                    <EditText
+                        android:id="@+id/CampoHo5"
+                        android:hint="@string/ingrese_la_hora_hh_mm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="48dp"
+                        android:backgroundTint="@color/editText"
+                        android:layout_marginHorizontal="8dp"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="5"
+                        android:textAlignment="center"
+                        android:textColor="@color/texto"
+                        android:textColorHint="@color/editText"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/lblhora"
+                        tools:ignore="VisualLintTextFieldSize"
+                        android:clickable="false"
+                        android:focusable="false"/>
+                </LinearLayout>
             </LinearLayout>
-
-            <Button
-                android:id="@+id/enviardatosEdit"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#40C4FF"
-                android:text="@string/actualizar_datos"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                tools:ignore="VisualLintButtonSize" />
-
-            <Button
-                android:id="@+id/cancelOperacion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#BFBBBB"
-                android:text="@string/cancelar"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                tools:ignore="VisualLintButtonSize" />
-        </LinearLayout>
+                android:layout_height="70dp"
+                app:layout_constraintTop_toBottomOf="@id/horarios"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    <!-- NAVBAR -->
+    <LinearLayout
+        android:id="@+id/bottomNavbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageButton
+            android:id="@+id/navCitas"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/consultas_agendadas"
+            android:src="@drawable/calendarvector"
+            android:scaleType="fitCenter"
+            android:paddingVertical="14dp"
+            app:tint="@color/brandColor"/>
+
+        <ImageButton
+            android:id="@+id/navMedicinas"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/tituloMedicinas"
+            android:src="@drawable/medicinas"
+            app:tint="@color/brandColor"/>
+
+        <ImageButton
+            android:id="@+id/navPerfil"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:backgroundTint="@color/brandColor"
+            android:contentDescription="@string/ver_perfil"
+            android:src="@drawable/cuenta"
+            app:tint="@color/colorPrimary"/>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -60,7 +60,7 @@
     <string name="dictado_por_nvoz">Dictado por \nvoz</string>
     <string name="borrar_ndatos">Borrar todos mis \ndatos</string>
     <string name="actualizar_ndatos">Actualizar datos</string>
-    <string name="narrador_de_ntexto">Narrador de \ntexto</string>
+    <string name="narrador_de_ntexto">Narrador de texto</string>
     <string name="clic">Clic</string>
     <string name="cancelar">Cancelar</string>
     <string name="confirmar">Confirmar</string>
@@ -68,7 +68,7 @@
     <string name="title_activity_editarcampos">EditarDatos</string>
     <string name="actualizar_datos">Actualizar Datos</string>
     <string name="actualizaci_n_de_datos">Actualización de datos</string>
-    <string name="agendar_nueva_consulta">Agendar Nueva Consulta</string>
+    <string name="agendar_nueva_consulta">Agendar Consulta</string>
     <string name="medicare_assistr">MediCare Assistr</string>
     <string name="fecha_de_la_consulta">Fecha de la consulta: (*)</string>
     <string name="seleccione_fecha_de_la_consulta">Seleccione una fecha</string>
@@ -83,11 +83,12 @@
     <string name="nombre_de_consulta">Motivo de consulta (*):</string>
     <string name="para_qu_es_la_consulta">¿Para qué es la consulta?</string>
     <string name="consulta">Motivo:</string>
-    <string name="fecha">Fecha:</string>
-    <string name="hora">Hora:</string>
-    <string name="clinica">Clínica:</string>
-    <string name="nombre_del_dr">Nombre del Dr:</string>
-    <string name="contacto_del_dr">Contacto del Dr:</string>
+    <string name="fecha">Fecha</string>
+    <string name="hora">Hora</string>
+    <string name="clinica">Clínica</string>
+    <string name="nombre_del_dr">Doctor</string>
+    <string name="contacto_del_dr">Contacto del Doctor</string>
+    <string name="color_recordatorio">Color del Recordatorio</string>
     <string name="btnajustes">btnajustes</string>
     <string name="consultas_agendadas">Citas Médicas</string>
     <string name="consultatt">Consulta</string>
