@@ -1,191 +1,475 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MostrarMedicamento">
+    android:background="@color/colorPrimary"
+    tools:context=".MostrarConsulta">
 
-    <TextView
-        android:id="@+id/titulo1"
+    <ScrollView
+        android:id="@+id/scrollform"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scrollbars="none">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <ImageButton
+        android:id="@+id/back2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/medicamento_registrado"
-        android:textAlignment="center"
-        android:textColor="@color/texto"
-        android:textSize="@dimen/tit_med"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="#00ffffff"
+        android:contentDescription="@string/botonregresar"
+        android:src="@drawable/arrow_back"
+        android:scaleType="fitCenter"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        app:tint="@color/texto"
+        android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"/>
+
+    <ImageButton
+        android:id="@+id/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00ffffff"
+        android:contentDescription="@string/editar_consulta"
+        android:src="@drawable/edit_icon"
+        android:scaleType="fitCenter"
+        app:tint="@color/brandColor"
+        android:layout_gravity="end"
+        android:layout_marginTop="26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="16dp"/>
 
     <TextView
         android:id="@+id/tex1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
-        android:gravity="center"
-        android:text="Nombre:"
-        android:textColor="#000000"
-        android:textSize="32sp"
-        android:textStyle="bold"
+        android:text="Nombre"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titulo1" />
+        app:layout_constraintTop_toTopOf="@id/back2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/alexandria_semibold"
+        android:textAlignment="center"
+        android:textColor="@color/texto"
+        android:textSize="@dimen/tit"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tex2title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/alexandria"
+        android:paddingStart="8dp"
+        android:text="Dosis"
+        android:textColor="@color/brandColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tex1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="22dp"
+        android:background="@color/brandColor"
+        android:layout_marginTop="2sp"
+        app:layout_constraintTop_toBottomOf="@id/tex2title"/>
 
     <TextView
         android:id="@+id/tex2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins"
         android:gravity="center"
-        android:text="Dosis:"
-        android:textColor="#000000"
-        android:textSize="32sp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Dosis"
+        android:textColor="@color/texto"
+        android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tex1" />
+        app:layout_constraintTop_toBottomOf="@id/tex2title" />
+
+
+    <TextView
+        android:id="@+id/tex3title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/alexandria"
+        android:gravity="center"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Frecuencia de la Toma"
+        android:textColor="@color/brandColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tex2" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="22dp"
+        android:background="@color/brandColor"
+        android:layout_marginTop="2sp"
+        app:layout_constraintTop_toBottomOf="@id/tex3title"/>
 
     <TextView
         android:id="@+id/tex3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins"
         android:gravity="center"
-        android:text="Frecuencia de toma: "
-        android:textColor="#000000"
-        android:textSize="32sp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Frecuencia de la Toma"
+        android:textColor="@color/texto"
+        android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tex2" />
+        app:layout_constraintTop_toBottomOf="@id/tex3title" />
+
+
+    <TextView
+        android:id="@+id/tex4title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/alexandria"
+        android:gravity="center"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Primer Toma"
+        android:textColor="@color/brandColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tex3" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="22dp"
+        android:background="@color/brandColor"
+        android:layout_marginTop="2sp"
+        app:layout_constraintTop_toBottomOf="@id/tex4title"/>
 
     <TextView
         android:id="@+id/tex4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins"
         android:gravity="center"
-        android:text="Primer toma:"
-        android:textColor="#000000"
-        android:textSize="32sp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Primer Toma"
+        android:textColor="@color/texto"
+        android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tex3"
-        tools:ignore="RtlHardcoded" />
+        app:layout_constraintTop_toBottomOf="@id/tex4title" />
+
+    <TextView
+        android:id="@+id/tex5title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/alexandria"
+        android:gravity="center"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Duración de Tratamiento"
+        android:textColor="@color/brandColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tex4" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="22dp"
+        android:background="@color/brandColor"
+        android:layout_marginTop="2sp"
+        app:layout_constraintTop_toBottomOf="@id/tex5title"/>
 
     <TextView
         android:id="@+id/tex5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins"
         android:gravity="center"
-        android:text="Duración del tratamiento:"
-        android:textColor="#000000"
-        android:textSize="32sp"
-        android:paddingEnd="8dp"
         android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Duración de Tratamiento"
+        android:textColor="@color/texto"
+        android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tex4"
-        tools:ignore="RtlHardcoded" />
+        app:layout_constraintTop_toBottomOf="@id/tex5title" />
+
+    <TextView
+        android:id="@+id/tex6title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/alexandria"
+        android:gravity="center"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Tipo de Medicamento"
+        android:textColor="@color/brandColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tex5" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="22dp"
+        android:background="@color/brandColor"
+        android:layout_marginTop="2sp"
+        app:layout_constraintTop_toBottomOf="@id/tex6title"/>
 
     <TextView
         android:id="@+id/tex6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins"
         android:gravity="center"
-        android:text="Tipo de medicamento:"
-        android:textColor="#000000"
-        android:textSize="32sp"
-        android:paddingEnd="8dp"
         android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Tipo de Medicamento"
+        android:textColor="@color/texto"
+        android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tex5"
-        tools:ignore="RtlHardcoded" />
+        app:layout_constraintTop_toBottomOf="@id/tex6title" />
+
+    <TextView
+        android:id="@+id/tex7title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/alexandria"
+        android:gravity="center"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Zona de Aplicación"
+        android:textColor="@color/brandColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tex6" />
+
+    <View
+        android:id="@+id/zonaDiv"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="22dp"
+        android:background="@color/brandColor"
+        android:layout_marginTop="2sp"
+        app:layout_constraintTop_toBottomOf="@id/tex7title"/>
 
     <TextView
         android:id="@+id/text7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins"
         android:gravity="center"
-        android:text="Zona de aplicación:"
-        android:textColor="#000000"
-        android:textSize="32sp"
-        android:paddingEnd="8dp"
         android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Zona de Aplicación"
+        android:textColor="@color/texto"
+        android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tex6"
-        tools:ignore="RtlHardcoded" />
+        app:layout_constraintTop_toBottomOf="@id/tex7title" />
+
+    <TextView
+        android:id="@+id/tex8title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/alexandria"
+        android:gravity="center"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Medida de Administración"
+        android:textColor="@color/brandColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text7" />
+
+    <View
+        android:id="@+id/medidaDiv"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="22dp"
+        android:background="@color/brandColor"
+        android:layout_marginTop="2sp"
+        app:layout_constraintTop_toBottomOf="@id/tex8title"/>
 
     <TextView
         android:id="@+id/text8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins"
         android:gravity="center"
-        android:text="Medida de administración:"
-        android:textColor="#000000"
-        android:textSize="32sp"
-        android:paddingEnd="8dp"
         android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Medida de Aplicación"
+        android:textColor="@color/texto"
+        android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text7"
-        tools:ignore="RtlHardcoded" />
+        app:layout_constraintTop_toBottomOf="@id/tex8title" />
 
     <TextView
-        android:id="@+id/text9"
+        android:id="@+id/colorTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/alexandria"
         android:gravity="center"
-        android:text="Color:"
-        android:textColor="#000000"
-        android:textSize="32sp"
-        android:paddingEnd="8dp"
         android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="@string/color_recordatorio"
+        android:textColor="@color/brandColor"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text8"
-        tools:ignore="RtlHardcoded" />
+        app:layout_constraintTop_toBottomOf="@id/text8" />
 
-    <Button
-        android:id="@+id/back2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="30dp"
-        android:backgroundTint="#BFBBBB"
-        android:padding="16dp"
-        android:textAllCaps="false"
-        android:text="@string/ok"
-        android:textColor="#000000"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.6"
-        app:layout_constraintBottom_toBottomOf="parent" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="22dp"
+        android:background="@color/brandColor"
+        android:layout_marginTop="2sp"
+        app:layout_constraintTop_toBottomOf="@id/colorTitle"/>
 
+    <View
+        android:id="@+id/colorRef"
+        android:layout_width="100dp"
+        android:layout_height="20sp"
+        android:layout_marginHorizontal="22dp"
+        android:background="@drawable/card_background"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/colorTitle"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/botones"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toBottomOf="@id/colorRef"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="22dp">
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/card_background"
+            android:backgroundTint="@color/rejectColor"
+            android:fontFamily="@font/alexandria"
+            android:text="Eliminar\nMedicamento"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            android:textColor="@color/textoNegro"/>
+    </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                app:layout_constraintTop_toBottomOf="@id/botones"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+    <!-- NAVBAR -->
+    <LinearLayout
+        android:id="@+id/bottomNavbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageButton
+            android:id="@+id/navCitas"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/consultas_agendadas"
+            android:src="@drawable/calendarvector"
+            android:scaleType="fitCenter"
+            android:paddingVertical="14dp"
+            app:tint="@color/brandColor"/>
+
+        <ImageButton
+            android:id="@+id/navMedicinas"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:backgroundTint="@color/brandColor"
+            android:contentDescription="@string/tituloMedicinas"
+            android:src="@drawable/medicinas"
+            app:tint="@color/colorPrimary"/>
+
+        <ImageButton
+            android:id="@+id/navPerfil"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/ver_perfil"
+            android:src="@drawable/cuenta"
+            app:tint="@color/brandColor"/>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

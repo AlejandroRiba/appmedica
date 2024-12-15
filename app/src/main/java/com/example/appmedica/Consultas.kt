@@ -268,6 +268,7 @@ class Consultas : AppCompatActivity() {
                     putExtra("clinica", consulta.clinic)
                     putExtra("doctor", consulta.doctor)
                     putExtra("cont_doc", consulta.contactdoc)
+                    putExtra("selectedcolor", selectedcolor)
                 }
                 recordatorios(consulta, citaId) // Asegúrate de que este método exista
                 finish() // Cierra la actividad actual

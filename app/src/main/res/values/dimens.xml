@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="tit">36sp</dimen>
-    <dimen name="bot_med">137dp</dimen>
-    <dimen name="tit_med">30sp</dimen>
+    <dimen name="bot_med">80dp</dimen>
+    <dimen name="tit_med">20sp</dimen>
     <dimen name="back">125dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
