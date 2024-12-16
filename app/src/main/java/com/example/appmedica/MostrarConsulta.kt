@@ -86,7 +86,7 @@ class MostrarConsulta : AppCompatActivity() {
             startActivity(intent) //la volvemos a abrir para que se actualice
         }
 
-        val requestCode = Utilidades.generateUniqueRequestCode("$consulta")
+        val requestCode = Utilidades.generateUniqueRequestCode("$docID")
         btnDelete.setOnClickListener {
             AlarmUtils.deleteReminder(this, requestCode)
             firebaseHelper.eliminarCita("$docID", this)
