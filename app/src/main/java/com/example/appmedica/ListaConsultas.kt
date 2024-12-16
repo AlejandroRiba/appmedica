@@ -29,10 +29,12 @@ import com.example.appmedica.com.example.appmedica.AlarmUtils
 import com.example.appmedica.com.example.appmedica.Consulta
 import com.example.appmedica.com.example.appmedica.Utilidades
 import com.example.appmedica.utils.FirebaseHelper
+import com.example.appmedica.utils.PreferenceManager
 
 class ListaConsultas : AppCompatActivity() {
     private lateinit var container: LinearLayout
     private lateinit var firebaseHelper: FirebaseHelper
+    private lateinit var preferenceManager: PreferenceManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,6 +44,11 @@ class ListaConsultas : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        // Si no existe un UUID, generamos uno y lo guardamos
+        if (preferenceManager.getUniqueId() == null) {
+            preferenceManager.generateAndSaveUniqueId()
         }
 
         val databaseHandler = DatabaseHandler(applicationContext)

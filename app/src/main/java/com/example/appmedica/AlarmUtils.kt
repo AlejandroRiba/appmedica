@@ -218,6 +218,7 @@ object AlarmUtils {
                     if (proximaHoraCalendar.after(now)) {
                         calendar.time = proximaHoraCalendar.time
                         calendarlisto = true
+                        break
                     }
                 }
                 // Si ya pasaron todas las comidas del día, tomar el desayuno del día siguiente
