@@ -46,6 +46,8 @@ class ListaConsultas : AppCompatActivity() {
             insets
         }
 
+        preferenceManager = PreferenceManager(this)
+
         // Si no existe un UUID, generamos uno y lo guardamos
         if (preferenceManager.getUniqueId() == null) {
             preferenceManager.generateAndSaveUniqueId()
